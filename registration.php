@@ -21,9 +21,44 @@
 					<td><input type='password' name='pass' /></td>
 				</tr>
 				<tr>
-					<td align='center' colspan='3'><input type='submit' /></td>
+					<td align='center' colspan='3'><input type='submit' name='register' value='Submit'/></td>
 					
 				</tr>
 		</form>
 	</body>
 </html>
+<?php
+	
+	//Variables
+	$dbhost = "localhost";
+	$dbuser = "root";
+	$dbpass = "root";
+	$dbname = "phptesting";
+	
+	$con = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
+	
+	//Check for Failure
+	if(mysqli_connect_errno()){
+		echo "Failed to connnect to MySQL: " . mysqli_connect_errno();
+	}
+	
+	//Checks if login is set.
+	if(isset($_POST['register'])){
+		$user_email = $_POST['email'];
+		$user_name = $_POST['name'];
+		$user_pass = $_POST['pass'];	
+	}
+	
+	$add_user = "INSERT INTO login_information (user_email, user_name, user_pass) VALUES($user_email, $user_name, $user_pass)";
+	
+	$attempt_add = mysqli_query($con, $add_user);
+	
+	if($attempt_add === TRUE){
+		echo "Successful!";
+		echo "<script>webpage.open('home.php', '_self');</script>" 
+	}
+	else{
+		echo "Failed to add new user.";
+	}
+	
+?>
