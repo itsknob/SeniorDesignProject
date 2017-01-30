@@ -9,19 +9,19 @@
 					<td align='center' colspan='5'><h2>Registration</h2></td>
 				</tr>
 				<tr>
-					<td align='center'>Email:</td>
+					<td align='center'> Email:</td>
 					<td><input type='email' name='pass' /></td>
 				</tr>
 				<tr>
-					<td align='center'>User Name:</td>
+					<td align='center'> User Name:</td>
 					<td><input type='text' name='name' /></td>
 				</tr>
 				<tr>
-					<td align='center'>Password:</td>
+					<td align='center'> Password:</td>
 					<td><input type='password' name='pass' /></td>
 				</tr>
 				<tr>
-					<td align='center' colspan='3'><input type='submit' name='register' value='Submit'/></td>
+					<td align='center' colspan='3'><input type='submit' name='register' value='Submit' /></td>
 					
 				</tr>
 		</form>
