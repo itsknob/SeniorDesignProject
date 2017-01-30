@@ -19,8 +19,8 @@ session_start();
 //Variables
 $dbhost = "localhost";
 $dbuser = "root";
-$dbpass = "";
-$dbname = "phptesting";
+$dbpass = "root";
+$dbname = "user_information";
 
 //Connect and Select
 $con = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
