@@ -1,6 +1,9 @@
 <?php
 
-echo '
+
+
+?>
+
 <head>
   <title>Sample Juice Truck Page</title>	
 </head>
@@ -21,7 +24,8 @@ echo '
       <th> <a href="login.php">Sign In / Sign Up</a></th>
     </tr>
 </thead>    
-  
-</body>';
 
-?>
+<a class="twitter-timeline" href="https://twitter.com/nuwcJuicing"> Tweets by nuwcJuicing </a>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+  
+</body>
