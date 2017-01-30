@@ -10,7 +10,7 @@
 				</tr>
 				<tr>
 					<td align='center'> Email:</td>
-					<td><input type='email' name='pass' /></td>
+					<td><input type='email' name='email' /></td>
 				</tr>
 				<tr>
 					<td align='center'> User Name:</td>
@@ -19,6 +19,10 @@
 				<tr>
 					<td align='center'> Password:</td>
 					<td><input type='password' name='pass' /></td>
+				</tr>
+				<tr>
+					<td align='center'> Confirm Password:</td>
+					<td><input type='password' name='confirm_pass' /></td>
 				</tr>
 				<tr>
 					<td align='center' colspan='3'><input type='submit' name='register' value='Submit' /></td>
@@ -45,10 +49,18 @@
 	
 	//Checks if login is set.
 	if(isset($_POST['register'])){
+		//Check that passwords match
+		if(!$_POST['pass'] == $_POST['confirm_pass']){
+			echo "Passwords do not match <br>";
+			return;
+		}
+	
 		$user_email = $_POST['email'];
 		$user_name = $_POST['name'];
 		$user_pass = $_POST['pass'];	
 	}
+	
+	
 	
 	$add_user = "INSERT INTO login_information (user_email, user_name, user_pass) VALUES ($user_email, $user_name, $user_pass)";
 	
@@ -56,7 +68,7 @@
 	
 	if($attempt_add === TRUE){
 		echo "Successful! <script>alert('Added User')</script>";
-		echo "<script>webpage.open('home.php', '_self');</script>" 
+		echo "<script>webpage.open('home.php', '_self');</script>";
 	}
 	else{
 		echo "Failed to add new user.";
