@@ -1,7 +1,3 @@
-<?php
-
-?>
-
 <html>
 	<head>
 		<title> Registration Page </title>
@@ -59,7 +55,7 @@
 	$attempt_add = mysqli_query($con, $add_user);
 	
 	if($attempt_add === TRUE){
-		echo "Successful!";
+		echo "Successful! <script>alert('Added User')</script>";
 		echo "<script>webpage.open('home.php', '_self');</script>" 
 	}
 	else{
