@@ -29,6 +29,7 @@
 					
 				</tr>
 		</form>
+		<p align='center'> Already have an account? <a href="login.php"> Click here to login. </a> </p>
 	</body>
 </html>
 <?php
