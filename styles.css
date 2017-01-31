@@ -1,0 +1,49 @@
+body {
+	width: 100%;
+	margin: auto;
+}
+
+.header {
+	background: #f7a176;
+	width: 100%;
+	top: 0;
+	left: 0;
+	position: fixed;
+}
+
+.nav {
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	font-size: 18px;
+}
+
+a {
+	text-decoration: none;
+}
+
+li {
+	list-style: none;
+	float: left;
+	border-right: 1px solid white;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 12px 14px;
+    text-decoration: none;
+	font-family: Tahoma, Geneva, sans-serif;
+}
+
+/* Change the link color to #111 (black) on hover */
+li a:hover:not(.active){
+	background-color: #f57a3d;
+}
+
+
+/* Highlight active page */
+.active {
+	background-color: #f2590d
+}
