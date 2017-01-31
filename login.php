@@ -38,7 +38,7 @@ if(isset($_POST['login'])){
 //	echo "$user_name, $user_pass";
 
 	//SQL Statement -> Checks username against password.
-	$check_user = "select * from user_info where user='$user_name' AND pass='$user_pass'";
+	$check_user = "SELECT * FROM user_info WHERE user_name='$user_name' AND user_pass='$user_pass'";
 
 	//Database Query
 	$run = mysqli_query($con, $check_user);
