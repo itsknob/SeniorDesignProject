@@ -6,7 +6,7 @@ $companyName = "Company Name";
 
 <head>
 	<title>Sample Juice Truck Page</title>
-	<link rel="stylesheet" type"text/css" href="styles.css">
+	<link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
 	<div class="header">
