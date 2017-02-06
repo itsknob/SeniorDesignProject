@@ -18,6 +18,7 @@
 	   		</ul>
 	   		<ul class="nav navbar-nav navbar-right">
 	       		<li><a href="my_account.php"><span class="glyphicon glyphicon-user"></span> My Account</a></li>
+	       		<li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
 	   		</ul>
 	   	</div>
 	</div>
