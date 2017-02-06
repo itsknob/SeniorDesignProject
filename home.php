@@ -21,7 +21,7 @@ $companyName = "Company Name";
 	</head>
 	<body>
 
-	<!-- Tried to get the navbar to change if the user is logged in. Shit doesnt work though. -->
+	<!-- Tried to get the navbar to change if the user is logged in. It doesnt work though. -->
 	<?php
 	if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 		include 'navbar_authorized.php';
@@ -50,6 +50,7 @@ $companyName = "Company Name";
 		      		<ul class="nav navbar-nav navbar-right">
 		        		<li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
 		        		<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+		        		<li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
 		      		</ul>
 		    	</div>
 		  	</div>
