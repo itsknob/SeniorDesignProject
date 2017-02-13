@@ -33,6 +33,18 @@
     background-color: #f2590d;
 }
 
+/*
+.item{
+  width: auto;
+  height: 361px;
+  max-height: 361px;
+}
+*/
+
+.carousel-inner {
+top: 300px;
+}
+
 /* This prevents the navbar from covering content at the top of the page */
 body {
   padding-top: 55px; 
@@ -41,6 +53,10 @@ body {
   body {
     padding-top: 55px;
   }
+}
+
+.carousel slide{
+  width: 50%;
 }
 
 /* The bootstrap navbar had problems with this stuff so I just commented it out.
