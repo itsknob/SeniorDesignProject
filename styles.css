@@ -1,36 +1,88 @@
 /* Navbar background color */
 .navbar.navbar-inverse {
-    background-color: #f7a176;
+  background-color: #f7a176;
 }
 
 /* Navbar title */
 .navbar-inverse .navbar-brand {
-    color: black;
+  color: black;
 }
 
 /* Focus and hover for navbar title */
 .navbar-inverse .navbar-brand:hover,
 .navbar-inverse .navbar-brand:focus {
-    color: white;
+  color: white;
 }
 
 /* Navbar buttons */
 .navbar-inverse .navbar-nav > li > a {
-    color: black;
+  color: black;
 }
 
 /* Navbar buttons hover/focus states */
 .navbar-inverse .navbar-nav > li > a:hover,
 .navbar-inverse .navbar-nav > li > a:focus {
-    color: white;
+  color: white;
 }
 
 /* Navbar active page button */
 .navbar-inverse .navbar-nav > .active > a, 
 .navbar-inverse .navbar-nav > .active > a:hover,
 .navbar-inverse .navbar-nav > .active > a:focus {
-    color: black;
-    background-color: #f2590d;
+  color: black;
+  background-color: #f2590d;
+}
+
+.main {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  align-content: center;
+  align-items: center;
+}
+
+.left {
+  margin: 4px;
+  padding: 5px;
+  border: 1px solid black;
+  border-radius: 7pt;
+  flex: 1 6 33%;
+  order: 1;
+}
+
+.middle {
+  margin: 4px;
+  padding: 5px;
+  border: 1px solid black;
+  border-radius: 7pt;
+  flex: 3 1 33%;
+  order: 2;
+}
+
+.right {
+  margin: 4px;
+  padding: 5px;
+  border: 1px solid black;
+  border-radius: 7pt;
+  flex: 1 6 33%;
+  order: 3;
+}
+
+
+@media all and (max-width: 640px) {
+  .main, #page {
+    flex-direction: column;
+  }
+
+  .left, .middle, .right {
+    /* Return them to document order */
+    order: 0;
+  }
+  
+  .left, .right, {
+    min-height: 50px;
+    max-height: 50px;
+  }
 }
 
 /*
@@ -42,7 +94,7 @@
 */
 
 .carousel-inner {
-top: 300px;
+  top: 300px;
 }
 
 /* This prevents the navbar from covering content at the top of the page */
@@ -58,54 +110,3 @@ body {
 .carousel slide{
   width: 50%;
 }
-
-/* The bootstrap navbar had problems with this stuff so I just commented it out.
-body {
-	width: 100%;
-	margin: auto;
-}
-
-.header {
-	background: #f7a176;
-	width: 100%;
-	top: 0;
-	left: 0;
-	position: fixed;
-}
-
-.nav {
-	margin: 0;
-	padding: 0;
-	overflow: hidden;
-	font-size: 18px;
-}
-
-a {
-	text-decoration: none;
-}
-
-li {
-	list-style: none;
-	float: left;
-	border-right: 1px solid white;
-}
-
-li a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 12px 14px;
-    text-decoration: none;
-	font-family: Tahoma, Geneva, sans-serif;
-}
-
-/* Change the link color to #111 (black) on hover 
-li a:hover:not(.active){
-	background-color: #f57a3d;
-}
-
-
-/* Highlight active page 
-.active {
-	background-color: #f2590d
-} 
