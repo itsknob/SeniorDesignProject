@@ -62,11 +62,11 @@
 	
 	
 	
-	$add_user = "INSERT INTO login_information (user_name, user_pass, user_email) VALUES ($user_name, $user_pass, $user_email)";
+	$add_user = "INSERT INTO login_information (user_name, user_pass, user_email) VALUES ('$user_name', '$user_pass', '$user_email')";
 	
 	$attempt_add = mysqli_query($con, $add_user);
 	
-	if($attempt_add === TRUE){
+	if($attempt_add){
 		echo "Successful! <script>alert('Added User')</script>";
 		echo "<script>webpage.open('home.php', '_self');</script>";
 	}
