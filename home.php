@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <?php
 session_start();
-$companyName = "Company Name";
-
+$CompanyName = "NUWC Juicing";
 ?>
 
 <!-- Latest compiled and minified CSS -->
@@ -11,7 +10,7 @@ $companyName = "Company Name";
 <!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
-<!-- Latest compiled JavaScript -->
+<!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <html>
@@ -38,7 +37,7 @@ $companyName = "Company Name";
 		        		<span class="icon-bar"></span>
 		        		<span class="icon-bar"></span> 
 		      		</button>
-		    		<a class="navbar-brand" href="home.php">Juice Company</a>
+		    		<a class="navbar-brand" href="home.php"><?php echo $CompanyName; ?></a>
 		    	</div>
 		    	<div class="collapse navbar-collapse" id="myNavbar">
 		      		<ul class="nav navbar-nav">
@@ -48,9 +47,9 @@ $companyName = "Company Name";
 		        		<li><a href="locations_contact.php">Locations & Contact Us</a></li> 
 		      		</ul>
 		      		<ul class="nav navbar-nav navbar-right">
-		        		<li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-		        		<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-		        		<li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
+		        		<li><a href="registration.php"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+		        		<li><a href="login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+		        		<li><a href="cart.php"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
 		      		</ul>
 		    	</div>
 		  	</div>
