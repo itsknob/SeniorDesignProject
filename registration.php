@@ -62,7 +62,7 @@
 	
 	
 	
-	$add_user = "INSERT INTO login_information (user_email, user_name, user_pass) VALUES ($user_email, $user_name, $user_pass)";
+	$add_user = "INSERT INTO login_information (user_name, user_pass, user_email) VALUES ($user_name, $user_pass, $user_email)";
 	
 	$attempt_add = mysqli_query($con, $add_user);
 	
