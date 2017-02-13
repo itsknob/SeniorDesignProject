@@ -95,7 +95,6 @@ if(isset($_POST['login'])){
 	if($run->num_rows > 0)
 	{
 		$_SESSION['user'] = $user_name;
-		$_SESSION['loggedin'] = true;
 		echo "<script>window.open('welcome.php','_self')</script>";
 	}
 	//If not, inform user.
