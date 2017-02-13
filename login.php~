@@ -96,7 +96,7 @@ if(isset($_POST['login'])){
 	{
 		$_SESSION['user'] = $user_name;
 		$_SESSION['loggedin'] = true;
-		echo "<script>window.open('home.php','_self')</script>";
+		echo "<script>window.open('welcome.php','_self')</script>";
 	}
 	//If not, inform user.
 	else
