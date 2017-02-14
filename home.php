@@ -48,8 +48,8 @@ $companyName = "Company Name";
 					<li><a href="locations_contact.php">Locations & Contact Us</a></li> 
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="registration.php"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-					<li><a href="login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+					<li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+					<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
 					<li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
 				</ul>
 			</div>
@@ -108,7 +108,7 @@ $companyName = "Company Name";
 
 
 	<!--    Slideshow-->
-	<div id="myCarousel" class="carousel slide" data-ride="carousel" style="width: 50%">
+	<div id="myCarousel" class="carousel slide" data-ride="carousel">
 		<!-- Indicators -->
 		<ol class="carousel-indicators">
 			<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -120,15 +120,15 @@ $companyName = "Company Name";
 		<!-- Wrapper for slides -->
 		<div class  ="carousel-inner" role="listbox">
 			<div class="item active">
-				<img src="img1.jpg" alt="Chania">
+				<img class=""src="img1.png" alt="First Slide">
 			</div>
 
 			<div class="item">
-				<img src="img2.jpg" alt="Chania">
+				<img class="" src="img2.png" alt="Second Slide">
 			</div>
 
 			<div class="item">
-				<img src="img3.jpg" alt="Flower">
+				<img class="" src="img3.jpg" alt="Third Slide">
 			</div>
 
 		</div>

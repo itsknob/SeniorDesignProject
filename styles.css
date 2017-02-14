@@ -44,7 +44,7 @@
 .left {
   margin: 4px;
   padding: 5px;
-  border: 1px solid black;
+/*  border: 1px solid black;*/
   border-radius: 7pt;
   flex: 1 6 33%;
   order: 1;
@@ -62,7 +62,7 @@
 .right {
   margin: 4px;
   padding: 5px;
-  border: 1px solid black;
+/*  border: 1px solid black;*/
   border-radius: 7pt;
   flex: 1 6 33%;
   order: 3;
@@ -85,16 +85,12 @@
   }
 }
 
-/*
-.item{
-  width: auto;
-  height: 361px;
-  max-height: 361px;
+.item, .item.active{
+  width: 100%;
 }
-*/
 
-.carousel-inner {
-  top: 300px;
+img{
+  width: 100%;
 }
 
 /* This prevents the navbar from covering content at the top of the page */
@@ -107,6 +103,7 @@ body {
   }
 }
 
-.carousel slide{
-  width: 50%;
+div#myCarousel{
+  width: 75%;
+  margin: auto;
 }
