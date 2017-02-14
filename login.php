@@ -23,8 +23,12 @@ $CompanyName = "NUWC Juicing";
 	<!-- Tried to get the navbar to change if the user is logged in. It doesnt work though. -->
 	<?php
 	if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+		echo $_SESSION['loggedin']);
+		echo "Success!";
 		include 'navbar_authorized.php';
 	} else {
+		echo "Failed!";
+		echo $_SESSION['loggedin']);
 		include 'navbar_unauthorized.php';
 	}
 	?>
