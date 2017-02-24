@@ -54,10 +54,14 @@
 			echo "Passwords do not match <br>";
 			return;
 		}
-	
-		$user_email = $_POST['email'];
-		$user_name = $_POST['name'];
-		$user_pass = $_POST['pass'];	
+		//Ensure email is in correct form
+		if(preg_match('/^[\w-\.]+@([\w-]+\.)+[\w-]$/', $_POST['email']){
+			$user_email = strip_tags(trim($_POST['email']));
+		}
+		//Strip html and php tags from user and pass
+		$user_name = strip_tags(trim($_POST['name']));
+		$user_pass = strip_tags(trim($_POST['pass']));	
+
 	}
 	
 	

@@ -83,8 +83,8 @@ if(mysqli_connect_errno()){
 }
 //Checks if login is set.
 if(isset($_POST['login'])){
-	$user_name = $_POST['name'];
-	$user_pass = $_POST['pass'];
+	$user_name = strip_tags(trim($_POST['name']));
+	$user_pass = strip_tags(trim($_POST['pass']));
 
 //	Debugging
 //	echo "$user_name, $user_pass";
