@@ -90,26 +90,22 @@
 
 		//Connect and Select
 		$con = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);	
-		echo $_SESSION['user'];
 		
-		$query = "SELECT * FROM login_information WHERE user_name=test";// . $_SESSION['user'];
+		$query = "SELECT * FROM `login_information` WHERE `user_name` = " . $_SESSION['user'];
 		
 		echo $query;
 		$result = mysqli_query($con, $query);
 		
-		if($result->num_rows > 0)
-			echo "YES";
-		else
-			echo "NO";
+		if($result->num_rows > 0){
+			echo "<br>YES<br>";
+		}
+		else{
+			echo "<br>NO<br>";
+		}
 		
 		foreach($result as $item){
 			echo $item . ":TEST<br>";
 		}
-		
-		echo $result->num_rows;
-		
-		echo $result[0];
-		echo $result[1];
 
 	
 ?>
