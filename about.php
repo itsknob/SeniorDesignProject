@@ -4,6 +4,8 @@ session_start();
 $CompanyName = "NUWC Juicing";
 ?>
 
+<link rel="stylesheet" href="/lib/w3.css">
+
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
@@ -54,6 +56,21 @@ $CompanyName = "NUWC Juicing";
 		    	</div>
 		  	</div>
 		</nav>
-		Welcome to the About Us Page
-	</body>
+
+		<div class="main" style="justify-content: center">
+			
+			<div class="aboutuspicture">
+				a
+			</div>
+
+			<div class="aboutus">
+				<div class="aboutusheader">
+					ABOUT US
+				</div>
+				<p>About us ihjfbwhbfihwe fbhiewbfhwe fewhb fewhbf bfhewbhfw ehw f fhewfbf fhewbfihwebihfbwebhif fewhbfhew bhefwb hewf fhbewfh bfhewbhfw ehw f fhewfbf fhewbfihwebihfbwebhif fewhbfhew bhefwb hewf fhbewfh bfhewbhfw ehw f fhewfbf fhewbfihwebihfbwebhif fewhbfhew bhefwb hewf fbhiewbfhwebfhewbhfw ehw f fhewfbf fhewbfihwebihfbwebhif fewhbfhew bhefwb hewf fbhiewbfhwebfhewbhfw bfhewbhfw ehw f fhewfbf fhewbfihwebihfbwebhif fewhbfhew bhefwb hewf fhbewfh bfhewbhfw ehw f fhewfbf fhewbfihwebihfbwebhif fewhbfhew bhefwb hewf fhbewfh</p>
+			</div>
+		</div>
+	
+
+</body>
 </html>
