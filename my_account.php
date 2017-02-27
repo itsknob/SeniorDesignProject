@@ -1,31 +1,120 @@
+<!DOCTYPE html>
 <?php
+	session_start();
+	$companyName = "Company Name";
 
 ?>
 
-<!DOCTYPE html>
 <html>
-<head>
-  <title>My Account</title>
-</head>
-<body>
+	<head>
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-  <h1>My Account</h1>
-  
-<!--  Table should be done in CSS this is just a demo-->
-  <table border="1">
+		<!-- jQuery library -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
-  <thead>
-      <tr>
-        <th> <a href="home.php">Home</a></th>
-        <th> <a href="menu.php">Menu</a></th>
-        <th> <a href="about.php">About</a></th>
-        <th> <a href="locations_contact.php">Locations & Contact Us</a></th>
-        <th> <a href="my_account.php">My Account</a></th>
-        <th> <a href="cart.php">Cart</a></th>
-        <th> <a href="login.php">Sign In / Sign Up</a></th>
-      </tr>
-  </thead>    
-  
+		<!-- Latest compiled JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-</body>  
+		<title>My Account</title>
+
+		<link rel="stylesheet" type"text/css" href="styles.css">
+	</head>
+	<body>
+
+		<div class="navbar navbar-inverse navbar-fixed-top">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span> 
+					</button>
+					<a class="navbar-brand" href="home.php">Juice Company</a>
+				</div>
+				<div class="collapse navbar-collapse" id="myNavbar">
+					<ul class="nav navbar-nav">
+						<li class="active"><a href="home.php">Home</a></li>
+						<li><a href="menu.php">Menu</a></li>
+						<li><a href="about.php">About Us</a></li> 
+						<li><a href="locations_contact.php">Locations & Contact Us</a></li> 
+					</ul>		
+					<?php
+						if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+							echo "
+								<ul class='nav navbar-nav navbar-right'>
+							   		<li><a href='my_account.php'><span class='glyphicon glyphicon-user'></span> My Account</a></li>
+							   		<li><a href='cart.php'><span class='glyphicon glyphicon-shopping-cart'></span> Cart</a></li>
+							   		<li><a href='logout.php'><span class glyphicon-shopping-logout'></span> Logout</a><li>
+						   		</ul>
+						   		"; // End of Navbar - Logged In 
+						} else {
+							echo "
+								<ul class='nav navbar-nav navbar-right'>
+									<li><a href='registration.php'><span class='glyphicon glyphicon-user'></span> Sign Up</a></li>
+									<li><a href='login.php'><span class='glyphicon glyphicon-log-in'></span> Login</a></li>
+									<li><a href='cart.php'><span class='glyphicon glyphicon-shopping-cart'></span> Cart</a></li>
+							   		<li><a href='logout.php'><span class glyphicon-shopping-logout'></span> Logout</a><li>
+								</ul>
+								"; // End of Navbar - Logged Out
+						} 
+					?>
+
+				</div>
+			</div>
+		</div>
+		<h1>My Account</h1>
+		
+		<table>
+			<tr>
+				<td>
+					Username: <?php echo $_SESSION['user']; ?>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Email:
+				</td>
+			</tr>
+		</table>
+		  
+		  <?php
+		//Retrives user information from Database
+		//Used to set session information
+		
+		//Variables
+		$dbhost = "localhost";
+		$dbuser = "root";
+		$dbpass = "root";
+		$dbname = "user_information";
+
+		//Connect and Select
+		$con = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);	
+		echo $_SESSION['user'];
+		
+		$query = "SELECT * FROM login_information WHERE user_name=test";// . $_SESSION['user'];
+		
+		echo $query;
+		$result = mysqli_query($con, $query);
+		
+		if($result->num_rows > 0)
+			echo "YES";
+		else
+			echo "NO";
+		
+		foreach($result as $item){
+			echo $item . ":TEST<br>";
+		}
+		
+		echo $result->num_rows;
+		
+		echo $result[0];
+		echo $result[1];
+
+	
+?>
+
+	</body>  
 </html>
+
+

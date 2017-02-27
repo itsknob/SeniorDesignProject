@@ -40,16 +40,14 @@
 					</ul>		
 					<?php
 						if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
-							echo $_SESSION['loggedin'];
 							echo "
 								<ul class='nav navbar-nav navbar-right'>
 						       		<li><a href='my_account.php'><span class='glyphicon glyphicon-user'></span> My Account</a></li>
 						       		<li><a href='cart.php'><span class='glyphicon glyphicon-shopping-cart'></span> Cart</a></li>
 						       		<li><a href='logout.php'><span class glyphicon-shopping-logout'></span> Logout</a><li>
 						   		</ul>
-						   		";
+						   		"; // End of Navbar - Logged In 
 						} else {
-							echo $_SESSION['loggedin'];
 							echo "
 								<ul class='nav navbar-nav navbar-right'>
 									<li><a href='registration.php'><span class='glyphicon glyphicon-user'></span> Sign Up</a></li>
@@ -57,7 +55,7 @@
 									<li><a href='cart.php'><span class='glyphicon glyphicon-shopping-cart'></span> Cart</a></li>
 						       		<li><a href='logout.php'><span class glyphicon-shopping-logout'></span> Logout</a><li>
 								</ul>
-								";
+								"; // End of Navbar - Logged Out
 						} 
 					?>
 
