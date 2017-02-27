@@ -59,9 +59,11 @@ $CompanyName = "NUWC Juicing";
 		  	</div>
 		</nav>
 		<form action="login.php" method="post">
-			User: <input required="required" name="name" type="text"/> <br>
-			Pass: <input required="required" name="pass" type="password"/>
-			<input align="center" type="submit" name="login" value="Login"/>
+			<table>
+				<tr><td>User: </td><td><input required="required" name="name" type="text"/></td></tr>
+				<tr><td>Pass: </td><td><input required="required" name="pass" type="password"/></td></tr>
+				<tr><td><input colspan='2' align="center" type="submit" name="login" value="Login"/></td></tr>		
+			</table>
 		</form>
 	</body>
 </html>
