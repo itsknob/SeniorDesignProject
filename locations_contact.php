@@ -65,93 +65,31 @@
 			</div>
 		</div>
 		
-		<div class="main">
-			<!-- Most Popular Menu Items -->
-			<div class="left well">
-				<table class="table">
-					<thead>
-						<th>
-							Popular Items
-						</th>
-						<tr>
-							<th>#</th>
-							<th>Item</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>1</td>
-							<td>Apple Juice</td>
-						</tr>
-						<tr>
-							<td>2</td>
-							<td>Orange Juice</td>
-						</tr>
-						<tr>
-							<td>3</td>
-							<td>Other Juice</td>
-						</tr>
-						<tr>
-							<td>4</td>
-							<td>Other Juice</td>
-						</tr>
-						<tr>
-							<td>5</td>
-							<td>Other other Juice</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
+		<h2>Locations and Contact Us</h2>
 
-			<div class="middle">
-				Deal of the day goes here
-				<br>k
-			</div>
-			
-			<div class="right">
-				<a class="twitter-timeline" href="https://twitter.com/nuwcJuicing"> Tweets by nuwcJuicing </a>
-				<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-			</div>
-			
-		</div>
-
-
-		<!--    Slideshow-->
-		<div id="myCarousel" class="carousel slide" data-ride="carousel">
-			<!-- Indicators -->
-			<ol class="carousel-indicators">
-				<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-				<li data-target="#myCarousel" data-slide-to="1"></li>
-				<li data-target="#myCarousel" data-slide-to="2"></li>
-				<li data-target="#myCarousel" data-slide-to="3"></li>
-			</ol>
-
-			<!-- Wrapper for slides -->
-			<div class  ="carousel-inner" role="listbox">
-				<div class="item active">
-					<img class=""src="img1.png" alt="First Slide">
-				</div>
-
-				<div class="item">
-					<img class="" src="img2.png" alt="Second Slide">
-				</div>
-
-				<div class="item">
-					<img class="" src="img3.jpg" alt="Third Slide">
-				</div>
-
-			</div>
-
-			<!-- Left and right controls -->
-			<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-				<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-				<span class="sr-only">Previous</span>
-			</a>
-			<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-				<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-				<span class="sr-only">Next</span>
-			</a>
-		</div>
-		<!--End Slideshow   -->
+	<div class="contact">
+		123-456-7890 | company@email.com | 1176 Howell St, Newport, RI 02841
+		<div id="map"></div>
+		<script>
+			function initMap() {
+				var uluru = {lat: 41.532662, lng: -71.306729};
+				var map = new google.maps.Map(document.getElementById('map'), {
+					zoom: 14,
+					center: uluru
+				});
+				var marker = new google.maps.Marker({
+					position: uluru,
+					map: map
+				});
+			}
+		</script>
+		<script async defer
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDa_AlzHm7fCPqGli0agnoC8XFznqy50A&callback=initMap">
+		</script>
+		<br>
+		<p>Our exact location on the NUWC campus changes throughout the day, but is updated on our twitter page:</p><br>
+		<div id="loctwitter">
+			<a class="twitter-timeline" href="https://twitter.com/nuwcJuicing"> Tweets by nuwcJuicing </a>
+			<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 	</body>
 </html>
