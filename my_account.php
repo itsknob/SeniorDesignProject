@@ -78,37 +78,48 @@
 			</tr>
 		</table>
 		  
-		  <?php
-		//Retrives user information from Database
-		//Used to set session information
-		
-		//Variables
-		$dbhost = "localhost";
-		$dbuser = "root";
-		$dbpass = "root";
-		$dbname = "user_information";
+		<?php
+			//Retrives user information from Database
+			//Used to set session information
+			
+			//Variables
+			$dbhost = "localhost";
+			$dbuser = "root";
+			$dbpass = "root";
+			$dbname = "user_information";
 
-		//Connect and Select
-		$con = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);	
-		
-		$query = "SELECT * FROM `login_information` WHERE `user_name` = " . $_SESSION['user'];
-		
-		echo $query;
-		$result = mysqli_query($con, $query);
-		
-		if($result->num_rows > 0){
-			echo "<br>YES<br>";
-		}
-		else{
-			echo "<br>NO<br>";
-		}
-		
-		foreach($result as $item){
-			echo $item . ":TEST<br>";
-		}
+			//Connect and Select
+			$con = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);	
+			
+			$query = "SELECT * FROM login_information WHERE user_name='" . $_SESSION['user'] . "'";
+			echo $query;
+			
+			$result = mysqli_query($con, $query);
+			
+			$list =  mysql_fetch_array($result);
+			$size_of_list = sizeof($list);
 
-	
-?>
+			if($result->num_rows > 0){
+				echo "<br>YES<br>";
+			}
+			else{
+				echo "<br>NO<br>";
+			}
+			
+			for($i = 0; $i < $size_of_list; $i++)
+			{
+				echo $list[$i] . "<br>";
+			}
+
+			foreach($list as $data)
+			{
+				echo "$data <br>";
+			}
+
+			echo $list['user_name'];
+			echo $list['user_email'];
+
+		?>
 
 	</body>  
 </html>
