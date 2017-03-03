@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <?php
 	session_start();
-	$companyName = "Company Name";
-
 ?>
 
 <html>
@@ -99,6 +97,7 @@
 			$list =  mysql_fetch_array($result);
 			$size_of_list = sizeof($list);
 
+			
 			if($result->num_rows > 0){
 				echo "<br>YES<br>";
 			}
@@ -106,18 +105,21 @@
 				echo "<br>NO<br>";
 			}
 			
+			while($row = $result->fetch_assoc())
+			{
+				$current_user = $row["user_name"];
+				$current_email = $row["user_email"];
+			}
+			
 			for($i = 0; $i < $size_of_list; $i++)
 			{
-				echo $list[$i] . "<br>";
+				echo $list['$i']. "testing" . "<br>";
 			}
-
-			foreach($list as $data)
-			{
-				echo "$data <br>";
-			}
-
-			echo $list['user_name'];
-			echo $list['user_email'];
+			
+			echo $list['user_name']."test2";
+			echo $list['user_email']."test3";
+			#echo $_SESSION['email'];
+			
 
 		?>
 
