@@ -55,13 +55,5 @@ $CompanyName = "NUWC Juicing";
 		  	</div>
 		</nav>
 		Welcome to the Menu Page
-  
-<!--  Search Bar-->
-  <form  method="post" action="search.php?go"  id="searchform"> 
-    <input  type="text" name="input" placeholder="Search..."> 
-	  <input  type="submit" name="submit" value="Search"> 
-  </form> 
-    
 	</body>
 </html>
-
