@@ -37,7 +37,7 @@
 						<li><a href="about.php">About Us</a></li> 
 						<li><a href="locations_contact.php">Locations & Contact Us</a></li> 
 					</ul>		
-					<?php
+					<!--<?php
 						if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 							echo "
 								<ul class='nav navbar-nav navbar-right'>
@@ -56,7 +56,7 @@
 								</ul>
 								"; // End of Navbar - Logged Out
 						} 
-					?>
+					?> -->
 
 				</div>
 			</div>
@@ -109,8 +109,7 @@
 			<a class="twitter-timeline" href="https://twitter.com/nuwcJuicing"> Tweets by nuwcJuicing </a>
 			<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 		</div>
-	</div>
-	<div class="footer ">
+		<div class="footer ">
 	<!--    Slideshow-->
 	<div id="myCarousel" class="carousel slide" data-ride="carousel" style="width: 100%">
 		<!-- Indicators -->
@@ -149,6 +148,10 @@
 	</div>
 	</div>
 	<!--End Slideshow   -->
+
+		
+	</div>
+	
 	
 
 	

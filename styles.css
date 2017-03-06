@@ -1,6 +1,6 @@
 html, body {
-  height: 100%;
   margin: 0;
+  background: beige;
 }
 
 h2 {
@@ -47,42 +47,39 @@ h2 {
 
 /* Main flexbox div, other divs inside are flexible to changes in screen size */
 .main {
-  display: flex;
-  flex-flow: row;
-  justify-content: space-between;
-  align-content: center;
-  align-items: flex-start;
-  width: 100vw;
-  padding-top: 10px;
-  height: 100%;
-  padding-bottom: 200px; /* Keep this the smae as .footer's height */
+  margin: 0 auto;
+  width: 75%;
+  padding-top: 1px;
+  box-shadow: 0 0 10px black;
+  padding-bottom: 20px;
+  background-image: url("images/beigeBackground.jpg");
 }
 
 /*************** Home page ******************/
 .popItems {
-  width: 30%;
+  margin: 20px auto auto auto;
+  width: 80%;
   box-shadow: 0 0 10px black;
-  order: 1;
-  flex-basis: auto;
 }
 
 .dealOfDay {
-  width: 30%;
+  margin: 20px auto auto auto;  
+  width: 80%;
   box-shadow: 0 0 10px black;
-  order: 2;
-  flex-basis: auto;
 }
 
 .twitterFeed {
-  width: 30%;
+  margin: 20px auto auto auto;
+  width: 80%;
   box-shadow: 0 0 10px black;
-  order: 3;
-  flex-basis: auto;
 }
 
 /******************* Slideshow **********************/
 .footer {
+  margin: 20px auto auto auto;
+  width: 80%;
   height: 200px;
+  box-shadow: 0 0 10px black;
 }
 
 /******************* About us page ******************/
@@ -218,7 +215,6 @@ img{
 /* This prevents the navbar from covering content at the top of the page */
 body {
   padding-top: 55px; 
-  background-image: url("images/beigeBackground.jpg");
 }
 
 @media (max-width: 800px) {
