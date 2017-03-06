@@ -60,7 +60,7 @@ $CompanyName = "NUWC Juicing";
 		<div class="main" style="justify-content: center">
 			
 			<div class="aboutuspicture">
-				a
+				<span class="helper"></span><img src="images/Happy-employees-at-work.jpg" class ="img-fluid mx-auto" alt = "Responsive image" >
 			</div>
 
 			<div class="aboutus">

@@ -90,7 +90,14 @@ h2 {
   order: 1;
   flex-basis: auto;
   box-shadow: 0 0 10px black;
+  background: black;
 }
+.helper {
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+
 
 .aboutus {
   top: 50px;

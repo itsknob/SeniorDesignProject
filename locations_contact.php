@@ -38,7 +38,7 @@
 						<li><a href="about.php">About Us</a></li> 
 						<li class="active"><a href="locations_contact.php">Locations & Contact Us</a></li>
 					</ul>		
-					<!--<?php
+					<?php
 						if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 							echo $_SESSION['loggedin'];
 							echo "
@@ -58,8 +58,8 @@
 						       		<li><a href='logout.php'><span class glyphicon-shopping-logout'></span> Logout</a><li>
 								</ul>
 								";
-						} 
-					?> -->
+						}
+					?>
 
 				</div>
 			</div>
