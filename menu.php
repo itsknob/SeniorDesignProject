@@ -61,5 +61,47 @@ $CompanyName = "NUWC Juicing";
      <input  type="text" name="input" placeholder="Search..."> 
  	  <input  type="submit" name="submit" value="Search"> 
    </form> 
+    
+<!-- Live Search  -->
+  <script>
+function showUser(str) {
+    if (str == "") {
+        document.getElementById("txtHint").innerHTML = "";
+        return;
+    } else { 
+        if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("txtHint").innerHTML = this.responseText;
+            }
+        };
+        xmlhttp.open("GET","get_item.php?q="+str,true);
+        xmlhttp.send();
+    }
+}
+  </script>
+ 
+   <form>
+     <select name="users" onchange="showUser(this.value)">
+      <option value="">Select an item:</option>
+      <option value="1">Sandra's Greens</option>
+      <option value="2">Super Beetox</option>
+      <option value="3">Sunshine</option>
+      <option value="4">Carrot Medley</option>
+      <option value="5">Papaya Splash</option>
+     </select>
+   </form>
+<br>
+<div id="txtHint"><b>Person info will be listed here...</b></div>
+    
+    
+    
+    
 	</body>
 </html>
