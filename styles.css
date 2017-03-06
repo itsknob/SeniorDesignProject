@@ -190,7 +190,7 @@ img{
 /* This prevents the navbar from covering content at the top of the page */
 body {
   padding-top: 55px; 
-  background-image: url("beigeBackground.jpg");
+  background-image: url("images/beigeBackground.jpg");
 }
 
 @media (max-width: 800px) {
