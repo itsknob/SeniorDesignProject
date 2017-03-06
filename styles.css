@@ -1,3 +1,14 @@
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+h2 {
+  color: brown;
+  padding-left: 20px;
+  font-weight: bold;
+}
+/*********************Navbar styling************************/
 /* Navbar background color */
 .navbar.navbar-inverse {
   background-color: #f7a176;
@@ -32,58 +43,139 @@
   color: black;
   background-color: #f2590d;
 }
+/******************End of navbar styling******************************/
 
+/* Main flexbox div, other divs inside are flexible to changes in screen size */
 .main {
   display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-around;
+  flex-flow: row;
+  justify-content: space-between;
   align-content: center;
-  align-items: center;
+  align-items: flex-start;
+  width: 100vw;
+  padding-top: 10px;
+  height: 100%;
+  padding-bottom: 200px; /* Keep this the smae as .footer's height */
 }
 
-.left {
-  margin: 4px;
-  padding: 5px;
-/*  border: 1px solid black;*/
-  border-radius: 7pt;
-  flex: 1 6 33%;
+/*************** Home page ******************/
+.popItems {
+  width: 30%;
+  box-shadow: 0 0 10px black;
   order: 1;
+  flex-basis: auto;
 }
 
-.middle {
-  margin: 4px;
-  padding: 5px;
-  border: 1px solid black;
-  border-radius: 7pt;
-  flex: 3 1 33%;
+.dealOfDay {
+  width: 30%;
+  box-shadow: 0 0 10px black;
   order: 2;
+  flex-basis: auto;
 }
 
-.right {
-  margin: 4px;
-  padding: 5px;
-/*  border: 1px solid black;*/
-  border-radius: 7pt;
-  flex: 1 6 33%;
+.twitterFeed {
+  width: 30%;
+  box-shadow: 0 0 10px black;
   order: 3;
+  flex-basis: auto;
 }
 
+/******************* Slideshow **********************/
+.footer {
+  height: 350px;
+}
 
-@media all and (max-width: 640px) {
+/******************* About us page ******************/
+.aboutuspicture {
+  order: 1;
+  flex-basis: auto;
+  box-shadow: 0 0 10px black;
+}
+
+.aboutus {
+  top: 50px;
+  background-color: brown;
+  color: white;
+  padding: 40px;
+  overflow: auto;
+  order: 2;
+  flex-basis: auto;
+  box-shadow: 0 0 10px black;
+  font-size: 25px;
+}
+
+/* Header of about us block */
+.aboutusheader {
+  font-size: 45px;
+  padding-bottom: 5px;
+}
+/* Adjusts about us page based on different screen widths */
+@media all and (min-width: 800px){
+  .aboutus, .aboutuspicture {
+    width: 390px;
+    height: 390px;
+    font-size: 15px;
+  }
+  .aboutusheader {
+    font-size: 30px;
+  }
+}
+@media all and (min-width: 1000px) {
+  .aboutus, .aboutuspicture {
+    height: 490px;
+    width: 490px;
+    font-size: 20px;
+  }
+  .aboutusheader {
+    font-size: 35px;
+  }
+}
+@media all and (min-width: 1200px) {
+  .aboutus, .aboutuspicture {
+    font-size: ;
+    height: 590px;
+    width: 590px;
+    font-size: 25px;
+  }
+  .aboutusheader {
+    font-size: 40px;
+  }
+}
+
+/************** Locations/Contact Us Page *********/
+.contact {
+  margin: 0 auto;
+  text-align: center;
+  font-size: 20px;
+  width:75%;
+}
+#map {
+  height: 400px;
+  margin: 0 auto;
+}
+#loctwitter {
+  height: 400px;
+  margin: 0 auto;
+}
+
+/* Adjusts the components of pages for viewing on a screen less than 800px */
+@media all and (max-width: 800px) {
   .main, #page {
     flex-direction: column;
   }
 
-  .left, .middle, .right {
+  .main {
+    width: 98vw;
+  }
+
+  .popItems, .dealOfDay, .twitterFeed, .aboutus, .aboutuspicture {
     /* Return them to document order */
     order: 0;
+    width: 98vw;
+    height: 98vw;
   }
   
-  .left, .right, {
-    min-height: 50px;
-    max-height: 50px;
-  }
-}
+} 
 
 .item, .item.active{
   width: 100%;
@@ -96,14 +188,22 @@ img{
 /* This prevents the navbar from covering content at the top of the page */
 body {
   padding-top: 55px; 
+  background-image: url("beigeBackground.jpg");
 }
-@media (max-width: 978px) {
+
+@media (max-width: 800px) {
   body {
     padding-top: 55px;
   }
 }
 
 div#myCarousel{
+  width: 50%;
+  margin: auto;
+}
+
+.carousel-slide{
+  width: 100%;
   width: 75%;
   margin: auto;
 }
