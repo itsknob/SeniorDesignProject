@@ -19,20 +19,6 @@ $CompanyName = "NUWC Juicing";
 		<link rel="stylesheet" type"text/css" href="styles.css">
 	</head>
 	<body>
-
-	<!-- Tried to get the navbar to change if the user is logged in. It doesnt work though. -->
-	<?php
-	if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
-		echo $_SESSION['loggedin'];
-		echo "Success!";
-		include 'navbar_authorized.php';
-	} else {
-		echo "Failed!";
-		echo $_SESSION['loggedin'];
-		include 'navbar_unauthorized.php';
-	}
-	?>
-		<!-- Once the php code above works this can be deleted -->
 		<nav class="navbar navbar-inverse navbar-fixed-top">
 		 	<div class="container-fluid">
 		    	<div class="navbar-header">
@@ -70,21 +56,25 @@ $CompanyName = "NUWC Juicing";
 
 <?php
 
+include "scripts.php"; 
+
 //Variables
 $dbhost = "localhost";
 $dbuser = "root";
 $dbpass = "root";
 $dbname = "user_information";
 
-//Connect and Select
-$con = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
-
-//Check for Failure
-if(mysqli_connect_errno()){
-	echo "Failed to connnect to MySQL: " . mysqli_connect_errno();
-}
 //Checks if login is set.
 if(isset($_POST['login'])){
+
+	//Connect and Select
+	$con = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
+
+	//Check for Failure
+	if(mysqli_connect_errno()){
+		echo "Failed to connnect to MySQL: " . mysqli_connect_errno();
+	}
+
 	$user_name = strip_tags(trim($_POST['name']));
 	$user_pass = strip_tags(trim($_POST['pass']));
 
@@ -102,6 +92,7 @@ if(isset($_POST['login'])){
 	{
 		$_SESSION['user'] = $user_name;
 		$_SESSION['loggedin'] = true;
+		populateSession($con);
 		echo "<script>window.open('home.php','_self')</script>";
 	}
 	//If not, inform user.
@@ -109,5 +100,11 @@ if(isset($_POST['login'])){
 	{
 		echo "<script>alert('Email or password is incorrect!')</script>";
 	}
+	
+	if(isset($_SESSION['user'])){
+		echo "yes";
+		populateSession($con);
+	}
+	
 }
 ?>
