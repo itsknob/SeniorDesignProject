@@ -5,7 +5,7 @@
 <?php
 	//Retrives user information from Database
 	//Used to set session information
-	
+	include "scripts.php";
 	//Variables
 	$dbhost = "localhost";
 	$dbuser = "root";
@@ -13,35 +13,8 @@
 	$dbname = "user_information";
 
 	//Connect and Select
-	$con = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);	
-	
-	$query = "SELECT * FROM login_information WHERE user_name='" . $_SESSION['user'] . "'";
-	//echo $query;
-	
-	$result = mysqli_query($con, $query);
-	
-	$list =  mysql_fetch_array($result);
-	$size_of_list = sizeof($list);
-
-	/*
-	if($result->num_rows > 0){
-		echo "<br>YES<br>";
-	}
-	else{
-		echo "<br>NO<br>";
-	}
-	*/
-	
-	//This one Works
-	while($row = $result->fetch_assoc())
-	{
-		$_SESSION["user_name"] = $row["user_name"];
-		$_SESSION["user_email"] = $row["user_email"];
-	}
-	
-	echo "Current User:".$_SESSION["user_name"];
-	echo "Current Email:".$_SESSION["user_email"];
-	
+	//$con = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);	
+	$con = makeConnection($dbhost, $dbuser, $dbpass, $dbname);
 
 ?>
 <html>
@@ -107,12 +80,12 @@
 		<table>
 			<tr>
 				<td>
-					Username: <?php echo $_SESSION['user']; ?>
+					Username: <?php echo $_SESSION['user_name']; ?>
 				</td>
 			</tr>
 			<tr>
 				<td>
-					Email:
+					Email: <?php echo $_SESSION['user_email']; ?>
 				</td>
 			</tr>
 		</table>
