@@ -151,24 +151,45 @@ h2 {
 }
 #map {
   height: 400px;
+  width: 800px;
   margin: 0 auto;
 }
 #loctwitter {
   height: 400px;
+  width: 800px;
   margin: 0 auto;
+}
+@media all and (max-width: 1000px){
+  #map, #loctwitter {
+    width: auto;
+  }
 }
 
 /* Adjusts the components of pages for viewing on a screen less than 800px */
-@media all and (max-width: 800px) {
+@media all and (max-width: 750px) {
   .main, #page {
     flex-direction: column;
+    justify-content: space-between;
+  align-content: center;
+  align-items: flex-start;
+  width: 100vw;
+  padding-top: 10px;
+  height: auto;
+  padding-bottom: 200px;
   }
 
   .main {
+    display: flex;
     width: 98vw;
   }
+  .popItems {
+    width: 98vw;
+    height: 98vw;
+    order: 0;
+    overflow: auto;
 
-  .popItems, .dealOfDay, .twitterFeed, .aboutus, .aboutuspicture {
+  }
+  .dealOfDay, .twitterFeed, .aboutus, .aboutuspicture {
     /* Return them to document order */
     order: 0;
     width: 98vw;
@@ -176,8 +197,6 @@ h2 {
   }
   
 } 
-
-
 
 .item, .item.active{
   width: 100%;

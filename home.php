@@ -110,7 +110,7 @@
 			<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 		</div>
 	</div>
-	<div class="footer navbar-fixed-bottom">
+	<div class="footer ">
 	<!--    Slideshow-->
 	<div id="myCarousel" class="carousel slide" data-ride="carousel" style="width: 100%">
 		<!-- Indicators -->

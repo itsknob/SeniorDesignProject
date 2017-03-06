@@ -33,10 +33,10 @@
 				</div>
 				<div class="collapse navbar-collapse" id="myNavbar">
 					<ul class="nav navbar-nav">
-						<li class="active"><a href="home.php">Home</a></li>
+						<li><a href="home.php">Home</a></li>
 						<li><a href="menu.php">Menu</a></li>
 						<li><a href="about.php">About Us</a></li> 
-						<li><a href="locations_contact.php">Locations & Contact Us</a></li> 
+						<li class="active"><a href="locations_contact.php">Locations & Contact Us</a></li>
 					</ul>		
 					<?php
 						if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
