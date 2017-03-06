@@ -110,7 +110,7 @@ h2 {
   padding-bottom: 5px;
 }
 /* Adjusts about us page based on different screen widths */
-@media all and (min-width: 800px){
+@media all and (min-width: 750px){
   .aboutus, .aboutuspicture {
     width: 390px;
     height: 390px;
@@ -166,16 +166,16 @@ h2 {
 }
 
 /* Adjusts the components of pages for viewing on a screen less than 800px */
-@media all and (max-width: 750px) {
+@media all and (max-width: 770px) {
   .main, #page {
     flex-direction: column;
     justify-content: space-between;
-  align-content: center;
-  align-items: flex-start;
-  width: 100vw;
-  padding-top: 10px;
-  height: auto;
-  padding-bottom: 200px;
+    align-content: center;
+    align-items: flex-start;
+    width: 100vw;
+    padding-top: 10px;
+    height: auto;
+    padding-bottom: 200px;
   }
 
   .main {
@@ -184,10 +184,12 @@ h2 {
   }
   .popItems {
     width: 98vw;
-    height: 98vw;
+    height: 90vw;
     order: 0;
     overflow: auto;
-
+  }
+  .twitterFeed {
+    padding-top: 30px;
   }
   .dealOfDay, .twitterFeed, .aboutus, .aboutuspicture {
     /* Return them to document order */

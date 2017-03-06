@@ -100,12 +100,12 @@
 			</table>
 		</div>
 
-		<div class="dealOfDay">
+		<div class="dealOfDay well">
 			Deal of the day goes here
 			<br>k
 		</div>
 		
-		<div class="twitterFeed">
+		<div class="twitterFeed well">
 			<a class="twitter-timeline" href="https://twitter.com/nuwcJuicing"> Tweets by nuwcJuicing </a>
 			<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 		</div>
