@@ -2,7 +2,48 @@
 <?php
 	session_start();
 ?>
+<?php
+	//Retrives user information from Database
+	//Used to set session information
+	
+	//Variables
+	$dbhost = "localhost";
+	$dbuser = "root";
+	$dbpass = "root";
+	$dbname = "user_information";
 
+	//Connect and Select
+	$con = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);	
+	
+	$query = "SELECT * FROM login_information WHERE user_name='" . $_SESSION['user'] . "'";
+	//echo $query;
+	
+	$result = mysqli_query($con, $query);
+	
+	$list =  mysql_fetch_array($result);
+	$size_of_list = sizeof($list);
+
+	/*
+	if($result->num_rows > 0){
+		echo "<br>YES<br>";
+	}
+	else{
+		echo "<br>NO<br>";
+	}
+	*/
+	
+	//This one Works
+	while($row = $result->fetch_assoc())
+	{
+		$_SESSION["user_name"] = $row["user_name"];
+		$_SESSION["user_email"] = $row["user_email"];
+	}
+	
+	echo "Current User:".$_SESSION["user_name"];
+	echo "Current Email:".$_SESSION["user_email"];
+	
+
+?>
 <html>
 	<head>
 		<!-- Latest compiled and minified CSS -->
@@ -75,54 +116,6 @@
 				</td>
 			</tr>
 		</table>
-		  
-		<?php
-			//Retrives user information from Database
-			//Used to set session information
-			
-			//Variables
-			$dbhost = "localhost";
-			$dbuser = "root";
-			$dbpass = "root";
-			$dbname = "user_information";
-
-			//Connect and Select
-			$con = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);	
-			
-			$query = "SELECT * FROM login_information WHERE user_name='" . $_SESSION['user'] . "'";
-			echo $query;
-			
-			$result = mysqli_query($con, $query);
-			
-			$list =  mysql_fetch_array($result);
-			$size_of_list = sizeof($list);
-
-			
-			if($result->num_rows > 0){
-				echo "<br>YES<br>";
-			}
-			else{
-				echo "<br>NO<br>";
-			}
-			
-			while($row = $result->fetch_assoc())
-			{
-				$current_user = $row["user_name"];
-				$current_email = $row["user_email"];
-			}
-			
-			for($i = 0; $i < $size_of_list; $i++)
-			{
-				echo $list['$i']. "testing" . "<br>";
-			}
-			
-			echo $list['user_name']."test2";
-			echo $list['user_email']."test3";
-			#echo $_SESSION['email'];
-			
-
-		?>
-
 	</body>  
 </html>
 
