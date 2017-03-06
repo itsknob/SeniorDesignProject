@@ -2,7 +2,6 @@
 <?php
 	session_start();
 	$companyName = "Company Name";
-
 ?>
 
 <!-- Latest compiled and minified CSS -->
@@ -15,24 +14,13 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <html>
-	<head>
-		<title>Sample Juice Truck Page</title>
-		<link rel="stylesheet" type"text/css" href="styles.css">
-	</head>
-	<body>
+<head>
+	<title>Sample Juice Truck Page</title>
+	<link rel="stylesheet" type"text/css" href="styles.css">
+</head>
+<body>
 
-		<!-- Tried to get the navbar to change if the user is logged in. It doesnt work though. -->
-		<?php
-			if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
-				echo $_SESSION['loggedin'];
-				include 'navbar_authorized.php';
-			} else {
-				echo $_SESSION['loggedin'];
-				include 'navbar_unauthorized.php';
-			}
-		?>
-		<!-- Once the php code above works this can be deleted -->
-		<div class="navbar navbar-inverse navbar-fixed-top">
+	<div class="navbar navbar-inverse navbar-fixed-top">
 			<div class="container-fluid">
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -48,68 +36,82 @@
 						<li><a href="menu.php">Menu</a></li>
 						<li><a href="about.php">About Us</a></li> 
 						<li><a href="locations_contact.php">Locations & Contact Us</a></li> 
-					</ul>
-					<ul class="nav navbar-nav navbar-right">
-						<li><a href="registration.php"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-						<li><a href="login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-						<li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
-					</ul>
+					</ul>		
+					<?php
+						if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+							echo "
+								<ul class='nav navbar-nav navbar-right'>
+						       		<li><a href='my_account.php'><span class='glyphicon glyphicon-user'></span> My Account</a></li>
+						       		<li><a href='cart.php'><span class='glyphicon glyphicon-shopping-cart'></span> Cart</a></li>
+						       		<li><a href='logout.php'><span class glyphicon-shopping-logout'></span> Logout</a><li>
+						   		</ul>
+						   		"; // End of Navbar - Logged In 
+						} else {
+							echo "
+								<ul class='nav navbar-nav navbar-right'>
+									<li><a href='registration.php'><span class='glyphicon glyphicon-user'></span> Sign Up</a></li>
+									<li><a href='login.php'><span class='glyphicon glyphicon-log-in'></span> Login</a></li>
+									<li><a href='cart.php'><span class='glyphicon glyphicon-shopping-cart'></span> Cart</a></li>
+						       		<li><a href='logout.php'><span class glyphicon-shopping-logout'></span> Logout</a><li>
+								</ul>
+								"; // End of Navbar - Logged Out
+						} 
+					?>
+
 				</div>
 			</div>
 		</div>
-		
-		<div class="main">
-			<!-- Most Popular Menu Items -->
-			<div class="left well">
-				<table class="table">
-					<thead>
-						<th>
-							Popular Items
-						</th>
-						<tr>
-							<th>#</th>
-							<th>Item</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>1</td>
-							<td>Apple Juice</td>
-						</tr>
-						<tr>
-							<td>2</td>
-							<td>Orange Juice</td>
-						</tr>
-						<tr>
-							<td>3</td>
-							<td>Other Juice</td>
-						</tr>
-						<tr>
-							<td>4</td>
-							<td>Other Juice</td>
-						</tr>
-						<tr>
-							<td>5</td>
-							<td>Other other Juice</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-
-			<div class="middle">
-				Deal of the day goes here
-				<br>k
-			</div>
-			
-			<div class="right">
-				<a class="twitter-timeline" href="https://twitter.com/nuwcJuicing"> Tweets by nuwcJuicing </a>
-				<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-			</div>
-			
+	
+	<div class="main">
+		<!-- Most Popular Menu Items -->
+		<div class="popItems well">
+			<table class="table">
+				<thead>
+					<th>
+						Popular Items
+					</th>
+					<tr>
+						<th>#</th>
+						<th>Item</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>1</td>
+						<td>Apple Juice</td>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td>Orange Juice</td>
+					</tr>
+					<tr>
+						<td>3</td>
+						<td>Other Juice</td>
+					</tr>
+					<tr>
+						<td>4</td>
+						<td>Other Juice</td>
+					</tr>
+					<tr>
+						<td>5</td>
+						<td>Other other Juice</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 
-
-		<!--    Slideshow-->
+		<div class="dealOfDay">
+			Deal of the day goes here
+			<br>k
+		</div>
+		
+		<div class="twitterFeed">
+			<a class="twitter-timeline" href="https://twitter.com/nuwcJuicing"> Tweets by nuwcJuicing </a>
+			<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+		</div>
+	</div>
+	<div class="footer navbar-fixed-bottom">
+			<!--    Slideshow-->
 		<div id="myCarousel" class="carousel slide" data-ride="carousel">
 			<!-- Indicators -->
 			<ol class="carousel-indicators">
@@ -146,5 +148,8 @@
 			</a>
 		</div>
 		<!--End Slideshow   -->
-	</body>
+	
+
+	
+</body>
 </html>
