@@ -47,12 +47,27 @@ $CompanyName = "NUWC Juicing";
 		        		<li><a href="menu.php">Menu</a></li>
 		        		<li class="active"><a href="about.php">About Us</a></li> 
 		        		<li><a href="locations_contact.php">Locations & Contact Us</a></li> 
-		      		</ul>
-		      		<ul class="nav navbar-nav navbar-right">
-		        		<li><a href="registration.php"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-		        		<li><a href="login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-		        		<li><a href="cart.php"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
-		      		</ul>
+		      		</ul>		
+					<?php
+						if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+							echo "
+								<ul class='nav navbar-nav navbar-right'>
+						       		<li><a href='my_account.php'><span class='glyphicon glyphicon-user'></span> My Account</a></li>
+						       		<li><a href='cart.php'><span class='glyphicon glyphicon-shopping-cart'></span> Cart</a></li>
+						       		<li><a href='logout.php'><span class glyphicon-shopping-logout'></span> Logout</a><li>
+						   		</ul>
+						   		"; // End of Navbar - Logged In 
+						} else {
+							echo "
+								<ul class='nav navbar-nav navbar-right'>
+									<li><a href='registration.php'><span class='glyphicon glyphicon-user'></span> Sign Up</a></li>
+									<li><a href='login.php'><span class='glyphicon glyphicon-log-in'></span> Login</a></li>
+									<li><a href='cart.php'><span class='glyphicon glyphicon-shopping-cart'></span> Cart</a></li>
+						       		<li><a href='logout.php'><span class glyphicon-shopping-logout'></span> Logout</a><li>
+								</ul>
+								"; // End of Navbar - Logged Out
+						} 
+					?>
 		    	</div>
 		  	</div>
 		</nav>
