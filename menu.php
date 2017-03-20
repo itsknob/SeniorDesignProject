@@ -28,13 +28,13 @@
 		var $sodi;
 		var $picture;
 		
-		public function Item($id, $na, $pr, $de, $ca, $pr, $ch, $so, $pi){
+		public function Item($id, $na, $pr, $de, $ca, $pt, $ch, $so, $pi){
 			$this->itemID = $id;
 			$this->name = $na;
 			$this->price = $pr;
 			$this->desc = $de;
 			$this->cals = $ca;
-			$this->prot = $pr;
+			$this->prot = $pt;
 			$this->chol = $ch;
 			$this->sodi = $so;
 			$this->picture = $pi;
