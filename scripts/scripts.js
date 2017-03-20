@@ -57,7 +57,7 @@ function createTableFormattedItem(myItem){
 function createTableFormattedListOfItems(myItemArray){
 
 	//Decide formatting for outerTable
-	var numberOfColumns = 2;
+	var numberOfColumns = 3;
 
 	//Create Rows for Table (We will be formatting this into two rows for testing using 3 items.)	IE: 7 items, 3 columns -> 7/3 = ceil(2.33) = 3 rows
 	var numberOfRows = Math.ceil((myItemArray.length)/numberOfColumns);

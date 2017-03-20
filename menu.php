@@ -49,7 +49,7 @@
 	$con = makeConnection($dbhost, $dbuser, $dbpass, $dbname);
 	$query = "SELECT * FROM items";
 	$result = mysqli_query($con, $query);
-
+	
 	//Collect data from all items
 	while($row = $result->fetch_assoc())
 	{
@@ -72,7 +72,8 @@
 <html>
 	<head>
 		<title>Menu Page</title>
-		<link rel="stylesheet" type"text/css" href="styles.css">
+		<link rel="stylesheet" type="text/css" href="styles.css">
+		<link rel="javascript" type="text/javascript" href="scripts/scripts.js">
 	</head>
 	<body>
 		<!-- Once the php code above works this can be deleted -->
@@ -116,15 +117,18 @@
 		    	</div>
 		  	</div>
 		</nav>
-		<div id="menu-content">
+		<div id="menu-content" align="center">
 			<h2>Welcome to the Menu Page</h2>
 			<div id="menu-item-container" align="center">
+				<!-- REQUIRED FOR SCRIPTS TO POPULATE MENU -->
+				<!-- 			 DO NOT DELETE 	 		   -->
 			</div>
+			<script src="scripts/scripts.js">
+			</script>
 			<script> 
 				var newItemList = [];
-				var allItemsArray = <?= json_encode($itemList); ?>;
+				var allItemsArray = <?php echo json_encode($itemList); ?>;
 				//console.log("AllItemArray: " + allItemsArray);
-			
 				//Convert PHP Items to Javascript Items
 				for(var i = 0; i < allItemsArray.length; i++){
 					var tempItem = new ItemJS();
