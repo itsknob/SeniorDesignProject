@@ -1,7 +1,63 @@
 <!DOCTYPE html>
 <?php
-session_start();
-$CompanyName = "NUWC Juicing";
+	session_start();
+	$CompanyName = "NUWC Juicing";
+//~~~ Begin Menu Formatting ~~~//
+	//Debugging
+	ini_set('display_errors', 1);
+	ini_set('display_startup_errors', 1);
+	error_reporting(E_ALL);
+
+	//Used to set session information
+	include "scripts.php";
+	//Variables
+	$dbhost = "localhost";
+	$dbuser = "root";
+	$dbpass = "root";
+	$dbname = "inventory";
+
+	//Class to hold item data from database
+	class Item{
+		var $itemID;
+		var $name;
+		var $price;
+		var $desc;
+		var $cals;
+		var $prot;
+		var $chol;
+		var $sodi;
+		var $picture;
+		
+		public function Item($id, $na, $pr, $de, $ca, $pr, $ch, $so, $pi){
+			$this->itemID = $id;
+			$this->name = $na;
+			$this->price = $pr;
+			$this->desc = $de;
+			$this->cals = $ca;
+			$this->prot = $pr;
+			$this->chol = $ch;
+			$this->sodi = $so;
+			$this->picture = $pi;
+
+		}
+	}
+
+	//This array holds items from database.
+	$itemList = array();
+
+	//Connect and Select	
+	$con = makeConnection($dbhost, $dbuser, $dbpass, $dbname);
+	$query = "SELECT * FROM items";
+	$result = mysqli_query($con, $query);
+
+	//Collect data from all items
+	while($row = $result->fetch_assoc())
+	{
+		$tempItem = new Item($row['itemID'], $row['itemName'],  $row['price'], $row['description'], $row['calories'], $row['protein'], $row['choles'], $row['sodi'], $row['picLink']);
+
+		$itemList[] = $tempItem;
+	}
+
 ?>
 
 <!-- Latest compiled and minified CSS -->
@@ -60,6 +116,34 @@ $CompanyName = "NUWC Juicing";
 		    	</div>
 		  	</div>
 		</nav>
-		Welcome to the Menu Page
+		<div id="menu-content">
+			<h2>Welcome to the Menu Page</h2>
+			<div id="menu-item-container" align="center">
+			</div>
+			<script> 
+				var newItemList = [];
+				var allItemsArray = <?= json_encode($itemList); ?>;
+				//console.log("AllItemArray: " + allItemsArray);
+			
+				//Convert PHP Items to Javascript Items
+				for(var i = 0; i < allItemsArray.length; i++){
+					var tempItem = new ItemJS();
+					var object = allItemsArray[i];
+					//console.log(object);
+
+					tempItem.name = object.name;
+					tempItem.picture = object.picture;
+					tempItem.description = object.desc;
+					tempItem.cost = object.price;
+				
+					//Save to Array at index [i]
+					newItemList[i] = tempItem;
+				}
+		
+				//Call function to format data
+				document.getElementById('menu-item-container').appendChild(createTableFormattedListOfItems(newItemList));	//Was itemArray
+
+			</script>
+		</div>
 	</body>
 </html>
