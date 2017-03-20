@@ -37,7 +37,7 @@
 						<li><a href="about.php">About Us</a></li> 
 						<li><a href="locations_contact.php">Locations & Contact Us</a></li> 
 					</ul>		
-					<!--<?php
+					<?php
 						if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 							echo "
 								<ul class='nav navbar-nav navbar-right'>
@@ -56,7 +56,7 @@
 								</ul>
 								"; // End of Navbar - Logged Out
 						} 
-					?> -->
+					?>
 
 				</div>
 			</div>
