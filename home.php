@@ -102,7 +102,7 @@
 
 		<div class="dealOfDay well">
 			Deal of the day goes here
-			<br>k
+			<br>k<br><br><br><br><br><br><br><br><br><br><br><br>k
 		</div>
 		
 		<div class="twitterFeed well">
