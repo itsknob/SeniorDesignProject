@@ -1,22 +1,34 @@
 <!DOCTYPE html>
 <?php
-	session_start();
-?>
-<?php
-	//Retrives user information from Database
-	//Used to set session information
+	session_start(); 
+	
 	include "scripts.php";
+
 	//Variables
 	$dbhost = "localhost";
 	$dbuser = "root";
 	$dbpass = "root";
 	$dbname = "user_information";
 
-	//Connect and Select
-	//$con = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);	
+	//Connect and Select	
 	$con = makeConnection($dbhost, $dbuser, $dbpass, $dbname);
+	//Setup search for DB
+	$query = "SELECT * from login_information";
+	//Fetch from DB
+	$result = mysqli_query($con, $query);
+	//Hold Users from Database
+	$userNameList = array();
+	
+	//Convert Data
+	while($row = $result->fetch_assoc()){
+		$userNameList[$row['user_id']] = (string)$row['user_name'];// => (string)$row['userName'];
+	}
+
+	//Debugging
+	//var_dump($userNameList);
 
 ?>
+
 <html>
 	<head>
 		<!-- Latest compiled and minified CSS -->
@@ -30,7 +42,7 @@
 
 		<title>My Account</title>
 
-		<link rel="stylesheet" type"text/css" href="styles.css">
+		<link rel="stylesheet" type="text/css" href="styles.css">
 	</head>
 	<body>
 
@@ -76,6 +88,29 @@
 			</div>
 		</div>
 		<h1>My Account</h1>
+		
+		<?php 
+			if($_SESSION['isAdmin'] == false){
+				//No admin content should display if user is not admin.
+			}
+			else if($_SESSION['isAdmin'] == true){
+				echo "
+					<!-- Edit Employee -->
+					<form action=employee-working.php method='POST'>
+						<p>
+							<select name='employee'> ";
+								foreach($userNameList as $id=>$user):
+									echo "<option value='" . $user . "'>" . $id . "  - " . $user . "</option>";
+								endforeach;
+				echo 		"</select>
+							<input type='submit' value='Submit'></input> 
+						</p>
+					</form>
+					";
+			} 
+			else{}
+		?>
+		
 		
 		<table>
 			<tr>
