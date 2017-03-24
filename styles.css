@@ -16,6 +16,21 @@ h2 {
   background-color: #f7a176;
 }
 
+.navbar-toggle {
+	width: 50px;
+	height: 50px;
+	float: left;
+	margin-right: 0px;
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	border: none;
+}
+
+.navbar-toggle .icon-bar{
+	width: 28px;
+}
+
 /* Navbar title */
 .navbar-inverse .navbar-brand {
   color: black;
@@ -45,6 +60,19 @@ h2 {
   color: black;
   background-color: #f2590d;
 }
+
+.navbar-nav>li>a{
+	padding: 15px 10px;
+}
+
+/* TEST COMMENT HAMBURGER ICON
+@media (min-width: 800px){
+	.navbar-toggle {
+		display: none;
+	}
+}*/
+
+
 /******************End of navbar styling******************************/
 
 /* Main div */
