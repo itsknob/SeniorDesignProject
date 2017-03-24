@@ -23,12 +23,16 @@ function createTableFormattedItem(myItem){
 	var nameData = document.createElement('td');
 	var costData = document.createElement('td');
 	var pictData = document.createElement('td');
+	var picture = document.createElement('img');
+		picture.src = "images/" + myItem.picture;
+		picture.colspan = "2";
 	var descData = document.createElement('td');
 
 	//Append Text to Table Data
 	nameData.appendChild(document.createTextNode(myItem.name));
 	costData.appendChild(document.createTextNode(myItem.cost));
-	pictData.appendChild(document.createTextNode(myItem.picture));
+	//pictData.appendChild(document.createTextNode(myItem.picture));
+	pictData.appendChild(picture);
 	descData.appendChild(document.createTextNode(myItem.description));
 
 	//Set Colspans on Elements for formatting
@@ -42,7 +46,7 @@ function createTableFormattedItem(myItem){
 	//Append TD to TR
 	innerTableHeader.appendChild(nameData);
 	innerTableHeader.appendChild(costData);
-	innerTablePicture.appendChild(pictData);
+	innerTablePicture.appendChild(picture);
 	innerTableFooter.appendChild(descData);
 
 	//Append TR to Table

@@ -27,5 +27,4 @@
 			$_SESSION['isAdmin'] = $row['isAdmin'];
 		}
 	}
-
 ?>
