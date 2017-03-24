@@ -82,11 +82,9 @@ $CompanyName = "NUWC Juicing";
 				<div class="aboutusheader">
 					ABOUT US
 				</div>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vel consectetur lacus. Donec id augue vel eros feugiat lobortis. Quisque non ligula dolor. Mauris quis ligula vel enim accumsan vulputate quis vel tortor. Sed eget augue ac lectus rutrum cursus. Sed non ligula vitae elit elementum egestas a ut enim. Etiam elit justo, volutpat ac lacinia sed, condimentum at leo. Nullam tempus hendrerit lacinia.
-
-				Duis malesuada ultricies ipsum, mollis scelerisque leo feugiat id. Fusce sed mauris in ipsum posuere ullamcorper non ac dui. Cras enim enim, mattis nec velit placerat, placerat semper lectus. Pellentesque ac posuere felis. Aenean pretium malesuada massa eget feugiat. Pellentesque urna augue, efficitur eget nibh efficitur, facilisis accumsan est. Integer varius rhoncus diam, vel finibus tellus dignissim a. In ac consectetur ex. Sed in erat pharetra, laoreet eros id, euismod tortor. Quisque ultrices nibh eu augue luctus lacinia. Duis commodo lectus magna, a tempor ante lacinia eget.
-
-				Nam dictum laoreet tellus, sit amet laoreet magna finibus eu. Phasellus ac augue pulvinar, mollis arcu vehicula, viverra nulla. Etiam mollis nunc justo, commodo luctus lacus hendrerit a. Nunc vitae nisi ipsum. Proin non ullamcorper augue, sit amet consequat urna. Ut in sem laoreet, egestas nunc condimentum, laoreet diam. Donec ac dictum ante.</p>
+				<?php
+				echo file_get_contents( "aboutus.txt" ); // get the contents, and echo it out.
+				?>
 			</div>
 		</div>
 </body>
