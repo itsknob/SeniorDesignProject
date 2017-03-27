@@ -75,7 +75,7 @@ h2 {
 
 /******************End of navbar styling******************************/
 
-/* Main div */
+/************** Main div *******************/
 .main {
   margin: 0 auto;
   width: 75%;
@@ -95,7 +95,6 @@ h2 {
   align-content: center;
   align-items: flex-start;
   padding-top: 10px;
-  padding-bottom: 200px; /* Keep this the smae as .footer's height */
 }
 
 
@@ -205,46 +204,28 @@ h2 {
   width: 800px;
   margin: 0 auto;
 }
-@media all and (max-width: 1000px){
-  #map, #loctwitter {
-    width: auto;
-  }
-}
 
 /* Adjusts the components of pages for viewing on a screen less than 800px */
-@media all and (max-width: 770px) {
-  .main, #page {
+@media all and (max-width: 800px) {
+  .aboutusmain {
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-content: center;
     align-items: flex-start;
     width: 100vw;
     padding-top: 10px;
-    height: auto;
-    padding-bottom: 200px;
   }
-
   .main {
-    display: flex;
-    width: 98vw;
+    width: 100vw;
   }
-  .popItems {
-    width: 98vw;
-    height: 90vw;
-    order: 0;
-    overflow: auto;
+  #map, #loctwitter {
+    width: auto;
   }
-  .twitterFeed {
-    padding-top: 30px;
+  .aboutus{
+    min-width: 100vw;
+    min-height: auto;
   }
-  .dealOfDay, .twitterFeed, .aboutus, .aboutuspicture {
-    /* Return them to document order */
-    order: 0;
-    width: 98vw;
-    height: 98vw;
-  }
-  
-} 
+}
 
 .item, .item.active{
   width: 100%;

@@ -73,7 +73,6 @@ $CompanyName = "NUWC Juicing";
 		</nav>
 
 		<div class="aboutusmain" style="height: 100vh">
-			
 			<div class="aboutuspicture">
 				<span class="helper"></span><img src="images/Happy-employees-at-work.jpg" class ="img-fluid mx-auto" alt = "Responsive image">
 			</div>
@@ -83,7 +82,7 @@ $CompanyName = "NUWC Juicing";
 					ABOUT US
 				</div>
 				<?php
-				echo file_get_contents( "aboutus.txt" ); // get the contents, and echo it out.
+				 echo nl2br( file_get_contents('aboutus.txt') ); // get the contents, and echo it out.
 				?>
 			</div>
 		</div>
