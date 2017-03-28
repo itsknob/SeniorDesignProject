@@ -20,16 +20,7 @@ $CompanyName = "NUWC Juicing";
 	</head>
 	<body>
 
-	<!-- Tried to get the navbar to change if the user is logged in. It doesnt work though. -->
-	<?php
-	if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
-		include 'navbar_authorized.php';
-	} else {
-		include 'navbar_unauthorized.php';
-	}
-	?>
-		<!-- Once the php code above works this can be deleted -->
-		<nav class="navbar navbar-inverse navbar-fixed-top">
+	<nav class="navbar navbar-inverse navbar-fixed-top">
 		 	<div class="container-fluid">
 		    	<div class="navbar-header">
 		     		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -51,17 +42,15 @@ $CompanyName = "NUWC Juicing";
 							echo "
 								<ul class='nav navbar-nav navbar-right'>
 						       		<li><a href='my_account.php'><span class='glyphicon glyphicon-user'></span> My Account</a></li>
-						       		<li><a href='cart.php'><span class='glyphicon glyphicon-shopping-cart'></span> Cart</a></li>
+						       		<li class = 'active'><a href='cart.php'><span class='glyphicon glyphicon-shopping-cart'></span> Cart</a></li>
 						       		<li><a href='logout.php'><span class glyphicon-shopping-logout'></span> Logout</a><li>
 						   		</ul>
 						   		"; // End of Navbar - Logged In 
 						} else {
 							echo "
 								<ul class='nav navbar-nav navbar-right'>
-									<li><a href='registration.php'><span class='glyphicon glyphicon-user'></span> Sign Up</a></li>
 									<li><a href='login.php'><span class='glyphicon glyphicon-log-in'></span> Login</a></li>
-									<li><a href='cart.php'><span class='glyphicon glyphicon-shopping-cart'></span> Cart</a></li>
-						       		<li><a href='logout.php'><span class glyphicon-shopping-logout'></span> Logout</a><li>
+									<li class = 'active'><a href='cart.php'><span class='glyphicon glyphicon-shopping-cart'></span> Cart</a></li>
 								</ul>
 								"; // End of Navbar - Logged Out
 						} 

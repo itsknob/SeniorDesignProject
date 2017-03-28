@@ -6,9 +6,12 @@ body {
 }
 
 h2 {
-  color: brown;
-  padding-left: 20px;
-  font-weight: bold;
+	color: brown;
+	padding-left: 20px;
+	font-weight: bold;
+	margin: 10px auto;
+	text-align: center;
+	display: block;
 }
 /*********************Navbar styling************************/
 /* Navbar background color */
@@ -25,6 +28,26 @@ h2 {
 	margin-top: 0px;
 	margin-bottom: 0px;
 	border: none;
+}
+
+.navbar-inverse .navbar-toggle:focus {
+	background-color: transparent;
+}
+
+.navbar-inverse .navbar-toggle:hover {
+	background-color: #f2590d;
+}
+
+.navbar-inverse .navbar-toggle:active {
+	background-color: #f2590d;
+}
+
+.navbar-collapse .navbar-nav > li > a:hover {
+	background-color: #f2590d;
+}
+
+.navbar-collapse .navbar-nav > li > a:active {
+	background-color: #f2590d;
 }
 
 .navbar-toggle .icon-bar{
@@ -55,6 +78,7 @@ h2 {
 
 /* Navbar active page button */
 .navbar-inverse .navbar-nav > .active > a, 
+.navbar-inverse .navbar-nav > .active > a,
 .navbar-inverse .navbar-nav > .active > a:hover,
 .navbar-inverse .navbar-nav > .active > a:focus {
   color: black;
@@ -75,11 +99,13 @@ h2 {
 
 /******************End of navbar styling******************************/
 
-/************** Main div *******************/
+/* Main div */
 .main {
   margin: 0 auto;
   width: 75%;
   padding-top: 1px;
+  padding-bottom: 10px;
+  margin-bottom: 30px;
   box-shadow: 0 0 10px black;
   background-image: url("images/beigeBackground.jpg");
 }
@@ -95,6 +121,7 @@ h2 {
   align-content: center;
   align-items: flex-start;
   padding-top: 10px;
+  padding-bottom: 200px; /* Keep this the smae as .footer's height */
 }
 
 
@@ -204,28 +231,46 @@ h2 {
   width: 800px;
   margin: 0 auto;
 }
+@media all and (max-width: 1000px){
+  #map, #loctwitter {
+    width: auto;
+  }
+}
 
 /* Adjusts the components of pages for viewing on a screen less than 800px */
-@media all and (max-width: 800px) {
-  .aboutusmain {
+@media all and (max-width: 770px) {
+  .main, #page {
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-content: center;
     align-items: flex-start;
     width: 100vw;
     padding-top: 10px;
+    height: auto;
+    padding-bottom: 200px;
   }
+
   .main {
-    width: 100vw;
+    display: flex;
+    width: 98vw;
   }
-  #map, #loctwitter {
-    width: auto;
+  .popItems {
+    width: 98vw;
+    height: 90vw;
+    order: 0;
+    overflow: auto;
   }
-  .aboutus{
-    min-width: 100vw;
-    min-height: auto;
+  .twitterFeed {
+    padding-top: 30px;
   }
-}
+  .dealOfDay, .twitterFeed, .aboutus, .aboutuspicture {
+    /* Return them to document order */
+    order: 0;
+    width: 98vw;
+    height: 98vw;
+  }
+  
+} 
 
 .item, .item.active{
   width: 100%;
@@ -271,6 +316,7 @@ button {
     border: none;
     cursor: pointer;
     width: 100%;
+    border-radius: 6px;
 }
 
 /* Extra styles for the cancel button */
@@ -288,6 +334,10 @@ button {
 /* Add padding to container elements */
 .registrationContainer {
     padding: 16px;
+	background-color: #f5e2db;
+	width: 75%;
+    margin: 0 auto;
+    border-radius: 25px;
 }
 
 /* Clear floats */
@@ -302,4 +352,110 @@ button {
     .cancelbtn, .signupbtn {
        width: 95%;
     }
+}
+
+/**************** Login ********************/
+.form-signin {
+    max-width: 700px;
+    padding: 15px;
+    margin: 0 auto;
+    color: #000;
+}
+         
+.form-signin .form-signin-heading, .form-signin .checkbox {
+    margin-bottom: 10px;
+}
+         
+.form-signin .checkbox {
+	font-weight: normal;
+}
+         
+.form-signin .form-control {
+	position: relative;
+	height: auto;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	padding: 10px;
+	font-size: 16px;
+}
+         
+.form-signin .form-control:focus {
+	z-index: 2;
+}
+         
+.form-signin input[type="email"] {
+	margin-bottom: -1px;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+	border-color:#017572;
+}
+         
+.form-signin input[type="password"] {
+	margin-bottom: 10px;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+	border-color:#017572;
+}
+
+.seperator {
+    display: block;
+    margin-bottom: 10px;
+    margin-left: 10.5%;
+    margin-right: 10.5%;
+    margin-top: 10px;
+    overflow: hidden;
+    text-align: center;
+    white-space: nowrap;
+    width: 79%;
+	border-top: solid 1px black
+}
+
+.login-container {
+	padding: 22px 108px 26px;
+	width: 700px;
+}
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+#SignUp {
+	width: 75%;
+	margin: 0 auto;
+	display:block;
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
 }

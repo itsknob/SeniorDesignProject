@@ -7,15 +7,13 @@
 	ini_set('display_errors', 1);
 	ini_set('display_startup_errors', 1);
 	error_reporting(E_ALL);
-
 	//Used to set session information
 	include "scripts.php";
 	//Variables
 	$dbhost = "localhost";
 	$dbuser = "root";
-	$dbpass = "root";
-	$dbname = "inventory";
-
+	$dbpass = "";
+	$dbname = "juicing";
 	//Class to hold item data from database
 	class Item{
 		var $itemID;
@@ -38,13 +36,10 @@
 			$this->chol = $ch;
 			$this->sodi = $so;
 			$this->picture = $pi;
-
 		}
 	}
-
 	//This array holds items from database.
 	$itemList = array();
-
 	//Connect and Select	
 	$con = makeConnection($dbhost, $dbuser, $dbpass, $dbname);
 	$query = "SELECT * FROM items";
@@ -54,10 +49,8 @@
 	while($row = $result->fetch_assoc())
 	{
 		$tempItem = new Item($row['itemID'], $row['itemName'],  $row['price'], $row['description'], $row['calories'], $row['protein'], $row['choles'], $row['sodi'], $row['picLink']);
-
 		$itemList[] = $tempItem;
 	}
-
 ?>
 
 <!-- Latest compiled and minified CSS -->
@@ -76,7 +69,6 @@
 		<link rel="javascript" type="text/javascript" href="scripts/scripts.js">
 	</head>
 	<body>
-		<!-- Once the php code above works this can be deleted -->
 		<nav class="navbar navbar-inverse navbar-fixed-top">
 		 	<div class="container-fluid">
 		    	<div class="navbar-header">
@@ -90,7 +82,7 @@
 		    	<div class="collapse navbar-collapse" id="myNavbar">
 		      		<ul class="nav navbar-nav">
 		        		<li><a href="home.php">Home</a></li>
-		        		<li class="active"><a href="menu.php">Menu</a></li>
+		        		<li class = "active"><a href="menu.php">Menu</a></li>
 		        		<li><a href="about.php">About Us</a></li> 
 		        		<li><a href="locations_contact.php">Locations & Contact Us</a></li> 
 		      		</ul>		
@@ -106,10 +98,8 @@
 						} else {
 							echo "
 								<ul class='nav navbar-nav navbar-right'>
-									<li><a href='registration.php'><span class='glyphicon glyphicon-user'></span> Sign Up</a></li>
 									<li><a href='login.php'><span class='glyphicon glyphicon-log-in'></span> Login</a></li>
 									<li><a href='cart.php'><span class='glyphicon glyphicon-shopping-cart'></span> Cart</a></li>
-						       		<li><a href='logout.php'><span class glyphicon-shopping-logout'></span> Logout</a><li>
 								</ul>
 								"; // End of Navbar - Logged Out
 						} 
@@ -117,8 +107,9 @@
 		    	</div>
 		  	</div>
 		</nav>
+
 		<div id="menu-content" align="center">
-			<h2>Welcome to the Menu Page</h2>
+			<h2>Menu</h2>
 			<div id="menu-item-container" align="center">
 				<!-- REQUIRED FOR SCRIPTS TO POPULATE MENU -->
 				<!-- 			 DO NOT DELETE 	 		   -->
@@ -134,7 +125,6 @@
 					var tempItem = new ItemJS();
 					var object = allItemsArray[i];
 					//console.log(object);
-
 					tempItem.name = object.name;
 					tempItem.picture = object.picture;
 					tempItem.description = object.desc;
@@ -146,7 +136,6 @@
 		
 				//Call function to format data
 				document.getElementById('menu-item-container').appendChild(createTableFormattedListOfItems(newItemList));	//Was itemArray
-
 			</script>
 		</div>
 	</body>
