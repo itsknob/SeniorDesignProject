@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
 	session_start();
-	$CompanyName = "Company Name";
+	$CompanyName = "NUWC Juicing";
 ?>
 
 <!-- Latest compiled and minified CSS -->
