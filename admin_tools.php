@@ -24,16 +24,12 @@ function test_input($data) {
 }
 ?>
 
-<h2>PHP Form Validation Example</h2>
+<h2>Enter Twitter Handle:</h2>
 <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
   Twitter: <input type="text" name="twitter">  
 </form>
 
-<?php
-echo "<h2>Your Input:</h2>";
-echo $twitter;
-?>
-
+<br>
 
 <?php
 
