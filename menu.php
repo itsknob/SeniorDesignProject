@@ -12,8 +12,8 @@
 	//Variables
 	$dbhost = "localhost";
 	$dbuser = "root";
-	$dbpass = "";
-	$dbname = "juicing";
+	$dbpass = "root";
+	$dbname = "inventory";
 	//Class to hold item data from database
 	class Item{
 		var $itemID;
