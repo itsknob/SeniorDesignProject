@@ -249,6 +249,18 @@ h2 {
     height: auto;
     padding-bottom: 200px;
   }
+  .aboutusmain {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-content: center;
+    align-items: flex-start;
+    width: 100vw;
+    padding-top: 10px;
+  }
+  .aboutus{
+    min-width: 100vw;
+    min-height: 30vh;
+  }
 
   .main {
     display: flex;
