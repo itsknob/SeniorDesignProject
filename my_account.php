@@ -76,7 +76,6 @@
 							echo "
 								<ul class='nav navbar-nav navbar-right'>
 									<li><a href='cart.php'><span class='glyphicon glyphicon-shopping-cart'></span> Cart</a></li>
-							   		<li><a href='logout.php'><span class glyphicon-shopping-logout'></span> Logout</a><li>
 								</ul>
 								"; // End of Navbar - Logged Out
 						} 
