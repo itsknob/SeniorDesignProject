@@ -98,8 +98,8 @@
 		</div>
 
 		<div class="dealOfDay well">
-			Deal of the day goes here
-			<br>k<br><br><br><br><br><br><br><br><br><br><br><br>k
+			Deal of the day
+			<br><br><br><br><br><br><br><br><br><br><br>
 		</div>
 		
 		<div class="twitterFeed well">
@@ -122,11 +122,11 @@
 			<div class="item active">
 				<img src="images/img1.png" alt="Chania">
 			</div>
-
+			<!--
 			<div class="item">
 				<img src="images/img2.png" alt="Chania">
 			</div>
-
+			-->
 			<div class="item">
 				<img src="images/img3.jpg" alt="Flower">
 			</div>
