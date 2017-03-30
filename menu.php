@@ -114,7 +114,8 @@
      <label><input type="checkbox" name="sugar" value="">Less than 30(g)</label><br>
      <label><input type="checkbox" name="sugar" value="">Less than 50(g)</label><br>  
     </form>
-    
+    </div>
+	    
     <script>
     //If checkbox is checked send a request to run a query on the database FROM items WHERE .class '<' this.value then echo the results
     $("input.calories:checkbox").on("change",function(){
