@@ -2,6 +2,7 @@
 <?php
 session_start();
 $CompanyName = "NUWC Juicing";
+
 ?>
 
 <link rel="stylesheet" href="/lib/w3.css">
@@ -22,7 +23,16 @@ $CompanyName = "NUWC Juicing";
 	</head>
 	<body>
 
-	<nav class="navbar navbar-inverse navbar-fixed-top">
+	<!-- Tried to get the navbar to change if the user is logged in. It doesnt work though. -->
+	<?php
+	if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+		include 'navbar_authorized.php';
+	} else {
+		include 'navbar_unauthorized.php';
+	}
+	?>
+		<!-- Once the php code above works this can be deleted -->
+		<nav class="navbar navbar-inverse navbar-fixed-top">
 		 	<div class="container-fluid">
 		    	<div class="navbar-header">
 		     		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -36,7 +46,7 @@ $CompanyName = "NUWC Juicing";
 		      		<ul class="nav navbar-nav">
 		        		<li><a href="home.php">Home</a></li>
 		        		<li><a href="menu.php">Menu</a></li>
-		        		<li class = "active"><a href="about.php">About Us</a></li> 
+		        		<li class="active"><a href="about.php">About Us</a></li> 
 		        		<li><a href="locations_contact.php">Locations & Contact Us</a></li> 
 		      		</ul>		
 					<?php
@@ -51,8 +61,10 @@ $CompanyName = "NUWC Juicing";
 						} else {
 							echo "
 								<ul class='nav navbar-nav navbar-right'>
-									<li><a class='active' href='login.php'><span class='glyphicon glyphicon-log-in'></span> Login</a></li>
+									<li><a href='registration.php'><span class='glyphicon glyphicon-user'></span> Sign Up</a></li>
+									<li><a href='login.php'><span class='glyphicon glyphicon-log-in'></span> Login</a></li>
 									<li><a href='cart.php'><span class='glyphicon glyphicon-shopping-cart'></span> Cart</a></li>
+						       		<li><a href='logout.php'><span class glyphicon-shopping-logout'></span> Logout</a><li>
 								</ul>
 								"; // End of Navbar - Logged Out
 						} 
@@ -60,13 +72,10 @@ $CompanyName = "NUWC Juicing";
 		    	</div>
 		  	</div>
 		</nav>
-		
-		<h2>About Us</h2>
-		
+
 		<div class="aboutusmain" style="height: 100vh">
-			
 			<div class="aboutuspicture">
-				<span class="helper"></span><img src="images/Happy-employees-at-work.jpg" class ="img-fluid mx-auto" alt = "Responsive image">
+				<span class="helper"></span><img src="images/aboutuspic.png" class ="img-fluid mx-auto" alt = "Responsive image">
 			</div>
 
 			<div class="aboutus">
@@ -74,7 +83,7 @@ $CompanyName = "NUWC Juicing";
 					ABOUT US
 				</div>
 				<?php
-				 echo nl2br( file_get_contents('aboutus.txt') ); // get the contents, and echo it out.
+					echo nl2br( file_get_contents('aboutus.txt') ); // get the contents, and echo it out.
 				?>
 			</div>
 		</div>
