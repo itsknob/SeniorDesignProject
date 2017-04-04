@@ -22,15 +22,6 @@ $CompanyName = "NUWC Juicing";
 		<link rel="stylesheet" type"text/css" href="styles.css">
 	</head>
 	<body>
-
-	<!-- Tried to get the navbar to change if the user is logged in. It doesnt work though. -->
-	<?php
-	if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
-		include 'navbar_authorized.php';
-	} else {
-		include 'navbar_unauthorized.php';
-	}
-	?>
 		<!-- Once the php code above works this can be deleted -->
 		<nav class="navbar navbar-inverse navbar-fixed-top">
 		 	<div class="container-fluid">

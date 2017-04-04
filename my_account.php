@@ -67,7 +67,7 @@
 						if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 							echo "
 								<ul class='nav navbar-nav navbar-right'>
-							   		<li class = "active"><a href='my_account.php'><span class='glyphicon glyphicon-user'></span> My Account</a></li>
+							   		<li class = 'active'><a href='my_account.php'><span class='glyphicon glyphicon-user'></span> My Account</a></li>
 							   		<li><a href='cart.php'><span class='glyphicon glyphicon-shopping-cart'></span> Cart</a></li>
 							   		<li><a href='logout.php'><span class glyphicon-shopping-logout'></span> Logout</a><li>
 						   		</ul>
@@ -94,14 +94,14 @@
 			else if($_SESSION['isAdmin'] == true){
 				echo "
 					<!-- Edit Employee -->
-					<form action=employee-working.php method='POST'>
+					<form action=my_account.php?go method='POST'>
 						<p>
 							<select name='employee'> ";
 								foreach($userNameList as $id=>$user):
 									echo "<option value='" . $user . "'>" . $id . "  - " . $user . "</option>";
 								endforeach;
 				echo 		"</select>
-							<input type='submit' value='Submit'></input> 
+							<input type='submit' name=submitButton value='Submit'></input> 
 						</p>
 					</form>
 					";
@@ -109,7 +109,54 @@
 			else{}
 		?>
 		
-		
+		<?php
+			//echo var_dump($_GET);
+			//echo var_dump($_POST);
+
+			//If employee information is being changed.
+			if(isset($_POST['updateButton']) && isset($_GET['go'])){
+
+			}
+
+			if(isset($_GET['go']) && isset($_POST['submitButton'])){
+				$employeeQuery = "SELECT * FROM login_information WHERE user_name='".$_POST['employee']."'";
+			//	echo $employeeQuery; //Debugging
+				$employeeResult = mysqli_query($con, $employeeQuery);
+			//	echo "Num rows: " . $employeeResult->num_rows;
+				while($row = $employeeResult->fetch_assoc()){
+			//		echo var_dump($row);
+			//		echo var_dump($_POST);
+					echo "
+							<div class=employeeContainter>
+								<div class=employeeInformation>
+									<ul>
+										<li>User Name:  " . $row['user_name'] . "</li>
+										<li>User ID:    " . $row['user_id'] . "</li>
+										<li>User Email: " . $row['user_email'] . "</li>
+										<form action='editEmployee.php' method='POST'>
+											<table>
+												<tr>
+													<td><input type='radio' id='NotEmployed' name='Employee'"; 			//Look for something breaking this code
+										  			if($row['isEmployee']==0) echo "checked='checked'/></td>"; 
+											  echo "<td><input type='radio' id='YesEmployed' name='Employee'"; 
+													if($row['isEmployee']==1) echo "checked='checked'/></td>"; 	
+										  echo" </tr>
+												<tr>
+													<td><label for='NotEmployed'>Not Employee</label><td>
+													<td><label for='YesEmployed'>Employee</label></td>
+												</tr>
+											</table>
+											<input type='submit' name=updateButton value='Update User'/>
+										</form>
+									</ul>
+								</div>
+							</div>
+						 ";
+				}
+			}
+		?>
+
+		<br>
 		<table>
 			<tr>
 				<td>
