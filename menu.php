@@ -1,7 +1,22 @@
 <!DOCTYPE html>
 <?php
 	session_start();
-	$CompanyName = "Company Name";
+	$CompanyName = "NUWC Juicing";
+//~~~ Begin Menu Formatting ~~~//
+	//Debugging
+	ini_set('display_errors', 1);
+	ini_set('display_startup_errors', 1);
+	error_reporting(E_ALL);
+
+	//Used to set session information
+	include "scripts.php";
+  include "showItems.php";
+	//Variables
+	$dbhost = "localhost";
+	$dbuser = "root";
+	$dbpass = "";
+	$dbname = "juicing";
+
 ?>
 
 <!-- Latest compiled and minified CSS -->
@@ -34,7 +49,7 @@
 		    	<div class="collapse navbar-collapse" id="myNavbar">
 		      		<ul class="nav navbar-nav">
 		        		<li><a href="home.php">Home</a></li>
-		        		<li class="active"><a href="menu.php">Menu</a></li>
+		        		<li class = "active"><a href="menu.php">Menu</a></li>
 		        		<li><a href="about.php">About Us</a></li> 
 		        		<li><a href="locations_contact.php">Locations & Contact Us</a></li> 
 		      		</ul>		
@@ -50,10 +65,8 @@
 						} else {
 							echo "
 								<ul class='nav navbar-nav navbar-right'>
-									<li><a href='registration.php'><span class='glyphicon glyphicon-user'></span> Sign Up</a></li>
 									<li><a href='login.php'><span class='glyphicon glyphicon-log-in'></span> Login</a></li>
 									<li><a href='cart.php'><span class='glyphicon glyphicon-shopping-cart'></span> Cart</a></li>
-						       		<li><a href='logout.php'><span class glyphicon-shopping-logout'></span> Logout</a><li>
 								</ul>
 								"; // End of Navbar - Logged Out
 						} 
@@ -67,36 +80,10 @@
 				<!-- REQUIRED FOR SCRIPTS TO POPULATE MENU -->
 				<!-- 			 DO NOT DELETE 	 		   -->
 			</div>
-			<script src="scripts/scripts.js">
-			</script>
-			<script> 
-				var newItemList = [];
-				var allItemsArray = <?php echo json_encode($itemList); ?>;
-				//console.log("AllItemArray: " + allItemsArray);
-				//Convert PHP Items to Javascript Items
-				for(var i = 0; i < allItemsArray.length; i++){
-					var tempItem = new ItemJS();
-					var object = allItemsArray[i];
-					//console.log(object);
-
-					tempItem.name = object.name;
-					tempItem.picture = object.picture;
-					tempItem.description = object.desc;
-					tempItem.cost = object.price;
-				
-					//Save to Array at index [i]
-					newItemList[i] = tempItem;
-				}
-		
-				//Call function to format data
-				document.getElementById('menu-item-container').appendChild(createTableFormattedListOfItems(newItemList));	//Was itemArray
-
-			</script>
-		</div><br>
-    
-<!--    Checkboxes-->
-    
-<!--    Calories-->
+      
+<!--      Checkboxes-->
+  <div class="checkboxes">
+      <!--    Calories-->
     <div class="calories-filter">
     <p><strong>Filter by Calories</strong></p>
     
@@ -106,70 +93,140 @@
     </form>
     </div>
     
-<!--    Sugar-->
-    <div class="sugar-filter">
+      <!--    Sugar-->
+  <div class="sugar-filter">
     <p><strong>Filter by Sugar(g)</strong></p>
     
     <form>
-     <label><input type="checkbox" name="sugar" value="">Less than 30(g)</label><br>
-     <label><input type="checkbox" name="sugar" value="">Less than 50(g)</label><br>  
+      <label><input type="checkbox" class="sugar "name="sugar" value="30">Less  than 30(g)</label><br>
+      <label><input type="checkbox" class="sugar" name="sugar" value="50">Less than  50(g)</label><br>    
     </form>
-    </div>
-	    
-    <script>
-    //If checkbox is checked send a request to run a query on the database FROM items WHERE .class '<' this.value then echo the results
-    $("input.calories:checkbox").on("change",function(){
+  </div>    
+<!--      Prices-->
+  <div class="price-filter">
+    <p><strong>Filter by Price</strong></p>
     
-      if(this.checked){               
+    <form>
+      <label><input type="checkbox" class="price "name="price" value="5">Less  than $5(g)</label><br>
+      <label><input type="checkbox" class="price" name="price" value="10">Less than  $10(g)</label><br>    
+    </form>
+  </div>
         
-        var column = this.class; //The class determines which column of the table is called    
-        var value = $(this).attr('value'); //Takes the numeric value from the selected box
-        console.log(value); 
-        //$.post('showItems.php', {type: column});
-        //$.post('showItems.php', {value: value});
-               
-       //Can we call the php code above to run a query using variables column and value? 
-       //make a php function above and call it
+  </div>  
         
-        // function below will run showItemss.php?c=column?v=value
-            $.ajax({
-                type: "GET",
-                url: "showItems.php" ,
-                data: { c: column,
-                        v: value},
-                success: function() { 
+		<script src="scripts/scripts.js"></script>   
+    <script>             
+    //If checkbox is checked send a request to run a query on the database FROM items WHERE .class '<' this.value then echo the results
+      $("input.calories:checkbox").on("change",function() {
+      if (this.checked) {     
+        let caloriesValue = $(this).attr('value');
+        console.log(caloriesValue);
+        $.ajax({
+          type: 'POST',
+          url: 'showItems.php',
+          data: { calories: caloriesValue },
+          dataType: 'json',
+         error: function(xhr,textStatus,err)
+          {
+            console.log("readyState: " + xhr.readyState);
+            console.log("responseText: "+ xhr.responseText);
+            console.log("status: " + xhr.status);
+            console.log("text status: " + textStatus);
+            console.log("error: " + err);
+          },
+          success: function(result) {
+            console.log("hello world");
+            console.log(result);
+            //console.log(JSON.parse(result));
 
-                // here is the code that will run on client side after running clear.php on server
-                
+          // here is the code that will run on client side after running showItems.php on server
+                  
+                  
         var newItemList = [];
-				var allItemsArray = <?php echo json_encode($itemList); ?>;
+				//var allItemsArray = filteredList;
 				//console.log("AllItemArray: " + allItemsArray);
 				//Convert PHP Items to Javascript Items
-				for(var i = 0; i < allItemsArray.length; i++){
+				for(var i = 0; i < result.length; i++){
 					var tempItem = new ItemJS();
-					var object = allItemsArray[i];
+					var object = result[i];
 					//console.log(object);
 
-					tempItem.name = object.name;
-					tempItem.picture = object.picture;
-					tempItem.description = object.desc;
+					tempItem.name = object.itemName;
+					tempItem.picture = object.picLink;
+					tempItem.description = object.description;
 					tempItem.cost = object.price;
 				
 					//Save to Array at index [i]
 					newItemList[i] = tempItem;
 				}
-		
+		    
 				//Call function to format data
 				document.getElementById('menu-item-container').appendChild(createTableFormattedListOfItems(newItemList));	//Was itemArray
-  
-              
-          // function below reloads current page
-          location.reload();
+             
+        // function below reloads current page
+        //location.reload();
+
               }
           });
       }        
-  }); 
+  });     
+    
+ 
+      
+      
+      
+      
+      
+      
+  //Sugar checkbox function
+//    $("input.sugar:checkbox").on("change",function() {
+//      if (this.checked) {  
+//                    console.log("hello world");
+//
+//        let caloriesValue = $(this).attr('value');
+//        $.ajax({
+//          type: 'POST',
+//          url: 'showItems.php',
+//          data: { calories: caloriesValue },
+//          dataType: 'json',
+//          success: function(result) {
+//            console.log("hello world");
+//            console.log(result[0]);
+//            //console.log(JSON.parse(result));
+//
+//          // here is the code that will run on client side after running showItems.php on server
+//                  
+//                  
+//        var newItemList = [];
+//				//var allItemsArray = filteredList;
+//				//console.log("AllItemArray: " + allItemsArray);
+//				//Convert PHP Items to Javascript Items
+//				for(var i = 0; i < result.length; i++){
+//					var tempItem = new ItemJS();
+//					var object = result[i];
+//					//console.log(object);
+//
+//					tempItem.name = object.itemName;
+//					tempItem.picture = object.picLink;
+//					tempItem.description = object.description;
+//					tempItem.cost = object.price;
+//				
+//					//Save to Array at index [i]
+//					newItemList[i] = tempItem;
+//				}
+//		    
+//				//Call function to format data
+//				document.getElementById('menu-item-container').appendChild(createTableFormattedListOfItems(newItemList));	//Was itemArray
+//             
+//        // function below reloads current page
+//        //location.reload();
+//
+//              }
+//          });
+//      }        
+//  }); 
     </script>  
       
+		</div>
 	</body>
 </html>
