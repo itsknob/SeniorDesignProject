@@ -88,8 +88,8 @@
     <p><strong>Filter by Calories</strong></p>
     
     <form>
-      <label><input type="checkbox" id="box1" class="calories "name="calories" value="300">Less  than 300</label><br>
-      <label><input type="checkbox" class="calories" name="calories" value="500">Less than  500</label><br>    
+      <label><input type="checkbox" id="box1" class="calories" value="300">Less than 300</label><br>
+      <label><input type="checkbox" class="calories" value="500">Less than 500</label><br>    
     </form>
     </div>
     
@@ -98,8 +98,8 @@
     <p><strong>Filter by Sugar(g)</strong></p>
     
     <form>
-      <label><input type="checkbox" class="sugar "name="sugar" value="30">Less  than 30(g)</label><br>
-      <label><input type="checkbox" class="sugar" name="sugar" value="50">Less than  50(g)</label><br>    
+      <label><input type="checkbox" class="sugar " value="30">Less  than 30(g)</label><br>
+      <label><input type="checkbox" class="sugar" value="50">Less than  50(g)</label><br>    
     </form>
   </div>    
 <!--      Prices-->
@@ -107,8 +107,8 @@
     <p><strong>Filter by Price</strong></p>
     
     <form>
-      <label><input type="checkbox" class="price "name="price" value="5">Less  than $5(g)</label><br>
-      <label><input type="checkbox" class="price" name="price" value="10">Less than  $10(g)</label><br>    
+      <label><input type="checkbox" class="price" value="5">Less  than $5(g)</label><br>
+      <label><input type="checkbox" class="price" value="10">Less than  $10(g)</label><br>    
     </form>
   </div>
         
@@ -117,14 +117,16 @@
 		<script src="scripts/scripts.js"></script>   
     <script>             
     //If checkbox is checked send a request to run a query on the database FROM items WHERE .class '<' this.value then echo the results
-      $("input.calories:checkbox").on("change",function() {
-      if (this.checked) {     
-        let caloriesValue = $(this).attr('value');
-        console.log(caloriesValue);
+      $(":checkbox").on("change",function() {
+      if (this.checked) {
+        let boxClass = $(this).attr('class');
+        let boxValue = $(this).attr('value');
+        //let caloriesValue = $(this).attr('value');
+        console.log(boxValue);
         $.ajax({
           type: 'POST',
           url: 'showItems.php',
-          data: { calories: caloriesValue },
+          data: { class: boxClass, value: boxValue },
           dataType: 'json',
          error: function(xhr,textStatus,err)
           {
