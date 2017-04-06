@@ -83,7 +83,7 @@ $CompanyName = "NUWC Juicing";
 					ABOUT US
 				</div>
 				<?php
-					echo nl2br( file_get_contents('aboutus.txt') ); // get the contents, and echo it out.
+					echo nl2br( file_get_contents('admintools/aboutus.txt') ); // get the contents, and echo it out.
 				?>
 			</div>
 		</div>

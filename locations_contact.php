@@ -62,9 +62,15 @@
 		
 		<h2>Locations and Contact Us</h2>
 
+	<?php
+	$twitterHandle = file_get_contents('adminTools/twitterHandle.txt');
+	?>
+
 	<div class="main">
 	<div class="contact">
-		123-456-7890 | company@email.com | 1176 Howell St, Newport, RI 02841
+		<?php
+		echo nl2br( file_get_contents('adminTools/contactInfo.txt') );
+		?>		
 		<div id="map"></div>
 		<script>
 			function initMap() {
@@ -83,7 +89,9 @@
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDa_AlzHm7fCPqGli0agnoC8XFznqy50A&callback=initMap">
 		</script>
 		<br>
-		<p>Our exact location on the NUWC campus changes throughout the day, but is updated on our twitter page:</p><br>
+		<?php
+		echo nl2br( file_get_contents('adminTools/locationInfo.txt') );
+		?><br>
 		<div id="loctwitter">
 			<a class="twitter-timeline" href="https://twitter.com/nuwcJuicing"> Tweets by nuwcJuicing </a>
 			<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>

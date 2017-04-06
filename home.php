@@ -101,9 +101,12 @@
 			Deal of the day
 			<br><br><br><br><br><br><br><br><br><br><br>
 		</div>
-		
+		<?php
+		$twitterHandle = file_get_contents('adminTools/twitterHandle.txt');
+		?>
 		<div class="twitterFeed well">
-			<a class="twitter-timeline" href="https://twitter.com/nuwcJuicing"> Tweets by nuwcJuicing </a>
+			<a class="twitter-timeline" 
+			href=<?php echo "https://twitter.com/$twitterHandle" ?>> Tweets by nuwcJuicing </a>
 			<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 		</div>
 		<div class="footer ">
@@ -119,17 +122,29 @@
 
 		<!-- Wrapper for slides -->
 		<div class  ="carousel-inner" role="listbox">
-			<div class="item active">
-				<img src="images/img1.png" alt="Chania">
-			</div>
-			<!--
-			<div class="item">
-				<img src="images/img2.png" alt="Chania">
-			</div>
-			-->
-			<div class="item">
-				<img src="images/img3.jpg" alt="Flower">
-			</div>
+		<?php
+		$dirname = "images/slideshow/";
+        $images = glob($dirname."*.png");
+        if (count($images) == 0) {
+            echo 'There are no images in the slideshow';
+            goto a;
+        }
+        $count = -1;
+
+        echo '<div class="item active">
+				<img src="'.$images[0].'" alt="Chania">
+			</div>';
+
+        foreach($images as $image) {
+        	$count = $count + 1;
+        	if($count == 0)
+        		continue;
+        	echo '<div class="item">
+				<img src="'.$images[$count].'" alt="Chania">
+			</div>';
+        }
+        a:
+        ?>
 
 		</div>
 
