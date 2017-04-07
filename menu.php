@@ -7,7 +7,6 @@
 	ini_set('display_errors', 1);
 	ini_set('display_startup_errors', 1);
 	error_reporting(E_ALL);
-
 	//Used to set session information
 	include "scripts.php";
   include "showItems.php";
@@ -20,7 +19,6 @@
     $itemList = $db->prepare('SELECT * FROM items');
     $itemList->execute();
     $itemList = $itemList->fetchAll(PDO::FETCH_ASSOC);
-
 ?>
 
 <!-- Latest compiled and minified CSS -->
@@ -46,7 +44,6 @@
     border: none;
     cursor: pointer;
 }
-
 .dropbtn:hover, .dropbtn:focus {
     background-color: #3e8e41;
 }
@@ -59,13 +56,11 @@
     padding: 14px 20px 12px 45px;
     border: none;
 }
-
 .dropdown {
     float: right;
     position: relative;
     display: inline-block;
 }
-
 .dropdown-content {
     display: none;
     position: absolute;
@@ -76,16 +71,13 @@
     right: 0;
     z-index: 1;
 }
-
 .dropdown-content a {
     color: black;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
 }
-
 .dropdown a:hover {background-color: #ddd}
-
 .show {display:block;}
 </style>
 	</head>
@@ -156,11 +148,11 @@
     
       <!--    Sugar-->
   <div class="sugar-filter">
-    <p><strong>Filter by Sugar(g)</strong></p>
+    <p><strong>Filter by Sugar (g)</strong></p>
     
     <form>
-      <label><input type="checkbox" class="sugars" value="5">Less  than 5(g)</label><br>
-      <label><input type="checkbox" class="sugars" value="10">Less than  10(g)</label><br>    
+      <label><input type="checkbox" class="sugars" value="5">Less  than 5</label><br>
+      <label><input type="checkbox" class="sugars" value="10">Less than  10</label><br>    
     </form>
   </div>    
 <!--      Prices-->
@@ -168,8 +160,8 @@
     <p><strong>Filter by Price</strong></p>
     
     <form>
-      <label><input type="checkbox" class="price" value="5">Less  than $5(g)</label><br>
-      <label><input type="checkbox" class="price" value="10">Less than  $10(g)</label><br>    
+      <label><input type="checkbox" class="price" value="5">Less  than $5</label><br>
+      <label><input type="checkbox" class="price" value="10">Less than  $10</label><br>    
     </form>
   </div>
         
@@ -199,7 +191,6 @@
 		
 				//Call function to format data
     var container = (createTableFormattedListOfItems(newItemList));    
-
     
 				document.getElementById('menu-item-container').appendChild(container);	//Was itemArray
 		</script>    
@@ -257,7 +248,6 @@
             console.log("hello world");
             console.log(result);
             //console.log(JSON.parse(result));
-
           // here is the code that will run on client side after running showItems.php on server
                   
                   
@@ -269,7 +259,6 @@
 					var tempItem = new ItemJS();
 					var object = result[i];
 					//console.log(object);
-
 					tempItem.name = object.itemName;
 					tempItem.picture = object.picLink;
 					tempItem.description = object.description;
@@ -288,7 +277,6 @@
     
         // function below reloads current page
         //location.reload();
-
               }
           });
       }        
