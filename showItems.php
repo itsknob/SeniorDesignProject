@@ -40,17 +40,4 @@
       echo json_encode($items);
   }
     }
-  
-  //$v = mysqli_real_escape_string($con,$v);
-  //$type = $_POST['value'];
-    
-
-
-
-
-//mysqli_free_result($result);
-//mysqli_close($connection);
-//else {
-//  ...
-//}
 ?>
