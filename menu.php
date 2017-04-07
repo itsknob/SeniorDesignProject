@@ -37,6 +37,57 @@
 		<title>Menu Page</title>
 		<link rel="stylesheet" type="text/css" href="styles.css">
 		<link rel="javascript" type="text/javascript" href="scripts/scripts.js">
+    <style>
+.dropbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+    background-color: #3e8e41;
+}
+#myInput {
+    border-box: box-sizing;
+    background-image: url('searchicon.png');
+    background-position: 14px 12px;
+    background-repeat: no-repeat;
+    font-size: 16px;
+    padding: 14px 20px 12px 45px;
+    border: none;
+}
+
+.dropdown {
+    float: right;
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f6f6f6;
+    min-width: 230px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    right: 0;
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown a:hover {background-color: #ddd}
+
+.show {display:block;}
+</style>
 	</head>
 	<body>
 		<!-- Once the php code above works this can be deleted -->
@@ -80,10 +131,16 @@
 		</nav>
 		<div id="menu-content" align="center">
 			<h2>Welcome to the Menu Page</h2>
+      
+      
 			<div id="menu-item-container" align="center">
 				<!-- REQUIRED FOR SCRIPTS TO POPULATE MENU -->
 				<!-- 			 DO NOT DELETE 	 		   -->
 			</div>
+      
+      
+
+      
       
 <!--      Checkboxes-->
   <div class="checkboxes">
@@ -102,8 +159,8 @@
     <p><strong>Filter by Sugar(g)</strong></p>
     
     <form>
-      <label><input type="checkbox" class="sugar " value="30">Less  than 30(g)</label><br>
-      <label><input type="checkbox" class="sugar" value="50">Less than  50(g)</label><br>    
+      <label><input type="checkbox" class="sugars" value="5">Less  than 5(g)</label><br>
+      <label><input type="checkbox" class="sugars" value="10">Less than  10(g)</label><br>    
     </form>
   </div>    
 <!--      Prices-->
@@ -117,11 +174,12 @@
   </div>
         
   </div>  
-        
-		<script src="scripts/scripts.js"></script>
+    
+ 
       
       
-  <script> 
+		<script src="scripts/scripts.js"></script>  
+    <script> 
 				var newItemList = [];
 				var allItemsArray = <?php echo json_encode($itemList); ?>;
 				//console.log("AllItemArray: " + allItemsArray);
@@ -150,11 +208,38 @@
     <script>             
     //If checkbox is checked send a request to run a query on the database FROM items WHERE .class '<' this.value then echo the results
       $(":checkbox").on("change",function() {
+    
+        //If no checkboxes are checked display all menu items
+    if($("input:checked" ).length == 0){
+      
+      var newItemList = [];
+				var allItemsArray = <?php echo json_encode($itemList); ?>;
+				//console.log("AllItemArray: " + allItemsArray);
+				//Convert PHP Items to Javascript Items
+				for(var i = 0; i < allItemsArray.length; i++){
+					var tempItem = new ItemJS();
+					var object = allItemsArray[i];
+					//console.log(object);
+					tempItem.name = object.itemName;
+					tempItem.picture = object.picLink;
+					tempItem.description = object.description;
+					tempItem.cost = object.price;
+				
+					//Save to Array at index [i]
+					newItemList[i] = tempItem;
+				}
+		
+				//Call function to format data
+      container = (createTableFormattedListOfItems(newItemList)); 
+      $('#menu-item-container').empty().append(container);
+    }  
+      
+      //runs code in reference to selected checkbox  
       if (this.checked) {
         let boxClass = $(this).attr('class');
         let boxValue = $(this).attr('value');
         //let caloriesValue = $(this).attr('value');
-        console.log(boxValue);
+        console.log(boxClass);
         $.ajax({
           type: 'POST',
           url: 'showItems.php',

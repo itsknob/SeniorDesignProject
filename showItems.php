@@ -16,18 +16,17 @@
       echo json_encode($items);
       }
     }  
-//     Sugar is not in the database yet
-//  else if($checkerClass == 'sugar'){
-//      $sugar = (isset($_POST['value'])) ? $_POST['value'] : null;
-//      if ($sugar) {
-//    
-//      $items = $db->prepare('SELECT * FROM items WHERE sugar < :value');
-//      $items->execute(['value' => $sugar]);
-//      $items = $items->fetchAll(PDO::FETCH_ASSOC);
-//
-//      echo json_encode($items);
-//  }
-//    }
+  else if($checkerClass == 'sugars'){
+      $sugars = (isset($_POST['value'])) ? $_POST['value'] : null;
+      if ($sugars) {
+    
+      $items = $db->prepare('SELECT * FROM items WHERE sugars < :value');
+      $items->execute(['value' => $sugars]);
+      $items = $items->fetchAll(PDO::FETCH_ASSOC);
+
+      echo json_encode($items);
+  }
+    }
 
   else if($checkerClass == 'price'){
       $price = (isset($_POST['value'])) ? $_POST['value'] : null;
