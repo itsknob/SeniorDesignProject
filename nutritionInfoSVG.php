@@ -29,7 +29,7 @@ mysqli_close($con);
 	var currentItem = JSON.parse(<?php echo $jsonData; ?>);
 	var margin = {top: 30, right: 10, bottom: 15, left: 10};
     var width = 260;
-    var height = 135;
+    var height = 175;
 	
     var svg = d3.select("body")
                 .append("svg")
@@ -66,7 +66,7 @@ mysqli_close($con);
         .attr("font-family", "Helvetica Black")
 		.attr("font-size", 13)
 		.attr("style", "font-weight:500")
-        .text(currentItem.calories);						//Calories Count variable
+        .text(currentItem.calories);
 		
 	svg.append("line")
         .attr("x1", 0)
@@ -82,7 +82,8 @@ mysqli_close($con);
 		.attr("font-size", 13)
 		.attr("style", "font-weight:900")
         .text("% Daily Value");
-	//1
+	
+	
 	svg.append("line")
         .attr("x1", 0)
 		.attr("y1", 70)
@@ -104,7 +105,7 @@ mysqli_close($con);
         .attr("font-family", "Helvetica Black")
 		.attr("font-size", 13)
 		.attr("style", "font-weight:500")
-        .text(currentItem.choles + "mg");					//Cholesterol Count variable
+        .text(currentItem.choles + "mg");
 		
 	svg.append("text")
 		.attr("x", 235)
@@ -112,8 +113,10 @@ mysqli_close($con);
 		.attr("font-family", "Helvetica Black")
 		.attr("font-size", 13)
 		.attr("style", "font-weight:900")
-        .text(Math.round(((currentItem.choles / 300) * 100)) + "%");		//Calculate Cholesterol Daily Based on variable (300mg day)
-	//2
+		//Calculate Cholesterol Daily Based on variable (300mg day)
+        .text(Math.round(((currentItem.choles / 300) * 100)) + "%");	
+	
+	
 	svg.append("line")
         .attr("x1", 0)
 		.attr("y1", 90)
@@ -135,26 +138,84 @@ mysqli_close($con);
         .attr("font-family", "Helvetica Black")
 		.attr("font-size", 13)
 		.attr("style", "font-weight:500")
-        .text(currentItem.sodi + "mg");					//Sodium Count variable
+        .text(currentItem.sodi + "mg");	
 		
 	svg.append("text")
 		.attr("x", 235)
 		.attr("y", 105)
 		.attr("font-family", "Helvetica Black")
 		.attr("font-size", 13)
-		.attr("style", "font-weight:900")
-        .text(Math.round(((currentItem.sodi / 2400) * 100)) + "%");	//Calculate Sodium Daily Based on variable (2400mg day)
-	//3
+		.attr("style", "font-weight:900")	
+		//Calculate Sodium Daily Based on variable (2400mg day)
+        .text(Math.round(((currentItem.sodi / 2400) * 100)) + "%");
+		
+	//Carbohydrate / Sugars
 	svg.append("line")
         .attr("x1", 0)
 		.attr("y1", 110)
 		.attr("x2", 260)
 		.attr("y2", 110)
 		.attr("style", "stroke:black;stroke-width:1");
-		
+	
 	svg.append("text")
         .attr("x", 0)
         .attr("y", 125)
+        .attr("font-family", "Helvetica Black")
+		.attr("font-size", 13)
+		.attr("style", "font-weight:900")
+        .text("Total Carbohydrate");
+	
+	svg.append("text")
+        .attr("x", 116)
+        .attr("y", 125)
+        .attr("font-family", "Helvetica Black")
+		.attr("font-size", 13)
+		.attr("style", "font-weight:500")
+        .text(currentItem.carbo + "g");	
+	
+	svg.append("text")
+		.attr("x", 235)
+		.attr("y", 125)
+		.attr("font-family", "Helvetica Black")
+		.attr("font-size", 13)
+		.attr("style", "font-weight:900")	
+		//Calculate Total Carbohydrate Daily Based on variable (300g day)
+        .text(Math.round(((currentItem.carbo / 300) * 100)) + "%");
+		
+	svg.append("line")
+        .attr("x1", 0)
+		.attr("y1", 130)
+		.attr("x2", 260)
+		.attr("y2", 130)
+		.attr("style", "stroke:black;stroke-width:1");
+	
+	svg.append("text")
+        .attr("x", 15)
+        .attr("y", 145)
+        .attr("font-family", "Helvetica Black")
+		.attr("font-size", 13)
+		.attr("style", "font-weight:500")
+        .text("Sugars");
+	
+	svg.append("text")
+        .attr("x", 57)
+        .attr("y", 145)
+        .attr("font-family", "Helvetica Black")
+		.attr("font-size", 13)
+		.attr("style", "font-weight:500")
+        .text(currentItem.sugars + "g");	
+	
+	//Protein		
+	svg.append("line")
+        .attr("x1", 15)
+		.attr("y1", 150)
+		.attr("x2", 260)
+		.attr("y2", 150)
+		.attr("style", "stroke:black;stroke-width:1");
+		
+	svg.append("text")
+        .attr("x", 0)
+        .attr("y", 165)
         .attr("font-family", "Helvetica Black")
 		.attr("font-size", 13)
 		.attr("style", "font-weight:900")
@@ -162,24 +223,24 @@ mysqli_close($con);
 
 	svg.append("text")
         .attr("x", 45)
-        .attr("y", 125)
+        .attr("y", 165)
         .attr("font-family", "Helvetica Black")
 		.attr("font-size", 13)
 		.attr("style", "font-weight:500")
-        .text(currentItem.protein + "g");					//Protein Count variable
+        .text(currentItem.protein + "g");
 		
 	svg.append("line")
         .attr("x1", 0)
-		.attr("y1", 133)
+		.attr("y1", 173)
 		.attr("x2", 260)
-		.attr("y2", 133)
+		.attr("y2", 173)
 		.attr("style", "stroke:black;stroke-width:4");
 		
 	svg.append("rect")
 		.attr("x", -5)
 		.attr("y", -25)
 		.attr("width", 270)
-		.attr("height", 170)
+		.attr("height", 210)
 		.attr("style", "fill:none;stroke-width:1;stroke:black");
 		
 </script>
