@@ -77,11 +77,28 @@ $con = makeConnection($dbhost, $dbuser, $dbpass, $dbname);
     }
     ?>
 
-    <!--********Contact Us Information*******************-->
+    <!--********Maps Information*******************-->
+    <?php
+    $latText = changeTextFile("mapsLatitude.txt", "lat");
+    $longText = changeTextFile("mapsLongitude.txt", "long");
+    ?>
+
+    <h2>Please Enter the Latitude and Longitude of the Location You Would Like to Appear on the Map:</h2>
+    <a href="https://support.google.com/maps/answer/18539?source=gsearch&hl=en">You can get the latitude and longitude of an address by following these instructions</a>
+    <form action="" method="post">
+        Latitude:<br>
+        <textarea name="lat" ><?php echo htmlspecialchars($latText) ?></textarea>
+        <br>Longitude:<br>
+        <textarea name="long" ><?php echo htmlspecialchars($longText) ?></textarea>
+        <br>
+        <input type="submit" />
+        <input type="reset" />
+    </form>
+
+    <!--********Contact Us Info**************************-->
     <?php
     $contactInfoText = changeTextFile("contactInfo.txt", "contactInfo");
     ?>
-
     <h2>Please Enter Contact Information- This Will Appear at the Top of the Locations and Contact Us Page:</h2>
     <form action="" method="post">
         <textarea name="contactInfo" cols=48 rows=24><?php echo htmlspecialchars($contactInfoText) ?></textarea><br>
