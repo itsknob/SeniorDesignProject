@@ -293,61 +293,6 @@
           });
       }        
   });     
-    
- 
-      
-      
-      
-      
-      
-      
-  //Sugar checkbox function
-//    $("input.sugar:checkbox").on("change",function() {
-//      if (this.checked) {  
-//                    console.log("hello world");
-//
-//        let caloriesValue = $(this).attr('value');
-//        $.ajax({
-//          type: 'POST',
-//          url: 'showItems.php',
-//          data: { calories: caloriesValue },
-//          dataType: 'json',
-//          success: function(result) {
-//            console.log("hello world");
-//            console.log(result[0]);
-//            //console.log(JSON.parse(result));
-//
-//          // here is the code that will run on client side after running showItems.php on server
-//                  
-//                  
-//        var newItemList = [];
-//				//var allItemsArray = filteredList;
-//				//console.log("AllItemArray: " + allItemsArray);
-//				//Convert PHP Items to Javascript Items
-//				for(var i = 0; i < result.length; i++){
-//					var tempItem = new ItemJS();
-//					var object = result[i];
-//					//console.log(object);
-//
-//					tempItem.name = object.itemName;
-//					tempItem.picture = object.picLink;
-//					tempItem.description = object.description;
-//					tempItem.cost = object.price;
-//				
-//					//Save to Array at index [i]
-//					newItemList[i] = tempItem;
-//				}
-//		    
-//				//Call function to format data
-//				document.getElementById('menu-item-container').appendChild(createTableFormattedListOfItems(newItemList));	//Was itemArray
-//             
-//        // function below reloads current page
-//        //location.reload();
-//
-//              }
-//          });
-//      }        
-//  }); 
     </script>  
       
 		</div>
