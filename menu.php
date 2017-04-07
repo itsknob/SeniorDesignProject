@@ -16,6 +16,10 @@
 	$dbuser = "root";
 	$dbpass = "";
 	$dbname = "juicing";
+  
+    $itemList = $db->prepare('SELECT * FROM items');
+    $itemList->execute();
+    $itemList = $itemList->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 
@@ -114,7 +118,35 @@
         
   </div>  
         
-		<script src="scripts/scripts.js"></script>   
+		<script src="scripts/scripts.js"></script>
+      
+      
+  <script> 
+				var newItemList = [];
+				var allItemsArray = <?php echo json_encode($itemList); ?>;
+				//console.log("AllItemArray: " + allItemsArray);
+				//Convert PHP Items to Javascript Items
+				for(var i = 0; i < allItemsArray.length; i++){
+					var tempItem = new ItemJS();
+					var object = allItemsArray[i];
+					//console.log(object);
+					tempItem.name = object.itemName;
+					tempItem.picture = object.picLink;
+					tempItem.description = object.description;
+					tempItem.cost = object.price;
+				
+					//Save to Array at index [i]
+					newItemList[i] = tempItem;
+				}
+		
+				//Call function to format data
+    var container = (createTableFormattedListOfItems(newItemList));    
+
+    
+				document.getElementById('menu-item-container').appendChild(container);	//Was itemArray
+		</script>    
+      
+      
     <script>             
     //If checkbox is checked send a request to run a query on the database FROM items WHERE .class '<' this.value then echo the results
       $(":checkbox").on("change",function() {
@@ -163,8 +195,12 @@
 				}
 		    
 				//Call function to format data
-				document.getElementById('menu-item-container').appendChild(createTableFormattedListOfItems(newItemList));	//Was itemArray
-             
+        container = (createTableFormattedListOfItems(newItemList));    
+            
+//				document.getElementById('menu-item-container').appendChild(container);	//Was itemArray
+        
+         $('#menu-item-container').empty().append(container);
+    
         // function below reloads current page
         //location.reload();
 
