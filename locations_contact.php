@@ -17,7 +17,7 @@
 <html>
 	<head>
 		<title>Sample Juice Truck Page</title>
-		<link rel="stylesheet" type"text/css" href="styles.css">
+		<link rel="stylesheet" type"text/css" href="locationsstylesheet.css">
 	</head>
 	<body>
 
@@ -50,11 +50,9 @@
 						} else {
 							echo "
 								<ul class='nav navbar-nav navbar-right'>
-									<li><a href='registration.php'><span class='glyphicon glyphicon-user'></span> Sign Up</a></li>
 									<li><a href='login.php'><span class='glyphicon glyphicon-log-in'></span> Login</a></li>
 									<li><a href='cart.php'><span class='glyphicon glyphicon-shopping-cart'></span> Cart</a></li>
-						       		<li><a href='logout.php'><span class glyphicon-shopping-logout'></span> Logout</a><li>
-								</ul>
+						       	</ul>
 								"; // End of Navbar - Logged Out
 						} 
 					?>
@@ -73,7 +71,7 @@
 	<div class="contact">
 		<?php
 		echo nl2br( file_get_contents('adminTools/contactInfo.txt') );
-		?>
+		?> <br><br>
 		<!--123-456-7890 | company@email.com | 1176 Howell St, Newport, RI 02841-->
 		<div id="map"></div>
 		<script>
@@ -95,7 +93,7 @@
 		<br>
 		<?php
 		echo nl2br( file_get_contents('adminTools/locationInfo.txt') );
-		?><br>
+		?><br><br>
 		<div id="loctwitter">
 			<a class="twitter-timeline" href=<?php echo "https://twitter.com/$twitterHandle" ?>> Tweets by nuwcJuicing </a>
 			<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
