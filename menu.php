@@ -9,7 +9,7 @@
 	error_reporting(E_ALL);
 	//Used to set session information
 	include "scripts.php";
-    include "showItems.php";
+    
 	//Variables
 	$dbhost = "localhost";
 	$dbuser = "root";
