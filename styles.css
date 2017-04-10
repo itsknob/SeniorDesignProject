@@ -101,6 +101,7 @@ h2 {
   margin-top: 50px;
   box-shadow: 0 0 10px black;
   background-image: url("images/beigeBackground.jpg");
+  min-height: 300px;
 }
 .aboutusmain {
   margin: 0 auto;
@@ -124,6 +125,24 @@ h2 {
   box-shadow: 0 0 10px black;
 }
 
+/*************** Menu Page ******************/
+.checkboxes {
+	float: left;
+    width: 135px;
+    border-right: 1px outset grey;
+    margin-right: 10px;
+    border-bottom: 1px outset grey;
+    text-align: left;
+    padding-left: 5px;
+}
+
+.itemcontainer {
+	background-color: green;
+	height: 100px;
+	width: 100px; 
+	margin: 10px 10px 10px 10px;
+	float: left;
+}
 
 .dealOfDay {
   margin: 35px auto auto auto;  
