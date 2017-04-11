@@ -136,12 +136,35 @@ h2 {
     padding-left: 5px;
 }
 
-.itemcontainer {
-	background-color: green;
-	height: 100px;
-	width: 100px; 
-	margin: 10px 10px 10px 10px;
-	float: left;
+#menu-item-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding-right: 10px;
+}
+  
+.itemcard {
+  background: #ffe8e2;
+  width: 20vw;
+  height: 20vw;
+  margin-bottom: 10px;
+  box-shadow: 0 0 3px grey;
+  border-radius: 5px;
+}
+
+@media (max-width: 1250px) {
+	.itemcard {
+		width: 29vw;
+		height: 29vw;
+	}
+}
+
+@media (max-width: 1000px) {
+	.itemcard {
+		width: 26vw;
+		height: 26vw;
+	}
 }
 
 .dealOfDay {
@@ -154,6 +177,10 @@ h2 {
   margin: 35px auto 100px auto;
   width: 80%;
   box-shadow: 0 0 10px black;
+}
+
+.filterlabels {
+	font-weight: normal;
 }
 
 /******************* Slideshow **********************/
