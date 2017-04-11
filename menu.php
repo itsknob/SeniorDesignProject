@@ -9,7 +9,7 @@
 	error_reporting(E_ALL);
 	//Used to set session information
 	include "scripts.php";
-    
+    include "showItems.php";
 	//Variables
 	$dbhost = "localhost";
 	$dbuser = "root";
@@ -134,8 +134,8 @@
 			<p><strong>Filter by Calories</strong></p>
 			
 			<form>
-			  <label><input type="checkbox" id="box1" class="calories" value="300">Less than 300</label><br>
-			  <label><input type="checkbox" class="calories" value="500">Less than 500</label><br>    
+			  <label class="filterlabels"><input type="checkbox" id="box1" class="calories" value="300">Less than 300</label><br>
+			  <label class="filterlabels"><input type="checkbox" class="calories" value="500">Less than 500</label><br>    
 			</form>
 			</div>
 			
@@ -144,8 +144,8 @@
 			<p><strong>Filter by Sugar (g)</strong></p>
 			
 			<form>
-			  <label><input type="checkbox" class="sugars" value="5">Less  than 5</label><br>
-			  <label><input type="checkbox" class="sugars" value="10">Less than  10</label><br>    
+			  <label class="filterlabels"><input type="checkbox" class="sugars" value="5">Less  than 5</label><br>
+			  <label class="filterlabels"><input type="checkbox" class="sugars" value="10">Less than  10</label><br>    
 			</form>
 		  </div>    
 		<!--      Prices-->
@@ -153,15 +153,13 @@
 			<p><strong>Filter by Price</strong></p>
 			
 			<form>
-			  <label><input type="checkbox" class="price" value="5">Less  than $5</label><br>
-			  <label><input type="checkbox" class="price" value="10">Less than  $10</label><br>    
+			  <label class="filterlabels"><input type="checkbox" class="price" value="5">Less  than $5</label><br>
+			  <label class="filterlabels"><input type="checkbox" class="price" value="10">Less than  $10</label><br>    
 			</form>
 			</div>
 		</div>  
 	  
-		<div id="menu-item-container" align="center">
-				<!-- REQUIRED FOR SCRIPTS TO POPULATE MENU -->
-				<!-- 			 DO NOT DELETE 	 		   -->
+		<div id="menu-item-container">
 		</div>
 		</div>
      
@@ -173,12 +171,10 @@
     <script>
 		var newItemList = [];
 		var allItemsArray = <?php echo json_encode($itemList); ?>;
-		//console.log("AllItemArray: " + allItemsArray);
-		//Convert PHP Items to Javascript Items
+		
 			for(var i = 0; i < allItemsArray.length; i++){
 				var tempItem = new ItemJS();
 				var object = allItemsArray[i];
-				//console.log(object);
 				tempItem.name = object.itemName;
 				tempItem.picture = object.picLink;
 				tempItem.description = object.description;
@@ -190,18 +186,26 @@
 			console.log(allItemsArray);
 			
 			newItemList.forEach(function (d){
-				var div = document.createElement('div');
-				div.setAttribute("class", "itemcontainer");
-				document.getElementById('menu-item-container').appendChild(div);
+				var itemCardDiv = document.createElement('div');
+				itemCardDiv.setAttribute("class", "itemcard");
+				document.getElementById('menu-item-container').appendChild(itemCardDiv);
+				
+				var itemName = document.createElement('div');
+				itemName.setAttribute("class", "itemname");
+				var itemCard = document.getElementsByClassName //ERROR
 			});
-		/*
-		//Call function to format data
-		var container = (createTableFormattedListOfItems(newItemList));    
-		document.getElementById('menu-item-container').appendChild(container);	//Was itemArray
-		*/
-		</script>    
-      
-      
+			
+			//JQuery to implement additional divs to each item card
+			$(document).ready(function(){
+				$(".itemcard").append("<div class='itemname'></div>").append("<div class='itemstripe'></div>").append("<div class='itemimage'></div>").append("<div class='itemdescription'></div>").append("<div class='itemnutritionbutton'></div>");
+			});
+			
+			allItemsArray.forEach(function (d){
+				var name = document.get
+			});
+			
+			</script>
+
     <script>             
     //If checkbox is checked send a request to run a query on the database FROM items WHERE .class '<' this.value then echo the results
       $(":checkbox").on("change",function() {
@@ -277,7 +281,7 @@
 				//Call function to format data
         container = (createTableFormattedListOfItems(newItemList));    
             
-//				document.getElementById('menu-item-container').appendChild(container);	//Was itemArray
+		//document.getElementById('menu-item-container').appendChild(container);	//Was itemArray
         
          $('#menu-item-container').empty().append(container);
     
