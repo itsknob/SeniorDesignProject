@@ -9,13 +9,13 @@
 	error_reporting(E_ALL);
 	//Used to set session information
 	include "scripts.php";
-    include "showItems.php";
 	//Variables
 	$dbhost = "localhost";
 	$dbuser = "root";
 	$dbpass = "";
 	$dbname = "juicing";
   
+    $db = new PDO('mysql:host=localhost;dbname=juicing;charset=utf8', 'root', '');
     $itemList = $db->prepare('SELECT * FROM items');
     $itemList->execute();
     $itemList = $itemList->fetchAll(PDO::FETCH_ASSOC);
@@ -145,7 +145,7 @@
 			
 			<form>
 			  <label class="filterlabels"><input type="checkbox" class="sugars" value="5">Less  than 5</label><br>
-			  <label class="filterlabels"><input type="checkbox" class="sugars" value="10">Less than  10</label><br>    
+			  <label class="filterlabels"><input type="checkbox" class="sugars" value="10">Less than 10</label><br>    
 			</form>
 		  </div>    
 		<!--      Prices-->
@@ -154,7 +154,7 @@
 			
 			<form>
 			  <label class="filterlabels"><input type="checkbox" class="price" value="5">Less  than $5</label><br>
-			  <label class="filterlabels"><input type="checkbox" class="price" value="10">Less than  $10</label><br>    
+			  <label class="filterlabels"><input type="checkbox" class="price" value="10">Less than $10</label><br>    
 			</form>
 			</div>
 		</div>  
@@ -210,6 +210,7 @@
     //If checkbox is checked send a request to run a query on the database FROM items WHERE .class '<' this.value then echo the results
       $(":checkbox").on("change",function() {
     
+        $('input').not(this).prop('checked', false); 
         //If no checkboxes are checked display all menu items
     if($("input:checked" ).length == 0){
       
