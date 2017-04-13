@@ -2,6 +2,9 @@
 <?php
 session_start();
 $CompanyName = "NUWC Juicing";
+
+// $_SESSION["cart"] should be either a string that contains what the order is for, or an array of strings for the different parts of the order(2x apple juice, 3x orange juice, etc.), it doesnt really matter. If that's done $order will be used to notify the truck what the order is for through stripe.
+//$order = $_SESSION["cart"];
 ?>
 
 <!-- Latest compiled and minified CSS -->
@@ -69,17 +72,35 @@ $CompanyName = "NUWC Juicing";
 		    	</div>
 		  	</div>
 		</nav>
-		Cart Page
+		Checkout Page
 
-		<form action="/checkout.php" method="POST">
-			<script
-		    	src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-			    data-key="pk_test_ffWhKYspxcvqUl9hmdCaTnrl"
-			    data-amount="1000"
-			    data-name="Web Development"
-			    data-description="Develop a website">
-			</script>
-		</form>
 
-	</body>
+		<?php
+		require 'vendor/autoload.php';
+
+		\Stripe\Stripe::setApiKey('sk_test_YHeBtPwjJyLxSf1dYQhFTDyb ');
+
+		$token = $_POST['stripeToken'];
+		$email = $_POST['stripeEmail'];
+		//If $_SESSION["cart"] was a string of arrays this will make it one big ole sting
+		//$order = implode(", ", $order);
+		$desc = "2x Orange Juice, 3x Apple Juice";
+
+		try {
+		    $charge = \Stripe\Charge::create(array(
+		      "amount" => 1000,
+		      "currency" => "usd",
+		      "source" => $token,
+		      "description" => $desc)//This will be changed to order and will be seen on stripe dashboard
+		      );
+		    $chargeId = $charge->id;
+		    echo '<br>Your order for '.$desc.' has been received!';//$desc will change to order
+		    echo '<br>Your order ID is: '.$chargeId;
+		}catch(\Stripe\Error\Card $e){
+		    echo $e->getMessage();
+		    echo 'didnt work';
+		}
+		?>
+
+		</body>
 </html>
