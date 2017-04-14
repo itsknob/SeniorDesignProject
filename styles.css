@@ -125,48 +125,6 @@ h2 {
   box-shadow: 0 0 10px black;
 }
 
-/*************** Menu Page ******************/
-.checkboxes {
-	float: left;
-    width: 135px;
-    border-right: 1px outset grey;
-    margin-right: 10px;
-    border-bottom: 1px outset grey;
-    text-align: left;
-    padding-left: 5px;
-}
-
-#menu-item-container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  padding-right: 10px;
-}
-  
-.itemcard {
-  background: #ffe8e2;
-  width: 20vw;
-  height: 20vw;
-  margin-bottom: 10px;
-  box-shadow: 0 0 3px grey;
-  border-radius: 5px;
-}
-
-@media (max-width: 1250px) {
-	.itemcard {
-		width: 29vw;
-		height: 29vw;
-	}
-}
-
-@media (max-width: 1000px) {
-	.itemcard {
-		width: 26vw;
-		height: 26vw;
-	}
-}
-
 .dealOfDay {
   margin: 35px auto auto auto;  
   width: 80%;

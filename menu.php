@@ -33,7 +33,7 @@
 <html>
     <head>
         <title>Menu Page</title>
-        <link rel="stylesheet" type="text/css" href="styles.css">
+        <link rel="stylesheet" type="text/css" href="menustylesheet.css">
         <link rel="javascript" type="text/javascript" href="scripts/scripts.js">
        
     <style>
@@ -185,69 +185,96 @@
         });
 
         console.log(allItemsArray);
-       
-        //reset card counter
-        cardCounter = 0;
 
-        allItemsArray.forEach(function (d){
-        	//selecting the current item card
-        	var currentTargetDivId = "itemcard" + cardCounter;
-        	var targetDiv = document.getElementById(currentTargetDivId);
+        function generateItemCards(itemArray){
+        	//reset card counter
+        	cardCounter = 0;
 
-        	//generating the header for item card
-        	var itemHeaderDiv = document.createElement("div");
-        	itemHeaderDiv.setAttribute("class", "itemheader");
-        	//generating the name div for the header 
-        	var itemNameDiv = document.createElement("div");
-        	itemNameDiv.setAttribute("class", "itemname");
-        	var itemNameTextNode = document.createTextNode(d.itemName);
-        	itemNameDiv.appendChild(itemNameTextNode);
-        	//generating the price div for the header
-        	var itemPriceDiv = document.createElement("div");
-        	itemPriceDiv.setAttribute("class", "itemprice");
-        	//fixing the values to be 2 decimals no matter what
-        	var fixedValue = parseFloat(d.price).toFixed([2]);
-        	var itemPriceTextNode = document.createTextNode(fixedValue);
-        	itemPriceDiv.appendChild(itemPriceTextNode);
-        	//adding the name and price to the header
-        	itemHeaderDiv.appendChild(itemNameDiv);
-        	itemHeaderDiv.appendChild(itemPriceDiv);
+	        itemArray.forEach(function (d){
+	        	//selecting the current item card
+	        	var currentTargetDivId = "itemcard" + cardCounter;
+	        	var targetDiv = document.getElementById(currentTargetDivId);
 
-        	//generating the image for the item card
-        	var itemImageDiv = document.createElement("div");
-        	itemImageDiv.setAttribute("class", "itemimage");
-        	var itemImage = document.createElement("img");
-        	itemImage.setAttribute("src", "images/" + d.picLink);
-        	itemImage.setAttribute("alt", d.itemName + "image");
-        	itemImageDiv.appendChild(itemImage);
+	        	//generating the header for item card
+	        	var itemHeaderDiv = document.createElement("div");
+	        	itemHeaderDiv.setAttribute("class", "itemheader");
+	        	//generating the name div for the header 
+	        	var itemNameDiv = document.createElement("div");
+	        	itemNameDiv.setAttribute("class", "itemname");
+	        	var itemNameTextNode = document.createTextNode(d.itemName);
+	        	itemNameDiv.appendChild(itemNameTextNode);
+	        	//generating the price div for the header
+	        	var itemPriceDiv = document.createElement("div");
+	        	itemPriceDiv.setAttribute("class", "itemprice");
+	        	//fixing the values to be 2 decimals no matter what
+	        	var fixedValue = parseFloat(d.price).toFixed([2]);
+	        	var itemPriceTextNode = document.createTextNode("$" + fixedValue);
+	        	itemPriceDiv.appendChild(itemPriceTextNode);
+	        	//adding the name and price to the header
+	        	itemHeaderDiv.appendChild(itemNameDiv);
+	        	itemHeaderDiv.appendChild(itemPriceDiv);
 
-        	//generating the description for item card
+	        	//generating the image for the item card
+	        	var itemImageDiv = document.createElement("div");
+	        	itemImageDiv.setAttribute("class", "itemimage");
+	        	var itemImage = document.createElement("img");
+	        	itemImage.setAttribute("src", "images/" + d.picLink);
+	        	itemImage.setAttribute("alt", d.itemName + "image");
+	        	itemImageDiv.appendChild(itemImage);
 
+	        	//generating the description for item card
+	        	var itemDescriptionDiv = document.createElement("div");
+	        	itemDescriptionDiv.setAttribute("class", "itemdescription");
+	        	var itemDescriptionTextNode = document.createTextNode(d.description);
+	        	itemDescriptionDiv.appendChild(itemDescriptionTextNode);
 
-        	//generating the buttons for item card
+	        	//generating the buttons for item card
+	        	var itemButtonsDiv = document.createElement("div");
+	        	itemButtonsDiv.setAttribute("class", "itembuttons");
+	        	//generating the div for add to cart button
+	        	var itemAddToCartDiv = document.createElement("div");
+	        	itemAddToCartDiv.setAttribute("class", "itemaddtocartbutton");
+	        	var itemAddToCartButton = document.createElement("button");
+	        	itemAddToCartButton.setAttribute("class", "cartbutton");
+	        	itemAddToCartDiv.appendChild(itemAddToCartButton);
+	        	//generating the nutrition div
+	        	var itemNutritionInfoDiv = document.createElement("div");
+	        	itemNutritionInfoDiv.setAttribute("class", "itemnutritionbutton");
+	        	var itemNutritionButton = document.createElement("button");
+	        	itemNutritionButton.setAttribute("class", "nutritionbutton");
+	        	itemNutritionInfoDiv.appendChild(itemNutritionButton);
+	        	//adding the buttons to the button div
+	        	itemButtonsDiv.appendChild(itemAddToCartDiv);
+	        	itemButtonsDiv.appendChild(itemNutritionInfoDiv);
 
+	        	//append all divs to target card
+	        	targetDiv.appendChild(itemHeaderDiv);
+	        	targetDiv.appendChild(itemImageDiv);
+	        	targetDiv.appendChild(itemDescriptionDiv);
+	        	targetDiv.appendChild(itemButtonsDiv);
+	        	cardCounter++;
+	        });
 
+	        //reset card counter
+	        cardCounter = 0;
+	    }
 
+	    //ensure item array isn't longer than 20. 
+	    //if longer than 20 items, trim it to 20 only to avoid displaying too many items.
+	    if(allItemsArray.length < 21){
+	    	generateItemCards(allItemsArray);
+	    }else{
+	    	generateItemCards(allItemsArray.slice(0, 20));
+	    }
 
-
-
-
-
-        	targetDiv.appendChild(itemHeaderDiv);
-        	targetDiv.appendChild(itemImageDiv);
-        	cardCounter++;
-        });
-
-        //reset card counter
-        cardCounter = 0;
     </script>
  
     <script>            
     //If checkbox is checked send a request to run a query on the database FROM items WHERE .class '<' this.value then echo the results
-      $(":checkbox").on("change",function() {
+    $(":checkbox").on("change",function() {
    
-        $('input').not(this).prop('checked', false);
-        //If no checkboxes are checked display all menu items
+    $('input').not(this).prop('checked', false);
+    //If no checkboxes are checked display all menu items
     if($("input:checked" ).length == 0){
      
       var newItemList = [];

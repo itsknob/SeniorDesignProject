@@ -1,0 +1,334 @@
+html {
+  background: beige;
+}
+body {
+  background: beige;
+}
+
+h2 {
+	color: brown;
+	padding-left: 20px;
+	font-weight: bold;
+	margin: 10px auto;
+	text-align: center;
+	display: block;
+}
+/*********************Navbar styling************************/
+/* Navbar background color */
+.navbar.navbar-inverse {
+  background-color: #f7a176;
+}
+
+.navbar-toggle {
+	width: 50px;
+	height: 50px;
+	float: left;
+	margin-right: 0px;
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	border: none;
+}
+
+.navbar-inverse .navbar-toggle:focus {
+	background-color: transparent;
+}
+
+.navbar-inverse .navbar-toggle:hover {
+	background-color: #f2590d;
+}
+
+.navbar-inverse .navbar-toggle:active {
+	background-color: #f2590d;
+}
+
+.navbar-collapse .navbar-nav > li > a:hover {
+	background-color: #f2590d;
+}
+
+.navbar-collapse .navbar-nav > li > a:active {
+	background-color: #f2590d;
+}
+
+.navbar-toggle .icon-bar{
+	width: 28px;
+}
+
+/* Navbar title */
+.navbar-inverse .navbar-brand {
+  color: black;
+}
+
+/* Focus and hover for navbar title */
+.navbar-inverse .navbar-brand:hover,
+.navbar-inverse .navbar-brand:focus {
+  color: white;
+}
+
+/* Navbar buttons */
+.navbar-inverse .navbar-nav > li > a {
+  color: black;
+}
+
+/* Navbar buttons hover/focus states */
+.navbar-inverse .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > li > a:focus {
+  color: white;
+}
+
+/* Navbar active page button */
+.navbar-inverse .navbar-nav > .active > a, 
+.navbar-inverse .navbar-nav > .active > a,
+.navbar-inverse .navbar-nav > .active > a:hover,
+.navbar-inverse .navbar-nav > .active > a:focus {
+  color: black;
+  background-color: #f2590d;
+}
+
+.navbar-nav>li>a{
+	padding: 15px 10px;
+}
+
+/******************End of navbar styling******************************/
+
+/* Main div */
+.main {
+  margin: 0 auto;
+  width: 75%;
+  padding-top: 20px;
+  padding-bottom: 50px;
+  margin-bottom: 30px;
+  margin-top: 50px;
+  box-shadow: 0 0 10px black;
+  background-image: url("images/beigeBackground.jpg");
+  min-height: 300px;
+}
+
+/*************** Menu Page ******************/
+.checkboxes {
+	float: left;
+    width: 135px;
+    border-right: 1px outset grey;
+    margin-right: 10px;
+    border-bottom: 1px outset grey;
+    text-align: left;
+    padding-left: 5px;
+}
+
+#menu-item-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding-right: 10px;
+}
+  
+.itemcard {
+  background: #ffe8e2;
+  width: 20vw;
+  height: 20vw;
+  margin-bottom: 10px;
+  box-shadow: 0 0 3px grey;
+  border-radius: 5px;
+}
+/*GIVE THE TEXT POWER WITH A SHADOW?*/
+/*text-shadow: 0.3px 0.3px #664;*/
+.itemname {
+  float: left;
+  padding-left: 4px;
+  color: #333333;
+  font-family: Copperplate;
+  font-size: 20px;
+  font-variant: small-caps;
+  font-weight: 400;
+  line-height: 21px;
+}
+
+.itemprice {
+  float: right;
+  padding-right: 4px;
+  color: #333333;
+  font-family: Copperplate;
+  font-size: 20px;
+  font-variant: small-caps;
+  font-weight: 400;
+  line-height: 21px;
+}
+
+.itemimage {
+  width: 17vw;
+}
+
+.itemimage img {
+  margin-top: 2px;
+  border-radius: 12px;
+  box-shadow: 2px 2px 35px #888888;
+}
+
+.itemdescription {
+  float: left;
+  text-align: left;
+  padding-left: 5px;
+  font-size: 12px;
+  line-height: 15px;
+  padding-top: 5px;
+  font-family: Copperplate;
+  width: 18vw;
+}
+
+.itembuttons {
+  float: right;
+  width: 25%;
+}
+
+.cartbutton {
+  border-top-left-radius: 5px;
+  border: 1px solid #999;
+
+}
+
+.nutritionbutton {
+  border-bottom-right-radius: 5px;
+  border: 1px solid #999;
+  background: url(/images/infoicon.png) 1.3vw 0.5vw no-repeat;
+  background-color: #ffd4c9;
+  background-size: 3.9vw;
+}
+
+/* Set a style for all buttons */
+button {
+    background-color: #ffd4c9;
+    color: white;
+    padding: 14px 20px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    height: 5vw;
+    margin-top: 0.3vw;
+}
+
+/********** 1250 PIXELS ***********/
+@media (max-width: 1250px) {
+	.itemcard {
+		width: 28vw;
+		height: 28vw;
+	}
+}
+
+/********** 1000 PIXELS ***********/
+@media (max-width: 1000px) {
+  .itemcard {
+  	width: 26vw;
+  	height: 26vw;
+  }
+
+  .itemname {
+    float: left;
+    padding-left: 4px;
+    color: #333333;
+    font-family: Copperplate;
+    font-size: 20px;
+    font-variant: small-caps;
+    font-weight: 400;
+    line-height: 21px;
+  }
+
+  .itemprice {
+    float: right;
+    padding-right: 4px;
+    color: #333333;
+    font-family: Copperplate;
+    font-size: 20px;
+    font-variant: small-caps;
+    font-weight: 400;
+    line-height: 21px;
+  }
+
+  .itemimage {
+    width: 17vw;
+  }
+
+  .itemimage img {
+    margin-top: 2px;
+    border-radius: 12px;
+    box-shadow: 2px 2px 35px #888888;
+  }
+
+  .itemdescription {
+    float: left;
+    text-align: left;
+    padding-left: 5px;
+    font-size: 12px;
+    line-height: 15px;
+    padding-top: 5px;
+    font-family: Copperplate;
+    width: 18vw;
+  }
+
+  .itembuttons {
+    float: right;
+    width: 25%;
+  }
+
+  .cartbutton {
+    border-top-left-radius: 5px;
+    border: 1px solid #999;
+
+  }
+
+  .nutritionbutton {
+    border-bottom-right-radius: 5px;
+    border: 1px solid #999;
+    background: url(/images/infoicon.png) 1.3vw 0.5vw no-repeat;
+    background-color: #ffd4c9;
+    background-size: 3.9vw;
+  }
+}
+
+/* Adjusts the components of pages for viewing on a screen less than 800px */
+@media all and (max-width: 767px) {
+  .main, #page {
+    flex-direction: column;
+    justify-content: space-between;
+    align-content: center;
+    align-items: flex-start;
+    width: 100vw;
+    padding-top: 10px;
+    height: auto;
+    padding-bottom: 200px;
+  }
+  
+  .main {
+    display: flex;
+    width: 98vw;
+  }
+  .popItems {
+    width: 90%;
+    height: auto;
+    order: 0;
+    overflow: auto;
+  }
+  .twitterFeed {
+    padding-top: 30px;
+  }
+  
+} 
+
+.item, .item.active{
+  width: 100%;
+}
+
+img{
+  width: 100%;
+}
+
+/* This prevents the navbar from covering content at the top of the page */
+body {
+  padding-top: 90px; 
+}
+
+@media (max-width: 767px) {
+  body {
+    padding-top: 55px;
+  }
+}
