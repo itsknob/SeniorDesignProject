@@ -1,0 +1,276 @@
+html {
+  background: beige;
+}
+body {
+  background: beige;
+}
+
+h2 {
+	color: brown;
+	padding-left: 20px;
+	font-weight: bold;
+	margin: 10px auto;
+	text-align: center;
+	display: block;
+}
+/*********************Navbar styling************************/
+/* Navbar background color */
+.navbar.navbar-inverse {
+  background-color: #f7a176;
+}
+
+.navbar-toggle {
+	width: 50px;
+	height: 50px;
+	float: left;
+	margin-right: 0px;
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	border: none;
+}
+
+.navbar-inverse .navbar-toggle:focus {
+	background-color: transparent;
+}
+
+.navbar-inverse .navbar-toggle:hover {
+	background-color: #f2590d;
+}
+
+.navbar-inverse .navbar-toggle:active {
+	background-color: #f2590d;
+}
+
+.navbar-collapse .navbar-nav > li > a:hover {
+	background-color: #f2590d;
+}
+
+.navbar-collapse .navbar-nav > li > a:active {
+	background-color: #f2590d;
+}
+
+.navbar-toggle .icon-bar{
+	width: 28px;
+}
+
+/* Navbar title */
+.navbar-inverse .navbar-brand {
+  color: black;
+}
+
+/* Focus and hover for navbar title */
+.navbar-inverse .navbar-brand:hover,
+.navbar-inverse .navbar-brand:focus {
+  color: white;
+}
+
+/* Navbar buttons */
+.navbar-inverse .navbar-nav > li > a {
+  color: black;
+}
+
+/* Navbar buttons hover/focus states */
+.navbar-inverse .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > li > a:focus {
+  color: white;
+}
+
+/* Navbar active page button */
+.navbar-inverse .navbar-nav > .active > a, 
+.navbar-inverse .navbar-nav > .active > a,
+.navbar-inverse .navbar-nav > .active > a:hover,
+.navbar-inverse .navbar-nav > .active > a:focus {
+  color: black;
+  background-color: #f2590d;
+}
+
+.navbar-nav>li>a{
+	padding: 15px 10px;
+}
+
+/* TEST COMMENT HAMBURGER ICON
+@media (min-width: 800px){
+	.navbar-toggle {
+		display: none;
+	}
+}*/
+
+
+/******************End of navbar styling******************************/
+
+/* Main div */
+.main {
+  margin: 0 auto;
+  width: 75%;
+  padding-top: 20px;
+  padding-bottom: 10px;
+  margin-bottom: 30px;
+  margin-top: 600px;
+  box-shadow: 0 0 10px black;
+  background-image: url("images/beigeBackground.jpg");
+}
+.aboutusmain {
+  margin: 0 auto;
+  width: 75%;
+  box-shadow: 0 0 10px black;
+  background-image: url("images/beigeBackground.jpg");
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  align-content: center;
+  align-items: flex-start;
+  padding-top: 10px;
+  padding-bottom: 200px; /* Keep this the smae as .footer's height */
+}
+
+/******************* About us page ******************/
+.aboutuspicture {
+  width: 100%;
+  height: auto;
+  filter: brightness(60%);
+}
+.helper {
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+
+.aboutus {
+  top: 50px;
+  overflow: auto;
+  order: 0;
+  flex-basis: auto;
+  padding: 2vh 5vw 4vh 5vw;
+  text-align: center;
+  font-size: 20px;
+}
+
+/* Header of about us block */
+.aboutusheader {
+  position: absolute;
+  left: 0;
+  top: 10%;
+  font-size: 55px;
+  text-align: center;
+  width: 100%;
+  padding-bottom: 5px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 900;
+  font-style: italic;
+  color: white;
+  margin: 0;
+}
+
+.aboutusnobuffernavbar{
+	
+}
+
+.aboutuscontainer  {
+	
+}
+
+/* Adjusts about us page based on different screen widths */
+@media all and (min-width: 800px){
+  .aboutus {
+	padding: 0 5vw 0 5vw;
+	text-align: center;
+    font-size: 20px;
+  }
+}
+@media all and (min-width: 1000px) {
+  .aboutus{
+	padding: 0 5vw 0 5vw;
+	text-align: center;
+    font-size: 22px;
+  }
+}
+@media all and (min-width: 1200px) {
+  .aboutus{
+	padding: 0 5vw 0 5vw;
+	text-align: center;
+    font-size: 25px;
+  }
+}
+
+
+/* Adjusts the components of pages for viewing on a screen less than 800px */
+@media all and (max-width: 767px) {
+  .main, #page {
+    flex-direction: column;
+    justify-content: space-between;
+    align-content: center;
+    align-items: flex-start;
+    width: 100vw;
+    padding-top: 10px;
+    height: auto;
+    padding-bottom: 10px;
+	margin-top: 64%;
+  }
+  .aboutusmain {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-content: center;
+    align-items: flex-start;
+    width: 100vw;
+    padding-top: 10px;
+  }
+  .aboutus{
+    min-width: 100vw;
+    min-height: 30vh;
+  }
+
+  .main {
+    display: flex;
+    width: 98vw;
+  }
+  .popItems {
+    width: 90%;
+    height: auto;
+    order: 0;
+    overflow: auto;
+  }
+  .twitterFeed {
+    padding-top: 30px;
+  }
+  
+} 
+
+.item, .item.active{
+  width: 100%;
+}
+
+img{
+  width: 900px;
+  box-shadow: 0 0 50px black;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 30%;
+  margin: 0 auto;
+  transform:translateY(-50%);
+}
+
+@media all and (max-width: 918px) {	
+	img{
+		width: 100%;
+		position: absolute;
+		top: 0;
+		left: 0;
+		transform: translateY(0%);
+	}
+	.main{
+		margin-top: 65%;
+	}
+}
+
+/* This prevents the navbar from covering content at the top of the page */
+body {
+  padding-top: 10px; 
+}
+
+@media (max-width: 767px) {
+  body {
+    padding-top: 55px;
+  }
+}

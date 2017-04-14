@@ -1,0 +1,267 @@
+html {
+  background: beige;
+}
+body {
+  background: beige;
+}
+
+h2 {
+	color: brown;
+	padding-left: 20px;
+	font-weight: bold;
+	margin: 10px auto;
+	text-align: center;
+	display: block;
+}
+
+/*********************Navbar styling************************/
+/* Navbar background color */
+.navbar.navbar-inverse {
+  background-color: #f7a176;
+}
+
+.navbar-toggle {
+	width: 50px;
+	height: 50px;
+	float: left;
+	margin-right: 0px;
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	border: none;
+}
+
+.navbar-inverse .navbar-toggle:focus {
+	background-color: transparent;
+}
+
+.navbar-inverse .navbar-toggle:hover {
+	background-color: #f2590d;
+}
+
+.navbar-inverse .navbar-toggle:active {
+	background-color: #f2590d;
+}
+
+.navbar-collapse .navbar-nav > li > a:hover {
+	background-color: #f2590d;
+}
+
+.navbar-collapse .navbar-nav > li > a:active {
+	background-color: #f2590d;
+}
+
+.navbar-toggle .icon-bar{
+	width: 28px;
+}
+
+/* Navbar title */
+.navbar-inverse .navbar-brand {
+  color: black;
+}
+
+/* Focus and hover for navbar title */
+.navbar-inverse .navbar-brand:hover,
+.navbar-inverse .navbar-brand:focus {
+  color: white;
+}
+
+/* Navbar buttons */
+.navbar-inverse .navbar-nav > li > a {
+  color: black;
+}
+
+/* Navbar buttons hover/focus states */
+.navbar-inverse .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > li > a:focus {
+  color: white;
+}
+
+/* Navbar active page button */
+.navbar-inverse .navbar-nav > .active > a, 
+.navbar-inverse .navbar-nav > .active > a,
+.navbar-inverse .navbar-nav > .active > a:hover,
+.navbar-inverse .navbar-nav > .active > a:focus {
+  color: black;
+  background-color: #f2590d;
+}
+
+.navbar-nav>li>a{
+	padding: 15px 10px;
+}
+
+/* TEST COMMENT HAMBURGER ICON
+@media (min-width: 800px){
+	.navbar-toggle {
+		display: none;
+	}
+}*/
+
+
+/******************End of navbar styling******************************/
+
+/* Main div */
+.main {
+  margin: 0 auto;
+  width: 75%;
+  padding-top: 20px;
+  padding-bottom: 50px;
+  margin-bottom: 30px;
+  margin-top: 50px;
+  box-shadow: 0 0 10px black;
+  background-image: url("images/beigeBackground.jpg");
+}
+
+/*************** Home page ******************/
+.popItems {
+  margin: 25px auto auto auto;
+  width: 80%;
+  box-shadow: 0 0 10px black;
+}
+
+
+.dealOfDay {
+  margin: 35px auto auto auto;  
+  width: 80%;
+  box-shadow: 0 0 10px black;
+}
+
+.twitterFeed {
+  margin: 35px auto 100px auto;
+  width: 80%;
+  box-shadow: 0 0 10px black;
+}
+
+/******************* Slideshow **********************/
+.footer {
+  margin: 20px auto auto auto;
+  width: 80%;
+  box-shadow: 0 0 10px black;
+}
+
+/************** Locations/Contact Us Page *********/
+.contact {
+  margin: 0 auto;
+  text-align: center;
+  font-size: 20px;
+  width:75%;
+}
+#map {
+  height: 400px;
+  width: 100%;
+  margin: 0 auto;
+}
+#loctwitter {
+  height: 400px;
+  width: 800px;
+  margin: 0 auto;
+}
+@media all and (max-width: 1000px){
+  #map, #loctwitter {
+    width: auto;
+  }
+  
+.timeline-Widget {
+    margin-top: 20px;
+}
+
+/* Adjusts the components of pages for viewing on a screen less than 800px */
+@media all and (max-width: 767px) {
+  .main, #page {
+    flex-direction: column;
+    justify-content: space-between;
+    align-content: center;
+    align-items: flex-start;
+    width: 100vw;
+    padding-top: 10px;
+    height: auto;
+    padding-bottom: 200px;
+  }
+  
+  .main {
+    display: flex;
+    width: 98vw;
+  }
+  .popItems {
+    width: 90%;
+    height: auto;
+    order: 0;
+    overflow: auto;
+  }
+  .twitterFeed {
+    padding-top: 30px;
+  }
+  
+} 
+
+.item, .item.active{
+  width: 100%;
+}
+
+img{
+  width: 100%;
+}
+
+/* This prevents the navbar from covering content at the top of the page */
+body {
+  padding-top: 90px; 
+}
+
+@media (max-width: 767px) {
+  body {
+    padding-top: 55px;
+  }
+}
+
+.carousel-slide{
+  width: 100%;
+  width: 75%;
+  margin: auto;
+}
+
+/* Set a style for all buttons */
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 6px;
+}
+
+/* Extra styles for the cancel button */
+.cancelbtn {
+    padding: 14px 20px;
+    background-color: #f44336;
+}
+
+/* Float cancel and signup buttons and add an equal width */
+.cancelbtn,.signupbtn {	
+    width: 45%;
+    margin: 15px;
+}
+
+/* Add padding to container elements */
+.registrationContainer {
+    padding: 16px;
+	background-color: #f5e2db;
+	width: 75%;
+    margin: 0 auto;
+    border-radius: 25px;
+}
+
+/* Clear floats */
+.formButtons::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+/* Change styles for cancel button and signup button on extra small screens */
+@media screen and (max-width: 689px) {
+    .cancelbtn, .signupbtn {
+       width: 95%;
+    }
+}

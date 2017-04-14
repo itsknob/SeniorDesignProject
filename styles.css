@@ -1,0 +1,408 @@
+html {
+  background: beige;
+}
+body {
+  background: beige;
+}
+
+h2 {
+	color: brown;
+	padding-left: 20px;
+	font-weight: bold;
+	margin: 10px auto;
+	text-align: center;
+	display: block;
+}
+/*********************Navbar styling************************/
+/* Navbar background color */
+.navbar.navbar-inverse {
+  background-color: #f7a176;
+}
+
+.navbar-toggle {
+	width: 50px;
+	height: 50px;
+	float: left;
+	margin-right: 0px;
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	border: none;
+}
+
+.navbar-inverse .navbar-toggle:focus {
+	background-color: transparent;
+}
+
+.navbar-inverse .navbar-toggle:hover {
+	background-color: #f2590d;
+}
+
+.navbar-inverse .navbar-toggle:active {
+	background-color: #f2590d;
+}
+
+.navbar-collapse .navbar-nav > li > a:hover {
+	background-color: #f2590d;
+}
+
+.navbar-collapse .navbar-nav > li > a:active {
+	background-color: #f2590d;
+}
+
+.navbar-toggle .icon-bar{
+	width: 28px;
+}
+
+/* Navbar title */
+.navbar-inverse .navbar-brand {
+  color: black;
+}
+
+/* Focus and hover for navbar title */
+.navbar-inverse .navbar-brand:hover,
+.navbar-inverse .navbar-brand:focus {
+  color: white;
+}
+
+/* Navbar buttons */
+.navbar-inverse .navbar-nav > li > a {
+  color: black;
+}
+
+/* Navbar buttons hover/focus states */
+.navbar-inverse .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > li > a:focus {
+  color: white;
+}
+
+/* Navbar active page button */
+.navbar-inverse .navbar-nav > .active > a, 
+.navbar-inverse .navbar-nav > .active > a,
+.navbar-inverse .navbar-nav > .active > a:hover,
+.navbar-inverse .navbar-nav > .active > a:focus {
+  color: black;
+  background-color: #f2590d;
+}
+
+.navbar-nav>li>a{
+	padding: 15px 10px;
+}
+
+/******************End of navbar styling******************************/
+
+/* Main div */
+.main {
+  margin: 0 auto;
+  width: 75%;
+  padding-top: 20px;
+  padding-bottom: 50px;
+  margin-bottom: 30px;
+  margin-top: 50px;
+  box-shadow: 0 0 10px black;
+  background-image: url("images/beigeBackground.jpg");
+  min-height: 300px;
+}
+.aboutusmain {
+  margin: 0 auto;
+  width: 75%;
+  box-shadow: 0 0 10px black;
+  background-image: url("images/beigeBackground.jpg");
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  align-content: center;
+  align-items: flex-start;
+  padding-top: 10px;
+  padding-bottom: 200px; /* Keep this the smae as .footer's height */
+}
+
+
+/*************** Home page ******************/
+.popItems {
+  margin: 25px auto auto auto;
+  width: 80%;
+  box-shadow: 0 0 10px black;
+}
+
+/*************** Menu Page ******************/
+.checkboxes {
+	float: left;
+    width: 135px;
+    border-right: 1px outset grey;
+    margin-right: 10px;
+    border-bottom: 1px outset grey;
+    text-align: left;
+    padding-left: 5px;
+}
+
+#menu-item-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding-right: 10px;
+}
+  
+.itemcard {
+  background: #ffe8e2;
+  width: 20vw;
+  height: 20vw;
+  margin-bottom: 10px;
+  box-shadow: 0 0 3px grey;
+  border-radius: 5px;
+}
+
+@media (max-width: 1250px) {
+	.itemcard {
+		width: 29vw;
+		height: 29vw;
+	}
+}
+
+@media (max-width: 1000px) {
+	.itemcard {
+		width: 26vw;
+		height: 26vw;
+	}
+}
+
+.dealOfDay {
+  margin: 35px auto auto auto;  
+  width: 80%;
+  box-shadow: 0 0 10px black;
+}
+
+.twitterFeed {
+  margin: 35px auto 100px auto;
+  width: 80%;
+  box-shadow: 0 0 10px black;
+}
+
+.filterlabels {
+	font-weight: normal;
+}
+
+/******************* Slideshow **********************/
+.footer {
+  margin: 20px auto auto auto;
+  width: 80%;
+  box-shadow: 0 0 10px black;
+}
+
+/* Adjusts the components of pages for viewing on a screen less than 800px */
+@media all and (max-width: 767px) {
+  .main, #page {
+    flex-direction: column;
+    justify-content: space-between;
+    align-content: center;
+    align-items: flex-start;
+    width: 100vw;
+    padding-top: 10px;
+    height: auto;
+    padding-bottom: 200px;
+  }
+  
+  .main {
+    display: flex;
+    width: 98vw;
+  }
+  .popItems {
+    width: 90%;
+    height: auto;
+    order: 0;
+    overflow: auto;
+  }
+  .twitterFeed {
+    padding-top: 30px;
+  }
+  
+} 
+
+.item, .item.active{
+  width: 100%;
+}
+
+img{
+  width: 100%;
+}
+
+/* This prevents the navbar from covering content at the top of the page */
+body {
+  padding-top: 90px; 
+}
+
+@media (max-width: 767px) {
+  body {
+    padding-top: 55px;
+  }
+}
+
+.carousel-slide{
+  width: 100%;
+  width: 75%;
+  margin: auto;
+}
+
+/*************** Registration *****************/
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+/* Set a style for all buttons */
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 6px;
+}
+
+/* Extra styles for the cancel button */
+.cancelbtn {
+    padding: 14px 20px;
+    background-color: #f44336;
+}
+
+/* Float cancel and signup buttons and add an equal width */
+.cancelbtn,.signupbtn {	
+    width: 45%;
+    margin: 15px;
+}
+
+/* Add padding to container elements */
+.registrationContainer {
+    padding: 16px;
+	background-color: #f5e2db;
+	width: 75%;
+    margin: 0 auto;
+    border-radius: 25px;
+}
+
+/* Clear floats */
+.formButtons::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+/* Change styles for cancel button and signup button on extra small screens */
+@media screen and (max-width: 689px) {
+    .cancelbtn, .signupbtn {
+       width: 95%;
+    }
+}
+
+/**************** Login ********************/
+.form-signin {
+    max-width: 700px;
+    padding: 15px;
+    margin: 0 auto;
+    color: #000;
+}
+         
+.form-signin .form-signin-heading, .form-signin .checkbox {
+    margin-bottom: 10px;
+}
+         
+.form-signin .checkbox {
+	font-weight: normal;
+}
+         
+.form-signin .form-control {
+	position: relative;
+	height: auto;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	padding: 10px;
+	font-size: 16px;
+}
+         
+.form-signin .form-control:focus {
+	z-index: 2;
+}
+         
+.form-signin input[type="email"] {
+	margin-bottom: -1px;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+	border-color:#017572;
+}
+         
+.form-signin input[type="password"] {
+	margin-bottom: 10px;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+	border-color:#017572;
+}
+
+.seperator {
+    display: block;
+    margin-bottom: 10px;
+    margin-left: 10.5%;
+    margin-right: 10.5%;
+    margin-top: 10px;
+    overflow: hidden;
+    text-align: center;
+    white-space: nowrap;
+    width: 79%;
+	border-top: solid 1px black
+}
+
+.login-container {
+	padding: 22px 108px 26px;
+	width: 700px;
+}
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+#SignUp {
+	width: 75%;
+	margin: 0 auto;
+	display:block;
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
