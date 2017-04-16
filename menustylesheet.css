@@ -122,77 +122,160 @@ h2 {
   justify-content: space-around;
   padding-right: 10px;
 }
-  
-.itemcard {
-  background: #ffe8e2;
-  width: 20vw;
-  height: 20vw;
-  margin-bottom: 10px;
-  box-shadow: 0 0 3px grey;
-  border-radius: 5px;
+
+
+@-webkit-keyframes zoom {
+    from {-webkit-transform:scale(0)} 
+    to {-webkit-transform:scale(1)}
 }
-/*GIVE THE TEXT POWER WITH A SHADOW?*/
-/*text-shadow: 0.3px 0.3px #664;*/
+
+@keyframes zoom {
+    from {transform:scale(0)} 
+    to {transform:scale(1)}
+}
+
+.itemimage:hover { 
+	opacity: 0.7; 
+	cursor: pointer;
+}
+
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 1;
+    padding-top: 150px;
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4); 
+}
+
+.imagemodal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    -webkit-animation-name: zoom;
+    -webkit-animation-duration: 0.6s;
+    animation-name: zoom;
+    animation-duration: 0.6s;
+}
+
+.svgmodal-content {
+    margin: auto;
+    display: block;
+    width: auto;
+    background: white;
+    -webkit-animation-name: zoom;
+    -webkit-animation-duration: 0.6s;
+    animation-name: zoom;
+    animation-duration: 0.5s;
+}
+  
+
+
+/* The Close Button */
+.close {
+    position: absolute;
+    top: 60px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 55px;
+    font-weight: 100;
+    transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* 100% Image Width on Smaller Screens */
+@media only screen and (max-width: 700px){
+    .imagemodal-content .svgmodal-content {
+        width: 100%;
+    }
+}
+
+.itemcard {
+	background: #ffe8e2;
+	width: 20vw;
+	height: 20vw;
+	margin-bottom: 10px;
+	box-shadow: 0 0 3px grey;
+	border-radius: 5px;
+}
+
+.itemheader {		
+	padding-top: 5px;
+}
+
 .itemname {
-  float: left;
-  padding-left: 4px;
-  color: #333333;
-  font-family: Copperplate;
-  font-size: 20px;
-  font-variant: small-caps;
-  font-weight: 400;
-  line-height: 21px;
+	float: left;
+	padding-left: 4px;
+	color: #333333;
+	font-family: Copperplate;
+	font-size: 24px;
+	font-variant: small-caps;
+	font-weight: 400;
+	line-height: 20px;
 }
 
 .itemprice {
-  float: right;
-  padding-right: 4px;
-  color: #333333;
-  font-family: Copperplate;
-  font-size: 20px;
-  font-variant: small-caps;
-  font-weight: 400;
-  line-height: 21px;
+	float: right;
+	padding-right: 4px;
+	color: #333333;
+	font-family: Copperplate;
+	font-size: 24px;
+	font-variant: small-caps;
+	font-weight: 400;
+	line-height: 20px;
 }
 
-.itemimage {
-  width: 17vw;
+.itemimage {    
+	width: 14vw;
+    margin-top: 2vw;
 }
 
 .itemimage img {
-  margin-top: 2px;
-  border-radius: 12px;
-  box-shadow: 2px 2px 35px #888888;
+	margin-top: 2px;
+	border-radius: 12px;
+	box-shadow: 2px 2px 35px #888888;
 }
 
 .itemdescription {
-  float: left;
-  text-align: left;
-  padding-left: 5px;
-  font-size: 12px;
-  line-height: 15px;
-  padding-top: 5px;
-  font-family: Copperplate;
-  width: 18vw;
+    float: left;
+    text-align: left;
+    padding-left: 5px;
+    font-size: 16px;
+    line-height: 17px;
+    padding-top: 5px;
+    font-family: Copperplate;
+    width: 15vw;
 }
 
 .itembuttons {
-  float: right;
-  width: 25%;
+	float: right;
+	width: 25%;
 }
 
 .cartbutton {
-  border-top-left-radius: 5px;
-  border: 1px solid #999;
+	border-top-left-radius: 5px;
+	border: 1px solid #999;
+	margin-top: 0.8vw;
 
 }
 
 .nutritionbutton {
-  border-bottom-right-radius: 5px;
-  border: 1px solid #999;
-  background: url(/images/infoicon.png) 1.3vw 0.5vw no-repeat;
-  background-color: #ffd4c9;
-  background-size: 3.9vw;
+    border-bottom-right-radius: 5px;
+    border: 1px solid #999;
+    background: url(/images/infoicon.png) 1.3vw 0.4vw no-repeat;
+    background-color: #ffd4c9;
+    background-size: 2.2vw;
 }
 
 /* Set a style for all buttons */
@@ -203,7 +286,7 @@ button {
     border: none;
     cursor: pointer;
     width: 100%;
-    height: 5vw;
+    height: 3vw;
     margin-top: 0.3vw;
 }
 
@@ -213,122 +296,294 @@ button {
 		width: 28vw;
 		height: 28vw;
 	}
+
+	.itemheader {
+		padding-top: 2px;
+	}
+
+	.itemname {
+		float: left;
+	    padding-left: 5px;
+	    color: #333333;
+	    font-family: Copperplate;
+	    font-size: 27px;
+	    font-variant: small-caps;
+	    font-weight: 400;
+	    line-height: 27px;
+	}
+
+	.itemprice {
+		float: right;
+		padding-right: 5px;
+		color: #333333;
+		font-family: Copperplate;
+		font-size: 27px;
+		font-variant: small-caps;
+		font-weight: 400;
+		line-height: 27px;
+	}
+
+	.itemimage {
+	    width: 20vw;
+	    margin-top: 2.6vw;
+	}
+
+	.itemimage img {
+		margin-top: 3px;
+		border-radius: 12px;
+		box-shadow: 2px 2px 35px #888888;
+	}
+
+	.itemdescription {
+		float: left;
+	    text-align: left;
+	    padding-left: 5px;
+	    font-size: 16px;
+	    line-height: 18px;
+	    padding-top: 5px;
+	    font-family: Copperplate;
+	    width: 18vw;
+	}
+
+	.itembuttons {
+		float: right;
+		width: 25%;
+	}
+
+	.cartbutton {
+		border-top-left-radius: 5px;
+		border: 1px solid #999;
+		margin-top: 0.8vw;
+	}
+
+	.nutritionbutton {
+	    border-bottom-right-radius: 5px;
+	    border: 1px solid #999;
+	    background: url(/images/infoicon.png) 1.8vw 0.5vw no-repeat;
+   		background-color: #ffd4c9;
+	    background-size: 3.3vw;
+	}
+
+	/* Set a style for all buttons */
+	button {
+	    background-color: #ffd4c9;
+	    color: white;
+	    padding: 14px 20px;
+	    border: none;
+	    cursor: pointer;
+	    width: 100%;
+	    height: 4.5vw;
+	    margin-top: 0.3vw;
+	}
 }
 
 /********** 1000 PIXELS ***********/
 @media (max-width: 1000px) {
-  .itemcard {
-  	width: 26vw;
-  	height: 26vw;
-  }
+	.itemcard {
+		width: 26vw;
+		height: 26vw;
+	}
 
-  .itemname {
-    float: left;
-    padding-left: 4px;
-    color: #333333;
-    font-family: Copperplate;
-    font-size: 20px;
-    font-variant: small-caps;
-    font-weight: 400;
-    line-height: 21px;
-  }
+	.itemname {
+		float: left;
+		padding-left: 4px;
+		color: #333333;
+		font-family: Copperplate;
+		font-size: 20px;
+		font-variant: small-caps;
+		font-weight: 400;
+		line-height: 21px;
+	}
 
-  .itemprice {
-    float: right;
-    padding-right: 4px;
-    color: #333333;
-    font-family: Copperplate;
-    font-size: 20px;
-    font-variant: small-caps;
-    font-weight: 400;
-    line-height: 21px;
-  }
+	.itemprice {
+		float: right;
+		padding-right: 4px;
+		color: #333333;
+		font-family: Copperplate;
+		font-size: 20px;
+		font-variant: small-caps;
+		font-weight: 400;
+		line-height: 21px;
+	}
 
-  .itemimage {
-    width: 17vw;
-  }
+	.itemimage {
+		width: 17vw;
+	}
 
-  .itemimage img {
-    margin-top: 2px;
-    border-radius: 12px;
-    box-shadow: 2px 2px 35px #888888;
-  }
+	.itemimage img {
+		margin-top: 2px;
+		border-radius: 12px;
+		box-shadow: 2px 2px 35px #888888;
+	}
 
-  .itemdescription {
-    float: left;
-    text-align: left;
-    padding-left: 5px;
-    font-size: 12px;
-    line-height: 15px;
-    padding-top: 5px;
-    font-family: Copperplate;
-    width: 18vw;
-  }
+	.itemdescription {
+		float: left;
+		text-align: left;
+		padding-left: 5px;
+		font-size: 12px;
+		line-height: 15px;
+		padding-top: 5px;
+		font-family: Copperplate;
+		width: 18vw;
+	}
 
-  .itembuttons {
-    float: right;
-    width: 25%;
-  }
+	.itembuttons {
+		float: right;
+		width: 25%;
+	}
 
-  .cartbutton {
-    border-top-left-radius: 5px;
-    border: 1px solid #999;
+	.cartbutton {
+		border-top-left-radius: 5px;
+		border: 1px solid #999;
 
-  }
+	}
 
-  .nutritionbutton {
-    border-bottom-right-radius: 5px;
-    border: 1px solid #999;
-    background: url(/images/infoicon.png) 1.3vw 0.5vw no-repeat;
-    background-color: #ffd4c9;
-    background-size: 3.9vw;
-  }
+	.nutritionbutton {
+	    border-bottom-right-radius: 5px;
+	    border: 1px solid #999;
+	    background: url(/images/infoicon.png) 1.5vw 0.5vw no-repeat;
+   		background-color: #ffd4c9;
+	    background-size: 3.5vw;
+	}
+
+	/* Set a style for all buttons */
+	button {
+	    background-color: #ffd4c9;
+	    color: white;
+	    padding: 14px 20px;
+	    border: none;
+	    cursor: pointer;
+	    width: 100%;
+	    height: 4.6vw;
+	    margin-top: 0.3vw;
+	}
 }
 
 /* Adjusts the components of pages for viewing on a screen less than 800px */
 @media all and (max-width: 767px) {
-  .main, #page {
-    flex-direction: column;
-    justify-content: space-between;
-    align-content: center;
-    align-items: flex-start;
-    width: 100vw;
-    padding-top: 10px;
-    height: auto;
-    padding-bottom: 200px;
-  }
-  
-  .main {
-    display: flex;
-    width: 98vw;
-  }
-  .popItems {
-    width: 90%;
-    height: auto;
-    order: 0;
-    overflow: auto;
-  }
-  .twitterFeed {
-    padding-top: 30px;
-  }
-  
-} 
+	.itemcard {
+		width: 26vw;
+		height: 26vw;
+	}
 
-.item, .item.active{
-  width: 100%;
-}
+	.itemname {
+		float: left;
+		padding-left: 4px;
+		color: #333333;
+		font-family: Copperplate;
+		font-size: 20px;
+		font-variant: small-caps;
+		font-weight: 400;
+		line-height: 21px;
+	}
 
-img{
-  width: 100%;
-}
+	.itemprice {
+		float: right;
+		padding-right: 4px;
+		color: #333333;
+		font-family: Copperplate;
+		font-size: 20px;
+		font-variant: small-caps;
+		font-weight: 400;
+		line-height: 21px;
+	}
 
-/* This prevents the navbar from covering content at the top of the page */
-body {
-  padding-top: 90px; 
-}
+	.itemimage {
+		width: 17vw;
+	}
 
-@media (max-width: 767px) {
-  body {
-    padding-top: 55px;
-  }
+	.itemimage img {
+		margin-top: 2px;
+		border-radius: 12px;
+		box-shadow: 2px 2px 35px #888888;
+	}
+
+	.itemdescription {
+		float: left;
+		text-align: left;
+		padding-left: 5px;
+		font-size: 12px;
+		line-height: 15px;
+		padding-top: 5px;
+		font-family: Copperplate;
+		width: 18vw;
+	}
+
+	.itembuttons {
+		float: right;
+		width: 25%;
+	}
+
+	.cartbutton {
+		border-top-left-radius: 5px;
+		border: 1px solid #999;
+
+	}
+
+	.nutritionbutton {
+	    border-bottom-right-radius: 5px;
+	    border: 1px solid #999;
+	    background: url(/images/infoicon.png) 1.5vw 0.5vw no-repeat;
+   		background-color: #ffd4c9;
+	    background-size: 3.5vw;
+	}
+
+	/* Set a style for all buttons */
+	button {
+	    background-color: #ffd4c9;
+	    color: white;
+	    padding: 14px 20px;
+	    border: none;
+	    cursor: pointer;
+	    width: 100%;
+	    height: 4.6vw;
+	    margin-top: 0.3vw;
+	}
+
+	.main, #page {
+		flex-direction: column;
+		justify-content: space-between;
+		align-content: center;
+		align-items: flex-start;
+		width: 100vw;
+		padding-top: 10px;
+		height: auto;
+		padding-bottom: 200px;
+	}
+
+	.main {
+		display: flex;
+		width: 98vw;
+	}
+
+	.popItems {
+		width: 90%;
+		height: auto;
+		order: 0;
+		overflow: auto;
+	}
+
+	.twitterFeed {
+		padding-top: 30px;
+	}
+
+	} 
+
+	.item, .item.active{
+		width: 100%;
+	}
+
+	img{
+		width: 100%;
+	}
+
+	/* This prevents the navbar from covering content at the top of the page */
+	body {
+		padding-top: 90px; 
+	}
+
+	@media (max-width: 767px) {
+	body {
+		padding-top: 55px;
+	}
 }
