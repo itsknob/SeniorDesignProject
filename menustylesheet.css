@@ -205,7 +205,7 @@ h2 {
 	background: #ffe8e2;
 	width: 20vw;
 	height: 20vw;
-	margin-bottom: 10px;
+	margin-bottom: 20px;
 	box-shadow: 0 0 3px grey;
 	border-radius: 5px;
 }
@@ -288,6 +288,10 @@ button {
     width: 100%;
     height: 3vw;
     margin-top: 0.3vw;
+}
+
+.filterdiv{
+	display: none;
 }
 
 /********** 1250 PIXELS ***********/
@@ -461,52 +465,59 @@ button {
 
 /* Adjusts the components of pages for viewing on a screen less than 800px */
 @media all and (max-width: 767px) {
+	.checkboxes{
+		display: none;
+	}
+
 	.itemcard {
-		width: 26vw;
-		height: 26vw;
+		width: 46vw;
+		height: 40vw;
+		min-width: 295px;
+		min-height: 250px;
 	}
 
 	.itemname {
 		float: left;
-		padding-left: 4px;
-		color: #333333;
-		font-family: Copperplate;
-		font-size: 20px;
-		font-variant: small-caps;
-		font-weight: 400;
-		line-height: 21px;
+		padding: 3px 0px 7px 7px;
+	    color: #333333;
+	    font-family: Copperplate;
+	    font-size: 29px;
+	    font-variant: small-caps;
+	    font-weight: 400;
 	}
 
 	.itemprice {
 		float: right;
-		padding-right: 4px;
+		padding: 3px 4px 7px 0px;
 		color: #333333;
 		font-family: Copperplate;
-		font-size: 20px;
+		font-size: 29px;
 		font-variant: small-caps;
 		font-weight: 400;
-		line-height: 21px;
 	}
 
 	.itemimage {
-		width: 17vw;
+		width: 26vw;
 	}
 
 	.itemimage img {
 		margin-top: 2px;
 		border-radius: 12px;
 		box-shadow: 2px 2px 35px #888888;
+		min-width: 163px;
+		float: right;
 	}
 
 	.itemdescription {
-		float: left;
-		text-align: left;
-		padding-left: 5px;
-		font-size: 12px;
-		line-height: 15px;
-		padding-top: 5px;
-		font-family: Copperplate;
-		width: 18vw;
+	    float: left;
+	    text-align: left;
+	    padding-left: 5px;
+	    font-size: 18px;
+	    line-height: 17px;
+	    padding-top: 5px;
+	    font-family: Copperplate;
+	    width: 34vw;
+	    min-width: 215px;
 	}
 
 	.itembuttons {
@@ -521,11 +532,11 @@ button {
 	}
 
 	.nutritionbutton {
-	    border-bottom-right-radius: 5px;
+		border-bottom-right-radius: 5px;
 	    border: 1px solid #999;
-	    background: url(/images/infoicon.png) 1.5vw 0.5vw no-repeat;
-   		background-color: #ffd4c9;
-	    background-size: 3.5vw;
+	    background: url(/images/infoicon.png) 2.9vw 0.7vw no-repeat;
+	    background-color: #ffd4c9;
+	    background-size: 5.5vw;
 	}
 
 	/* Set a style for all buttons */
@@ -535,8 +546,9 @@ button {
 	    padding: 14px 20px;
 	    border: none;
 	    cursor: pointer;
-	    width: 100%;
-	    height: 4.6vw;
+	    width: 100%;    
+	    height: 7.1vw;
+    	min-height: 44px;
 	    margin-top: 0.3vw;
 	}
 
@@ -546,7 +558,7 @@ button {
 		align-content: center;
 		align-items: flex-start;
 		width: 100vw;
-		padding-top: 10px;
+		padding-top: 0px;
 		height: auto;
 		padding-bottom: 200px;
 	}
@@ -586,4 +598,81 @@ button {
 	body {
 		padding-top: 55px;
 	}
-}
+	
+	.hamburger--elastic .hamburger-inner {
+		top: 2px;
+		transition-duration: 0.275s;
+		transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55); }
+	.hamburger--elastic .hamburger-inner::before {
+		top: 10px;
+		transition: opacity 0.125s 0.275s ease; }
+	.hamburger--elastic .hamburger-inner::after {
+		top: 20px;
+		transition: transform 0.275s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
+
+	.hamburger--elastic.is-active .hamburger-inner {
+		transform: translate3d(0, 10px, 0) rotate(135deg);
+		transition-delay: 0.075s; }
+	.hamburger--elastic.is-active .hamburger-inner::before {
+		transition-delay: 0s;
+		opacity: 0; }
+	.hamburger--elastic.is-active .hamburger-inner::after {
+		transform: translate3d(0, -20px, 0) rotate(-270deg);
+		transition-delay: 0.075s; }
+
+	.hamburger {
+		display: block;
+		cursor: pointer;
+		transition-property: opacity, filter;
+		transition-duration: 0.15s;
+		float: left;
+    	width: 20%; 
+    	background-color: transparent;
+    	height: 8vw;
+    }
+
+	.hamburger:hover {
+		opacity: 0.7; }
+
+	.hamburger-box {
+		width: 40px;
+		height: 24px;
+		display: inline-block;
+		position: relative; }
+
+	.hamburger-inner {
+		display: block;
+		top: 50%;
+		margin-top: -2px; }
+	.hamburger-inner, .hamburger-inner::before, .hamburger-inner::after {
+		width: 40px;
+		height: 4px;
+		background-color: #000;
+		border-radius: 4px;
+		position: absolute;
+		transition-property: transform;
+		transition-duration: 0.15s;
+		transition-timing-function: ease; }
+	.hamburger-inner::before, .hamburger-inner::after {
+		content: "";
+		display: block; }
+	.hamburger-inner::before {
+		top: -10px; }
+	.hamburger-inner::after {
+		bottom: -10px; }
+
+	.filterdiv{
+	    background-color: #ffd4c9;
+	    display: block;
+	    width: 100%;
+	    margin-bottom: 35px;
+	}
+
+	.filtertext{
+		font-size: 42px;
+	    float: left;
+	    font-variant: small-caps;
+	    font-weight: 400;    
+	    color: #555;
+	    font-family: Copperplate;
+	}

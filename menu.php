@@ -93,6 +93,7 @@
 			<div id="svgmodal" class="modal">
 				<span class="close">&times;</span>
 			</div>
+
 			<!--      Checkboxes-->
 			<div class="checkboxes">
 				<!--    Calories-->
@@ -124,7 +125,18 @@
 					</form>
 				</div>
 			</div>  
-		 
+
+			<!--      Filtering 	-->
+			<div class="filterdiv">
+				<button class="hamburger hamburger--elastic" type="button">
+					<span class="hamburger-box">
+						<span class="hamburger-inner"></span>
+					</span>
+				</button>
+				<div class="filtertext">Filter Search</div>
+			</div>
+
+
 			<div id="menu-item-container">
 			</div>
 		</div>
@@ -493,97 +505,13 @@
 	*	After, we can call the generate item cards function using the new array from SQL statements 		*
 	*	based on each filter used.																			*
 	*********************************************************************************************************/
-
+var $hamburger = $(".hamburger");
+  $hamburger.on("click", function(e) {
+    $hamburger.toggleClass("is-active");
+    // Do something else, like open/close menu
+  });
 	</script>
- 
-	<script>            
-	//If checkbox is checked send a request to run a query on the database FROM items WHERE .class '<' this.value then echo the results
-	$(":checkbox").on("change",function() {
-   
-	$('input').not(this).prop('checked', false);
-	//If no checkboxes are checked display all menu items
-	if($("input:checked" ).length == 0){
-	 
-	  var newItemList = [];
-				var allItemsArray = <?php echo json_encode($itemList); ?>;
-				//console.log("AllItemArray: " + allItemsArray);
-				//Convert PHP Items to Javascript Items
-				for(var i = 0; i < allItemsArray.length; i++){
-					var tempItem = new ItemJS();
-					var object = allItemsArray[i];
-					//console.log(object);
-					tempItem.name = object.itemName;
-					tempItem.picture = object.picLink;
-					tempItem.description = object.description;
-					tempItem.cost = object.price;
-			   
-					//Save to Array at index [i]
-					newItemList[i] = tempItem;
-				}
-	   
-				//Call function to format data
-	  container = (createTableFormattedListOfItems(newItemList));
-	  $('#menu-item-container').empty().append(container);
-	}  
-	 
-	  //runs code in reference to selected checkbox  
-	  if (this.checked) {
-		let boxClass = $(this).attr('class');
-		let boxValue = $(this).attr('value');
-		//let caloriesValue = $(this).attr('value');
-		console.log(boxClass);
-		$.ajax({
-		  type: 'POST',
-		  url: 'showItems.php',
-		  data: { class: boxClass, value: boxValue },
-		  dataType: 'json',
-		 error: function(xhr,textStatus,err)
-		  {
-			console.log("readyState: " + xhr.readyState);
-			console.log("responseText: "+ xhr.responseText);
-			console.log("status: " + xhr.status);
-			console.log("text status: " + textStatus);
-			console.log("error: " + err);
-		  },
-		  success: function(result) {
-			console.log("hello world");
-			console.log(result);
-			//console.log(JSON.parse(result));
-		  // here is the code that will run on client side after running showItems.php on server
-				 
-				 
-		var newItemList = [];
-				//var allItemsArray = filteredList;
-				//console.log("AllItemArray: " + allItemsArray);
-				//Convert PHP Items to Javascript Items
-				for(var i = 0; i < result.length; i++){
-					var tempItem = new ItemJS();
-					var object = result[i];
-					//console.log(object);
-					tempItem.name = object.itemName;
-					tempItem.picture = object.picLink;
-					tempItem.description = object.description;
-					tempItem.cost = object.price;
-			   
-					//Save to Array at index [i]
-					newItemList[i] = tempItem;
-				}
-		   
-				//Call function to format data
-		container = (createTableFormattedListOfItems(newItemList));    
-		   
-		//document.getElementById('menu-item-container').appendChild(container);    //Was itemArray
-	   
-		 $('#menu-item-container').empty().append(container);
-   
-		// function below reloads current page
-		//location.reload();
-			  }
-		  });
-	  }        
-  });    
-	</script>  
-	 
+
 		</div>
 	</body>
 </html>
