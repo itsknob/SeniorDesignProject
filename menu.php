@@ -295,17 +295,17 @@
 	*	When filters are used, we want to select elements by class name and remove all "itemcard"			*
 	*	After, we can call the generate item cards function using the new array from SQL statements 		*
 	*	based on each filter used.  																		*
-	*	We also want to --- document.getElementById("filtersdrop").classList.toggle("show");				*
+	*	We also want to --- document.getElementById("filtersdrop").classList.toggle("showfitlers");			*
 	*********************************************************************************************************/
 		function showFiltersDropdown(){
-			document.getElementById("filtersdrop").classList.toggle("show");
+			document.getElementById("filtersdrop").classList.toggle("showfilters");
 			document.getElementById("filterdi").classList.toggle("dropdownmarginremover");
 		}
 
 		function removeItemCards (){
 			$("div.itemcard").remove();
 			$("#filterdi").toggleClass("dropdownmarginremover");
-			$("#filtersdrop").toggleClass("show");
+			$("#filtersdrop").toggleClass("showfilters");
     		$(".hamburger").toggleClass("is-active");
 		}
 
