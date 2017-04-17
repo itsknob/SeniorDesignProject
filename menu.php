@@ -141,8 +141,8 @@
 					<li onclick="calLowHigh()">Calories Low to High</li>
 					<li onclick="sugHighLow()">Sugars High to Low</li>
 					<li onclick="sugLowHigh()">Sugars Low to High</li>
-					<li onclick="protHighLow()">Protein High to Low</li>
-					<li onclick="protLowHigh()">Protein Low to High</li>
+					<li onclick="priceHighLow()">Price High to Low</li>
+					<li onclick="priceLowHigh()">Price Low to High</li>
 				</ul>
 			</div>
 
@@ -158,16 +158,16 @@
 	<script>
 		var allItemsArray = <?php echo json_encode($itemList); ?>;
 
-		//create item cards for each item
-		allItemsArray.forEach(function (d){
-			var itemCardDiv = document.createElement('div');
-			var className = "itemcard" + d.itemID;
-			itemCardDiv.setAttribute("id", className);
-			itemCardDiv.setAttribute("class", "itemcard");
-			document.getElementById('menu-item-container').appendChild(itemCardDiv);
-		});
-
 		function generateItemCards(itemArray){
+
+			//create item cards for each item
+			itemArray.forEach(function (d){
+				var itemCardDiv = document.createElement('div');
+				var className = "itemcard" + d.itemID;
+				itemCardDiv.setAttribute("id", className);
+				itemCardDiv.setAttribute("class", "itemcard");
+				document.getElementById('menu-item-container').appendChild(itemCardDiv);
+			});
 
 			itemArray.forEach(function (d){
 				//selecting the current item card
@@ -234,6 +234,7 @@
 				itemButtonsDiv.appendChild(itemNutritionInfoDiv);
 
 				//append all divs to target card
+				console.log(targetDiv);
 				targetDiv.appendChild(itemHeaderDiv);
 				targetDiv.appendChild(itemImageDiv);
 				targetDiv.appendChild(itemDescriptionDiv);
@@ -315,7 +316,10 @@
 			//Run SQL statement to obtain all items with a value for calories
 			//Sort the returned array by highest calories to lowest calories using sort algorithm.
 			//call the generate item cards function with the array
-			
+			var calHighLowArray = JSON.parse(JSON.stringify(allItemsArray));
+			calHighLowArray.splice(0,3);
+			console.log(allItemsArray);
+			generateItemCards(calHighLowArray);
 		}
 
 		function calLowHigh(){
@@ -333,14 +337,16 @@
 			
 		}
 
-		function protHighLow(){
+		function priceHighLow(){
 			removeItemCards();
 			
 		}
 
-		function protLowHigh(){
+		function priceLowHigh(){
 			removeItemCards();
-			
+
+
+			generateItemCards();
 		}
 
 		var $hamburger = $(".hamburger");
