@@ -19,15 +19,6 @@ $CompanyName = "NUWC Juicing";
 		<link rel="stylesheet" type"text/css" href="styles.css">
 	</head>
 	<body>
-
-	<!-- Tried to get the navbar to change if the user is logged in. It doesnt work though. -->
-	<?php
-	if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
-		include 'navbar_authorized.php';
-	} else {
-		include 'navbar_unauthorized.php';
-	}
-	?>
 		<!-- Once the php code above works this can be deleted -->
 		<nav class="navbar navbar-inverse navbar-fixed-top">
 		 	<div class="container-fluid">
@@ -72,13 +63,15 @@ $CompanyName = "NUWC Juicing";
 		Cart Page
 
 		<form action="/checkout.php" method="POST">
-			<script
-		    	src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-			    data-key="pk_test_ffWhKYspxcvqUl9hmdCaTnrl"
-			    data-amount="1000"
-			    data-name="Web Development"
-			    data-description="Develop a website">
-			</script>
+		  <script
+		    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+		    data-key="pk_test_ffWhKYspxcvqUl9hmdCaTnrl"
+		    data-amount="999"
+		    data-name="NUWC Juicing"
+		    data-description="Checkout"
+		    data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+		    data-locale="auto">
+		  </script>
 		</form>
 
 	</body>

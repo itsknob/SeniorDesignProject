@@ -1,15 +1,24 @@
 <!DOCTYPE HTML>  
 <?php
-session_start();
-$CompanyName = "NUWC Juicing";
-    //Used to set session information
-include "scripts.php";
+	session_start(); 
+    
+    include "scripts.php";
     //Variables
-$dbhost = "localhost";
-$dbuser = "root";
-$dbpass = "root";
-$dbname = "admin_tools";
-$con = makeConnection($dbhost, $dbuser, $dbpass, $dbname);
+    $dbhost = "localhost";
+    $dbuser = "root";
+    $dbpass = "";
+    $dbname = "juice";
+    //Connect and Select    
+    $con = makeConnection($dbhost, $dbuser, $dbpass, $dbname);
+
+    $db = new PDO('mysql:host=localhost;dbname=juice;charset=utf8', 'root', '');
+    $itemList = $db->prepare('SELECT itemName FROM items');
+    $itemList->execute();
+    $itemList = $itemList->fetchAll(PDO::FETCH_ASSOC);
+    $items = array();
+    foreach($itemList as $item) {
+        $items[] = $item['itemName'];
+    }
 
 ?>
 <html>
@@ -118,9 +127,70 @@ $con = makeConnection($dbhost, $dbuser, $dbpass, $dbname);
         <input type="reset" />
     </form>
 
+    <!--*********Add product to database and menu********-->
+    <br><br>
+    <h2>Add product</h2>
+    <form action="" method="POST" enctype="multipart/form-data">
+        Item Name:<br>
+        <textarea name="itemName" ></textarea>
+        <br>
+        Price:<br>
+        <textarea name="price" ></textarea>
+        <br>
+        Description:<br>
+        <textarea name="desc" ></textarea>
+        <br>
+        Calories:<br>
+        <textarea name="cal" ></textarea>
+        <br>
+        Protein:<br>
+        <textarea name="prot" ></textarea>
+        <br>
+        Choles:<br>
+        <textarea name="chol" ></textarea>
+        <br>
+        Sodium:<br>
+        <textarea name="sodi" ></textarea>
+        <br>
+        <!--Carbohydrates:<br>
+        <textarea name="carb" ></textarea>
+        <br>
+        Sugar:<br>
+        <textarea name="sugar" ></textarea>
+        <br> -->
+        Picture:<br>
+        <input type="file" name="picLink" id="picLink">
+        <input type="submit" value="Add Product" name="prodSubmit">
+    </form>
+    <?php
+        if (isset($_POST["prodSubmit"])) {
+            uploadProdPic("picLink");
+            $itemName = mysqli_real_escape_string($con, $_REQUEST['itemName']);
+            $price = mysqli_real_escape_string($con, $_REQUEST['price']);
+            $desc = mysqli_real_escape_string($con, $_REQUEST['desc']);
+            $cal = mysqli_real_escape_string($con, $_REQUEST['cal']);
+            $prot = mysqli_real_escape_string($con, $_REQUEST['prot']);
+            $chol = mysqli_real_escape_string($con, $_REQUEST['chol']);
+            $sodi = mysqli_real_escape_string($con, $_REQUEST['sodi']);
+            //$carb = mysqli_real_escape_string($con, $_REQUEST['carb']);
+            //$sugar = mysqli_real_escape_string($con, $_REQUEST['sugar']);
+            $pic = mysqli_real_escape_string($con, $_REQUEST['picLink']);
+
+            //$sql = $db->prepare("INSERT INTO items (itemName, price, description, calories, protein, choles, sodi, picLink, carbo, sugars)
+            //       VALUES ('$itemName', '$price', '$desc', '$cal', '$prot', '$chol', '$sodi', '$pic', '$carb', '$sugar')");
+            $sql = $db->prepare("INSERT INTO items (itemName, price, description, calories, protein, choles, sodi, picLink)
+                   VALUES ('$itemName', '$price', '$desc', '$cal', '$prot', '$chol', '$sodi', '$pic')");
+            if ($sql->execute()){
+                echo 'Product added successfully';
+            } else {
+                echo 'error';
+            }
+        }
+    ?>
+
     <!--************Upload Slideshow Pictures*************-->
     <h2>Upload Home Page Slideshow Pictures</h2>
-    <form action="admin_tools.php" method="post" enctype="multipart/form-data">
+    <form action="admin_tools.php" method="POST" enctype="multipart/form-data">
         Select image to upload:
         <input type="file" name="slideshowFile" id="slideshowFile">
         <input type="submit" value="Upload Image" name="slideSubmit">
@@ -137,6 +207,7 @@ $con = makeConnection($dbhost, $dbuser, $dbpass, $dbname);
         }
     }
     ?>
+    <br><br><br>
     <!--*********Display Images already uploaded and handle deletion of image(s)********-->
     <button onclick="toggleImages()">Show Images Currently in Slideshow</button>
     <div id="myDIV" style="display:none">
@@ -177,6 +248,83 @@ $con = makeConnection($dbhost, $dbuser, $dbpass, $dbname);
         a:
         ?>
     </div>
+
+    <br><br>
+    <!--**************Display products in database and handle deletion and adding/removing from menu -->
+    <button type="button" onclick="toggleProducts()">Show Product Inventory</button>
+    <div id="myProds" style="display:none">
+        <?php
+            foreach($items as $item) {
+                echo '<input type="checkbox" name="checkProds[]" value="'.$item.'"> '.$item.'<br>';
+            }
+            echo '<input type="submit" name="delSubmit" value="delete" />';
+            echo '<input type="submit" name="remSubmit" value="remove from menu" />';
+            echo '<input type="submit" name="addSubmit" value="add to menu" />';
+
+
+        if(isset($_POST["delSubmit"])){
+            if (empty($_POST["checkProds"])) {
+                echo("You didn't select any products to be deleted.");
+                goto b;
+            }
+            $checkedProds = $_POST['checkProds'];
+            $O = count($checkedProds);
+            for($i=0; $i < $O; $i++)
+            {
+                $checkedProds[$i] = mysql_real_escape_string($checkedProds[$i]);
+                $sql = $db->prepare("DELETE FROM items WHERE itemName='$checkedProds[$i]'");
+                if ($sql->execute()) {
+                    echo "Records were deleted successfully.";
+                }
+                else {
+                    echo "error";
+                }
+            }
+        }
+        if(isset($_POST["remSubmit"])){
+            if (empty($_POST["checkProds"])) {
+                echo("You didn't select any products to be removed from menu.");
+                goto b;
+            }
+            $checkedProds = $_POST['checkProds'];
+            $L = count($checkedProds);
+            for($i=0; $i < $L; $i++)
+            {
+                $checkedProds[$i] = mysql_real_escape_string($checkedProds[$i]);
+                $sql = $db->prepare("UPDATE items SET inMenu =0 WHERE itemName='$checkedProds[$i]'");
+                if ($sql->execute()) {
+                    echo "Records were removed from menu successfully.";
+                }
+                else {
+                    echo "error";
+                }
+            }
+        }
+        if(isset($_POST["addSubmit"])){
+            if (empty($_POST["checkProds"])) {
+                echo("You didn't select any products to be added to menu.");
+                goto b;
+            }
+            $checkedProds = $_POST['checkProds'];
+            $Q = count($checkedProds);
+            for($i=0; $i < $Q; $i++)
+            {
+                $checkedProds[$i] = mysql_real_escape_string($checkedProds[$i]);
+                $sql = $db->prepare("UPDATE items SET inMenu =1 WHERE itemName='$checkedProds[$i]'");
+                if ($sql->execute()) {
+                    echo "Records were added to menu successfully.";
+                }
+                else {
+                    echo "error";
+                }
+            }
+        }
+        b:
+
+        ?>
+    </div>
+
+    
     <!--*******Javascript that toggles displaying images********-->
     <script>
         function toggleImages() {
@@ -187,7 +335,14 @@ $con = makeConnection($dbhost, $dbuser, $dbpass, $dbname);
                 x.style.display = 'none';
             }
         }
+        function toggleProducts() {
+            var x = document.getElementById('myProds');
+            if (x.style.display === 'none') {
+                x.style.display = 'block';
+            } else {
+                x.style.display = 'none';
+            }
+        }
     </script>
-    
 </body>
 </html>
