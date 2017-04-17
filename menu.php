@@ -315,6 +315,7 @@
 			//Run SQL statement to obtain all items with a value for calories
 			//Sort the returned array by highest calories to lowest calories using sort algorithm.
 			//call the generate item cards function with the array
+			
 		}
 
 		function calLowHigh(){
