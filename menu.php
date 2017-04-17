@@ -127,16 +127,26 @@
 			</div>  
 
 			<!--      Filtering 	-->
-			<div class="filterdiv">
-				<button class="hamburger hamburger--elastic" type="button">
+			<div id="filterdi" class="filterdiv">
+				<button onclick="showFiltersDropdown()" class="hamburger hamburger--elastic" type="button">
 					<span class="hamburger-box">
 						<span class="hamburger-inner"></span>
 					</span>
 				</button>
 				<div class="filtertext">Filter Search</div>
 			</div>
+			<div id="filtersdrop" class="filtersdropdown">
+				<ul>
+					<li onclick="calHighLow()">Calories High to Low</li>
+					<li onclick="calLowHigh()">Calories Low to High</li>
+					<li onclick="sugHighLow()">Sugars High to Low</li>
+					<li onclick="sugLowHigh()">Sugars Low to High</li>
+					<li onclick="protHighLow()">Protein High to Low</li>
+					<li onclick="protLowHigh()">Protein Low to High</li>
+				</ul>
+			</div>
 
-
+			<!-- Where we append our item cards -->
 			<div id="menu-item-container">
 			</div>
 		</div>
@@ -230,6 +240,113 @@
 				targetDiv.appendChild(itemButtonsDiv);
 			});
 		}
+
+
+
+		//ensure item array isn't longer than 20. 
+		//if longer than 20 items, trim it to 20 only to avoid displaying too many items.
+		if(allItemsArray.length < 21){
+			generateItemCards(allItemsArray);
+		}else{
+			generateItemCards(allItemsArray.slice(0, 20));
+		}
+
+		//Handling the modal for image clicks "imgmodal" in DOM
+		$(document).ready(function() {
+			//image modal document variables
+			var imagemodal = document.getElementById('imgmodal');
+			var modalImg = document.getElementById('image-content');
+			//nutrition modal document variables
+			var svgmodal = document.getElementById('svgmodal');
+
+			//When an image is clicked, display that image in the image modal
+			$('.image').click(function() {
+				modalImg.setAttribute("src", this.src);
+				imagemodal.style.display = "block";
+			});
+
+			//When a nutrition information button is clicked, loop through allItemsArray for the id 
+			//use that item's information in allItemsArray to generate the SVG 
+			$('.nutritionbutton').click(function() {
+				var currentID = this.id;
+				allItemsArray.forEach(function(d) {
+					if(currentID == d.itemID){
+						generateSVG(d);
+						//change liveSVG using function
+						svgmodal.style.display = "block";
+					}
+				});
+			});
+
+			$('.close').click(function(){
+				//remove and clear image modal
+				imagemodal.style.display = "none";
+				modalImg.removeAttribute("src");
+				//remove and clear svg modal
+				if(svgmodal.getAttribute("style") == "display: block;"){
+					svgmodal.style.display = "none";
+					document.getElementById('svg-content').remove();
+				}
+			})
+
+		});
+
+   /*********************************************************************************************************
+	*	When filters are used, we want to select elements by class name and remove all "itemcard"			*
+	*	After, we can call the generate item cards function using the new array from SQL statements 		*
+	*	based on each filter used.  																		*
+	*	We also want to --- document.getElementById("filtersdrop").classList.toggle("show");				*
+	*********************************************************************************************************/
+		function showFiltersDropdown(){
+			document.getElementById("filtersdrop").classList.toggle("show");
+			document.getElementById("filterdi").classList.toggle("dropdownmarginremover");
+		}
+
+		function removeItemCards (){
+			$("div.itemcard").remove();
+			$("#filterdi").toggleClass("dropdownmarginremover");
+			$("#filtersdrop").toggleClass("show");
+    		$(".hamburger").toggleClass("is-active");
+		}
+
+		//Filter function calls to generate cards
+		function calHighLow(){
+			removeItemCards();
+			//Run SQL statement to obtain all items with a value for calories
+			//Sort the returned array by highest calories to lowest calories using sort algorithm.
+			//call the generate item cards function with the array
+		}
+
+		function calLowHigh(){
+			removeItemCards();
+			
+		}
+
+		function sugHighLow(){
+			removeItemCards();
+			
+		}
+
+		function sugLowHigh(){
+			removeItemCards();
+			
+		}
+
+		function protHighLow(){
+			removeItemCards();
+			
+		}
+
+		function protLowHigh(){
+			removeItemCards();
+			
+		}
+
+		var $hamburger = $(".hamburger");
+  			$hamburger.on("click", function(e) {
+    		$hamburger.toggleClass("is-active");
+  		});
+
 
 		function generateSVG(currentItem){
 			var margin = {top: 30, right: 10, bottom: 15, left: 10};
@@ -449,67 +566,7 @@
 				.attr("width", 270)
 				.attr("height", 210)
 				.attr("style", "fill:none;stroke-width:1;stroke:black");
-				
 		}
-
-		//ensure item array isn't longer than 20. 
-		//if longer than 20 items, trim it to 20 only to avoid displaying too many items.
-		if(allItemsArray.length < 21){
-			generateItemCards(allItemsArray);
-		}else{
-			generateItemCards(allItemsArray.slice(0, 20));
-		}
-
-		//Handling the modal for image clicks "imgmodal" in DOM
-		$(document).ready(function() {
-			//image modal document variables
-			var imagemodal = document.getElementById('imgmodal');
-			var modalImg = document.getElementById('image-content');
-			//nutrition modal document variables
-			var svgmodal = document.getElementById('svgmodal');
-
-			//When an image is clicked, display that image in the image modal
-			$('.image').click(function() {
-				modalImg.setAttribute("src", this.src);
-				imagemodal.style.display = "block";
-			});
-
-			//When a nutrition information button is clicked, loop through allItemsArray for the id 
-			//use that item's information in allItemsArray to generate the SVG 
-			$('.nutritionbutton').click(function() {
-				var currentID = this.id;
-				allItemsArray.forEach(function(d) {
-					if(currentID == d.itemID){
-						generateSVG(d);
-						//change liveSVG using function
-						svgmodal.style.display = "block";
-					}
-				});
-			});
-
-			$('.close').click(function(){
-				//remove and clear image modal
-				imagemodal.style.display = "none";
-				modalImg.removeAttribute("src");
-				//remove and clear svg modal
-				if(svgmodal.getAttribute("style") == "display: block;"){
-					svgmodal.style.display = "none";
-					document.getElementById('svg-content').remove();
-				}
-			})
-
-		});
-
-   /*********************************************************************************************************
-	*	When filters are used, we want to select elements by class name and remove all "itemcard"			*
-	*	After, we can call the generate item cards function using the new array from SQL statements 		*
-	*	based on each filter used.																			*
-	*********************************************************************************************************/
-var $hamburger = $(".hamburger");
-  $hamburger.on("click", function(e) {
-    $hamburger.toggleClass("is-active");
-    // Do something else, like open/close menu
-  });
 	</script>
 
 		</div>
