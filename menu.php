@@ -186,7 +186,9 @@
       url:"fetch.php",
       method:"POST",
       data:{query:query},
+      dataType: 'json',
       success:function(data){
+        console.log(data);
         $('#result').html(data);
         }
       });
