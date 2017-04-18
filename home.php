@@ -107,6 +107,7 @@
 			</table>
 		</div>
 
+		<h3>Deal of the Day</h3>
 		<div id="dealoftheday" class="dealOfDay well">
 
 		</div>
@@ -256,7 +257,7 @@
 			$(document).on('click', ".nutritionbutton", function() {
 				var currentID = this.id;
 				dealOfTheDay.forEach(function(d) {
-					if(currentID == d.itemID){
+					if(currentID == d.itemID) {
 						generateSVG(dealOfTheDay[0]);
 						//change liveSVG using function
 						svgmodal.style.display = "block";
