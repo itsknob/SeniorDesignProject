@@ -103,7 +103,7 @@
 			}
 	}
 	function uploadProdPic($ftu) {
-		$target_dir = "images/prodPics/";
+		$target_dir = "images/";
 		$target_file = $target_dir . basename($_FILES[$ftu]["name"]);
 		$uploadOk = 1;
 		$imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
