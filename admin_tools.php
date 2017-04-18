@@ -1,24 +1,24 @@
 <!DOCTYPE HTML>  
 <?php
-	session_start(); 
-    
-    include "scripts.php";
-    //Variables
-    $dbhost = "localhost";
-    $dbuser = "root";
-    $dbpass = "";
-    $dbname = "juice";
-    //Connect and Select    
-    $con = makeConnection($dbhost, $dbuser, $dbpass, $dbname);
+session_start(); 
 
-    $db = new PDO('mysql:host=localhost;dbname=juice;charset=utf8', 'root', '');
-    $itemList = $db->prepare('SELECT itemName FROM items');
-    $itemList->execute();
-    $itemList = $itemList->fetchAll(PDO::FETCH_ASSOC);
-    $items = array();
-    foreach($itemList as $item) {
-        $items[] = $item['itemName'];
-    }
+include "scripts.php";
+    //Variables
+$dbhost = "localhost";
+$dbuser = "root";
+$dbpass = "";
+$dbname = "juice";
+    //Connect and Select    
+$con = makeConnection($dbhost, $dbuser, $dbpass, $dbname);
+
+$db = new PDO('mysql:host=localhost;dbname=juice;charset=utf8', 'root', '');
+$itemList = $db->prepare('SELECT itemName FROM items');
+$itemList->execute();
+$itemList = $itemList->fetchAll(PDO::FETCH_ASSOC);
+$items = array();
+foreach($itemList as $item) {
+    $items[] = $item['itemName'];
+}
 
 ?>
 <html>
@@ -43,127 +43,127 @@
       $data = stripslashes($data);
       $data = htmlspecialchars($data);
       return $data;
-    }
-    ?>
+  }
+  ?>
 
-    <h1>Admin Tools</h1>
-    <!--***********Twitter Handle******************-->
-    <?php
-    $twitterHandleText = changeTextFile("twitterHandle.txt", "twitter");
-    ?>
+  <h1>Admin Tools</h1>
+  <!--***********Twitter Handle******************-->
+  <?php
+  $twitterHandleText = changeTextFile("twitterHandle.txt", "twitter");
+  ?>
 
-    <h2>Enter Twitter Handle:</h2>
-    <form action="" method="post">
-        <textarea name="twitter"><?php echo htmlspecialchars($twitterHandleText) ?></textarea><br>
-        <input type="submit" />
-        <input type="reset" />
-    </form>
+  <h2>Enter Twitter Handle:</h2>
+  <form action="" method="post" enctype="multipart/form-data">
+    <textarea name="twitter"><?php echo htmlspecialchars($twitterHandleText) ?></textarea><br>
+    <input type="submit" />
+    <input type="reset" />
+</form>
 
+<br>
+<!--********About Us Text*******************-->
+<?php
+$aboutUsText = changeTextFile("aboutUs.txt", "aboutUs");
+?>
+
+<h2>Enter about us:</h2>
+<form action="" method="post" enctype="multipart/form-data">
+    <textarea name="aboutUs" cols=48 rows=24><?php echo htmlspecialchars($aboutUsText) ?></textarea><br>
+    <input type="submit" />
+    <input type="reset" />
+</form>
+
+<!--*******************About Us Image***********-->
+<h2>Upload About Us Picture</h2>
+<form action="admin_tools.php" method="post" enctype="multipart/form-data">
+    Select image to upload:
+    <input type="file" name="fileToUpload" id="fileToUpload">
+    <input type="submit" value="Upload Image" name="aboutPicSubmit">
+</form>
+
+<?php
+if(isset($_POST["aboutPicSubmit"])) {
+    uploadAboutPicture("fileToUpload");
+}
+?>
+
+<!--********Maps Information*******************-->
+<?php
+$latText = changeTextFile("mapsLatitude.txt", "lat");
+$longText = changeTextFile("mapsLongitude.txt", "long");
+?>
+
+<h2>Please Enter the Latitude and Longitude of the Location You Would Like to Appear on the Map:</h2>
+<a href="https://support.google.com/maps/answer/18539?source=gsearch&hl=en">You can get the latitude and longitude of an address by following these instructions</a>
+<form action="" method="post" enctype="multipart/form-data">
+    Latitude:<br>
+    <textarea name="lat" ><?php echo htmlspecialchars($latText) ?></textarea>
+    <br>Longitude:<br>
+    <textarea name="long" ><?php echo htmlspecialchars($longText) ?></textarea>
     <br>
-    <!--********About Us Text*******************-->
+    <input type="submit" />
+    <input type="reset" />
+</form>
+
+<!--********Contact Us Info**************************-->
+<?php
+$contactInfoText = changeTextFile("contactInfo.txt", "contactInfo");
+?>
+<h2>Please Enter Contact Information- This Will Appear at the Top of the Locations and Contact Us Page:</h2>
+<form action="" method="post" enctype="multipart/form-data">
+    <textarea name="contactInfo" cols=48 rows=24><?php echo htmlspecialchars($contactInfoText) ?></textarea><br>
+    <input type="submit" />
+    <input type="reset" />
+</form>
+
+<!--********Location Information*******************-->
+<?php
+$locInfoText = changeTextFile("locationInfo.txt", "locationInfo");
+?>
+
+<h2>Please Enter Location Information - This Will Appear Above the Twitter Feed on the Locations and Contact Us page:</h2>
+<form action="" method="post" enctype="multipart/form-data">
+    <textarea name="locationInfo" cols=48 rows=24><?php echo htmlspecialchars($locInfoText) ?></textarea><br>
+    <input type="submit" />
+    <input type="reset" />
+</form>
+
+<!--*********Add product to database and menu********-->
+<br><br>
+<h2>Add product</h2>
+<form action="" method="POST" enctype='multipart/form-data'>
+    Item Name:<br>
+    <textarea name="itemName" ></textarea>
+    <br>
+    Price:<br>
+    <textarea name="price" ></textarea>
+    <br>
+    Description:<br>
+    <textarea name="desc" ></textarea>
+    <br>
+    Calories:<br>
+    <textarea name="cal" ></textarea>
+    <br>
+    Protein:<br>
+    <textarea name="prot" ></textarea>
+    <br>
+    Choles:<br>
+    <textarea name="chol" ></textarea>
+    <br>
+    Sodium:<br>
+    <textarea name="sodi" ></textarea>
+    <br>
+    Carbohydrates:<br>
+    <textarea name="carb" ></textarea>
+    <br>
+    Sugar:<br>
+    <textarea name="sugar" ></textarea>
+    <br>
+    Picture:<br>
+    <input type="file" name="picLink" id="picLink">
+    <input type="submit" value="Add Product" name="prodSubmit">
+</form>
     <?php
-    $aboutUsText = changeTextFile("aboutUs.txt", "aboutUs");
-    ?>
-
-    <h2>Enter about us:</h2>
-    <form action="" method="post">
-        <textarea name="aboutUs" cols=48 rows=24><?php echo htmlspecialchars($aboutUsText) ?></textarea><br>
-        <input type="submit" />
-        <input type="reset" />
-    </form>
-
-    <!--*******************About Us Image***********-->
-    <h2>Upload About Us Picture</h2>
-    <form action="admin_tools.php" method="post" enctype="multipart/form-data">
-        Select image to upload:
-        <input type="file" name="fileToUpload" id="fileToUpload">
-        <input type="submit" value="Upload Image" name="aboutPicSubmit">
-    </form>
-
-    <?php
-    if(isset($_POST["aboutPicSubmit"])) {
-        uploadAboutPicture("fileToUpload");
-    }
-    ?>
-
-    <!--********Maps Information*******************-->
-    <?php
-    $latText = changeTextFile("mapsLatitude.txt", "lat");
-    $longText = changeTextFile("mapsLongitude.txt", "long");
-    ?>
-
-    <h2>Please Enter the Latitude and Longitude of the Location You Would Like to Appear on the Map:</h2>
-    <a href="https://support.google.com/maps/answer/18539?source=gsearch&hl=en">You can get the latitude and longitude of an address by following these instructions</a>
-    <form action="" method="post">
-        Latitude:<br>
-        <textarea name="lat" ><?php echo htmlspecialchars($latText) ?></textarea>
-        <br>Longitude:<br>
-        <textarea name="long" ><?php echo htmlspecialchars($longText) ?></textarea>
-        <br>
-        <input type="submit" />
-        <input type="reset" />
-    </form>
-
-    <!--********Contact Us Info**************************-->
-    <?php
-    $contactInfoText = changeTextFile("contactInfo.txt", "contactInfo");
-    ?>
-    <h2>Please Enter Contact Information- This Will Appear at the Top of the Locations and Contact Us Page:</h2>
-    <form action="" method="post">
-        <textarea name="contactInfo" cols=48 rows=24><?php echo htmlspecialchars($contactInfoText) ?></textarea><br>
-        <input type="submit" />
-        <input type="reset" />
-    </form>
-
-    <!--********Location Information*******************-->
-    <?php
-    $locInfoText = changeTextFile("locationInfo.txt", "locationInfo");
-    ?>
-
-    <h2>Please Enter Location Information - This Will Appear Above the Twitter Feed on the Locations and Contact Us page:</h2>
-    <form action="" method="post">
-        <textarea name="locationInfo" cols=48 rows=24><?php echo htmlspecialchars($locInfoText) ?></textarea><br>
-        <input type="submit" />
-        <input type="reset" />
-    </form>
-
-    <!--*********Add product to database and menu********-->
-    <br><br>
-    <h2>Add product</h2>
-    <form action="" method="POST" enctype="multipart/form-data">
-        Item Name:<br>
-        <textarea name="itemName" ></textarea>
-        <br>
-        Price:<br>
-        <textarea name="price" ></textarea>
-        <br>
-        Description:<br>
-        <textarea name="desc" ></textarea>
-        <br>
-        Calories:<br>
-        <textarea name="cal" ></textarea>
-        <br>
-        Protein:<br>
-        <textarea name="prot" ></textarea>
-        <br>
-        Choles:<br>
-        <textarea name="chol" ></textarea>
-        <br>
-        Sodium:<br>
-        <textarea name="sodi" ></textarea>
-        <br>
-        <!--Carbohydrates:<br>
-        <textarea name="carb" ></textarea>
-        <br>
-        Sugar:<br>
-        <textarea name="sugar" ></textarea>
-        <br> -->
-        Picture:<br>
-        <input type="file" name="picLink" id="picLink">
-        <input type="submit" value="Add Product" name="prodSubmit">
-    </form>
-    <?php
-        if (isset($_POST["prodSubmit"])) {
+        if (isset($_POST["prodSubmit"]) && isset($_POST["itemName"])) { //TODO: Add issets for things that need to be submitted, price and desc?
             uploadProdPic("picLink");
             $itemName = mysqli_real_escape_string($con, $_REQUEST['itemName']);
             $price = mysqli_real_escape_string($con, $_REQUEST['price']);
@@ -172,16 +172,13 @@
             $prot = mysqli_real_escape_string($con, $_REQUEST['prot']);
             $chol = mysqli_real_escape_string($con, $_REQUEST['chol']);
             $sodi = mysqli_real_escape_string($con, $_REQUEST['sodi']);
-            //$carb = mysqli_real_escape_string($con, $_REQUEST['carb']);
-            //$sugar = mysqli_real_escape_string($con, $_REQUEST['sugar']);
-            $pic = mysqli_real_escape_string($con, $_REQUEST['picLink']);
-
-            //$sql = $db->prepare("INSERT INTO items (itemName, price, description, calories, protein, choles, sodi, picLink, carbo, sugars)
-            //       VALUES ('$itemName', '$price', '$desc', '$cal', '$prot', '$chol', '$sodi', '$pic', '$carb', '$sugar')");
-            $sql = $db->prepare("INSERT INTO items (itemName, price, description, calories, protein, choles, sodi, picLink)
-                   VALUES ('$itemName', '$price', '$desc', '$cal', '$prot', '$chol', '$sodi', '$pic')");
+            $carb = mysqli_real_escape_string($con, $_REQUEST['carb']);
+            $sugar = mysqli_real_escape_string($con, $_REQUEST['sugar']);
+            $pic = mysqli_real_escape_string($con, basename($_FILES["picLink"]["name"]));
+            $sql = $db->prepare("INSERT INTO items (itemName, price, description, calories, protein, choles, sodi, picLink, carbo, sugars)  USE this for new DB
+                   VALUES ('$itemName', '$price', '$desc', '$cal', '$prot', '$chol', '$sodi', '$pic', '$carb', '$sugar')");
             if ($sql->execute()){
-                echo 'Product added successfully';
+                echo '<br>Product added successfully. Please refresh page to see changes.';
             } else {
                 echo 'error';
             }
@@ -222,7 +219,7 @@
         foreach($images as $image) {
             echo '<img src="'.$image.'" /><br />';
         }
-        echo '<form action="" method="post">';
+        echo '<form action="" method="post" enctype="multipart/form-data">';
         foreach($images as $image) {
             $count = $count + 1;
             echo '<input type="checkbox" name="deleteImages[]" value="'.$image.'"> Delete Image '.$count.'<br>';
@@ -254,12 +251,12 @@
     <button type="button" onclick="toggleProducts()">Show Product Inventory</button>
     <div id="myProds" style="display:none">
         <?php
-            foreach($items as $item) {
-                echo '<input type="checkbox" name="checkProds[]" value="'.$item.'"> '.$item.'<br>';
-            }
-            echo '<input type="submit" name="delSubmit" value="delete" />';
-            echo '<input type="submit" name="remSubmit" value="remove from menu" />';
-            echo '<input type="submit" name="addSubmit" value="add to menu" />';
+        foreach($items as $item) {
+            echo '<input type="checkbox" name="checkProds[]" value="'.$item.'"> '.$item.'<br>';
+        }
+        echo '<input type="submit" name="delSubmit" value="delete" />';
+        echo '<input type="submit" name="remSubmit" value="remove from menu" />';
+        echo '<input type="submit" name="addSubmit" value="add to menu" />';
 
 
         if(isset($_POST["delSubmit"])){
@@ -273,8 +270,12 @@
             {
                 $checkedProds[$i] = mysql_real_escape_string($checkedProds[$i]);
                 $sql = $db->prepare("DELETE FROM items WHERE itemName='$checkedProds[$i]'");
-                if ($sql->execute()) {
-                    echo "Records were deleted successfully.";
+                $sql2 = $db->prepare("SELECT picLink FROM items WHERE itemName ='$checkedProds[$i]'");
+                $sql2->execute();
+                $sql2 = $sql2->fetchAll(PDO::FETCH_ASSOC);
+                $picToBeDel = $sql2[0]['picLink'];
+                if ($sql->execute() && unlink("images/$picToBeDel")) {
+                    echo "<br>Records were deleted successfully. Please refresh page to see changes.";
                 }
                 else {
                     echo "error";
