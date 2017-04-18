@@ -13,6 +13,9 @@
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+<!-- D3 library for method chaining in SVG generation -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.5.0/d3.js"></script>
+
 <html>
 <head>
 	<title>Sample Juice Truck Page</title>
@@ -60,6 +63,13 @@
 		</nav>
 	
 	<div class="main">
+		<div id="imgmodal" class="modals">
+			<span class="close">&times;</span>
+			<img id="image-content" class="imagemodal-content">
+		</div>
+		<div id="svgmodal" class="modals">
+			<span class="close">&times;</span>
+		</div>
 		<!-- Most Popular Menu Items -->
 		<div class="popItems well">
 			<table class="table">
@@ -83,23 +93,22 @@
 					</tr>
 					<tr>
 						<td>3</td>
-						<td>Other Juice</td>
+						<td>Pineapple Juice</td>
 					</tr>
 					<tr>
 						<td>4</td>
-						<td>Other Juice</td>
+						<td>Sunshine Blend</td>
 					</tr>
 					<tr>
 						<td>5</td>
-						<td>Other other Juice</td>
+						<td>Beetox</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
 
-		<div class="dealOfDay well">
-			Deal of the day
-			<br><br><br><br><br><br><br><br><br><br><br>
+		<div id="dealoftheday" class="dealOfDay well">
+
 		</div>
 		<?php
 		$twitterHandle = file_get_contents('adminTools/twitterHandle.txt');
@@ -123,27 +132,27 @@
 		<!-- Wrapper for slides -->
 		<div class  ="carousel-inner" role="listbox">
 		<?php
-		$dirname = "images/slideshow/";
-        $images = glob($dirname."*.png");
-        if (count($images) == 0) {
-            echo 'There are no images in the slideshow';
-            goto a;
-        }
-        $count = -1;
+			$dirname = "images/slideshow/";
+	        $images = glob($dirname."*.png");
+	        if (count($images) == 0) {
+	            echo 'There are no images in the slideshow';
+	            goto a;
+	        }
+	        $count = -1;
 
-        echo '<div class="item active">
-				<img src="'.$images[0].'" alt="Chania">
-			</div>';
+	        echo '<div class="item active">
+					<img src="'.$images[0].'" alt="Chania">
+				</div>';
 
-        foreach($images as $image) {
-        	$count = $count + 1;
-        	if($count == 0)
-        		continue;
-        	echo '<div class="item">
-				<img src="'.$images[$count].'" alt="Chania">
-			</div>';
-        }
-        a:
+	        foreach($images as $image) {
+	        	$count = $count + 1;
+	        	if($count == 0)
+	        		continue;
+	        	echo '<div class="item">
+					<img src="'.$images[$count].'" alt="Chania">
+				</div>';
+	        }
+	        a:
         ?>
 
 		</div>
@@ -163,9 +172,326 @@
 
 		
 	</div>
-	
-	
+	<script>
+		var dealOfTheDay = [{calories: "45", carbo: "40", choles: "0", 
+									description: "Local legend has it that a famous Hollywood actress immediately ascended to stardom after consuming one of these",
+									itemID: "1", itemName:"Sandra's Greeeeeens", picLink:"mango.jpg", price:"6.5", protein:"2", sodi:"100", sugars:"3"}];
+		dealOfTheDay.forEach(function (d){
+			var targetDiv = document.getElementById("dealoftheday");
+			//generating the header for item card
+			var itemHeaderDiv = document.createElement("div");
+			itemHeaderDiv.setAttribute("class", "itemheader");
+			//generating the name div for the header 
+			var itemNameDiv = document.createElement("div");
+			itemNameDiv.setAttribute("class", "itemname");
+			var itemNameTextNode = document.createTextNode(d.itemName);
+			//prevent issues with display if the name for an item is too long
+			if(itemNameTextNode.length > 15){
+				itemNameTextNode = document.createTextNode(d.itemName.slice(0,13) + "...");
+			}
+			itemNameDiv.appendChild(itemNameTextNode);
+			//generating the price div for the header
+			var itemPriceDiv = document.createElement("div");
+			itemPriceDiv.setAttribute("class", "itemprice");
+			//fixing the values to be 2 decimals no matter what
+			var fixedValue = parseFloat(d.price).toFixed([2]);
+			var itemPriceTextNode = document.createTextNode("$" + fixedValue);
+			itemPriceDiv.appendChild(itemPriceTextNode);
+			//adding the name and price to the header
+			itemHeaderDiv.appendChild(itemNameDiv);
+			itemHeaderDiv.appendChild(itemPriceDiv);
+			//generating the image for the item card
+			var itemImageDiv = document.createElement("div");
+			itemImageDiv.setAttribute("class", "itemimage");
+			var itemImage = document.createElement("img");
+			itemImage.setAttribute("id", "img" + d.itemID);
+			itemImage.setAttribute("class", "image");
+			itemImage.setAttribute("src", "images/" + d.picLink);
+			itemImage.setAttribute("alt", d.itemName + " image.");
+			itemImageDiv.appendChild(itemImage);
+			//generating the description for item card
+			var itemDescriptionDiv = document.createElement("div");
+			itemDescriptionDiv.setAttribute("class", "itemdescription");
+			var itemDescriptionTextNode = document.createTextNode(d.description);
+			itemDescriptionDiv.appendChild(itemDescriptionTextNode);
+			//generating the buttons for item card
+			var itemButtonsDiv = document.createElement("div");
+			itemButtonsDiv.setAttribute("class", "itembuttons");
+			//generating the div for add to cart button
+			var itemAddToCartDiv = document.createElement("div");
+			itemAddToCartDiv.setAttribute("class", "itemaddtocartbutton dealbuttons");
+			var itemAddToCartButton = document.createElement("button");
+			itemAddToCartButton.setAttribute("class", "cartbutton");
+			itemAddToCartDiv.appendChild(itemAddToCartButton);
+			//generating the nutrition div
+			var itemNutritionInfoDiv = document.createElement("div");
+			itemNutritionInfoDiv.setAttribute("class", "itemnutritionbutton dealbuttons");
+			var itemNutritionButton = document.createElement("button");
+			itemNutritionButton.setAttribute("class", "nutritionbutton");
+			itemNutritionButton.setAttribute("id", d.itemID);
+			itemNutritionInfoDiv.appendChild(itemNutritionButton);
+			//adding the buttons to the button div
+			itemButtonsDiv.appendChild(itemAddToCartDiv);
+			itemButtonsDiv.appendChild(itemNutritionInfoDiv);
+			//append all divs to target card
+			targetDiv.appendChild(itemHeaderDiv);
+			targetDiv.appendChild(itemImageDiv);
+			targetDiv.appendChild(itemDescriptionDiv);
+			targetDiv.appendChild(itemButtonsDiv);
+		});	
 
-	
+		$(document).ready(function() {
+			//image modal document variables
+			var imagemodal = document.getElementById('imgmodal');
+			var modalImg = document.getElementById('image-content');
+			//nutrition modal document variables
+			var svgmodal = document.getElementById('svgmodal');
+			//When an image is clicked, display that image in the image modal
+			$(document).on('click', ".image", function() {
+				modalImg.setAttribute("src", this.src);
+				imagemodal.style.display = "block";
+			});
+			//When a nutrition information button is clicked, loop through allItemsArray for the id 
+			//use that item's information in allItemsArray to generate the SVG 
+			$(document).on('click', ".nutritionbutton", function() {
+				var currentID = this.id;
+				dealOfTheDay.forEach(function(d) {
+					if(currentID == d.itemID){
+						generateSVG(dealOfTheDay[0]);
+						//change liveSVG using function
+						svgmodal.style.display = "block";
+					}
+				});
+			});
+			$('.close').click(function(){
+				//remove and clear image modal
+				imagemodal.style.display = "none";
+				modalImg.removeAttribute("src");
+				//remove and clear svg modal
+				if(svgmodal.getAttribute("style") == "display: block;"){
+					svgmodal.style.display = "none";
+					document.getElementById('svg-content').remove();
+				}
+			})
+		});
+
+		function generateSVG(currentItem){
+			var margin = {top: 30, right: 10, bottom: 15, left: 10};
+		    var width = 260;
+		    var height = 175;
+			
+		    var svg = d3.select("#svgmodal")
+		                .append("svg")
+		                .attr("id", "svg-content")
+		                .attr("class", "svgmodal-content")
+		                .attr("width", width + margin.left + margin.right)
+		                .attr("height", height + margin.top + margin.bottom)
+		                .append("g")
+		                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+						
+			svg.append("text")
+		        .attr("x", 0)
+		        .attr("y", 5)
+		        .attr("font-family", "Franklin Gothic Medium")
+				.attr("font-size", 35)
+		        .text("Nutrition Facts");
+				
+			svg.append("line")
+				.attr("x1", 0)
+				.attr("y1", 20)
+				.attr("x2", 260)
+				.attr("y2", 20)
+				.attr("style", "stroke:black;stroke-width:15");
+				
+			svg.append("text")
+		        .attr("x", 0)
+		        .attr("y", 43)
+		        .attr("font-family", "Helvetica Black")
+				.attr("font-size", 13)
+				.attr("style", "font-weight:900")
+		        .text("Calories");	
+			
+			svg.append("text")
+		        .attr("x", 52)
+		        .attr("y", 43)
+		        .attr("font-family", "Helvetica Black")
+				.attr("font-size", 13)
+				.attr("style", "font-weight:500")
+		        .text(currentItem.calories);
+				
+			svg.append("line")
+		        .attr("x1", 0)
+				.attr("y1", 50)
+				.attr("x2", 260)
+				.attr("y2", 50)
+				.attr("style", "stroke:black;stroke-width:4");
+				
+			svg.append("text")
+		        .attr("x", 175)
+		        .attr("y", 65)
+		        .attr("font-family", "Helvetica Black")
+				.attr("font-size", 13)
+				.attr("style", "font-weight:900")
+		        .text("% Daily Value");
+			
+			
+			svg.append("line")
+		        .attr("x1", 0)
+				.attr("y1", 70)
+				.attr("x2", 260)
+				.attr("y2", 70)
+				.attr("style", "stroke:black;stroke-width:1");
+				
+			svg.append("text")
+		        .attr("x", 0)
+		        .attr("y", 85)
+		        .attr("font-family", "Helvetica Black")
+				.attr("font-size", 13)
+				.attr("style", "font-weight:900")
+		        .text("Cholesterol");
+			svg.append("text")
+		        .attr("x", 68)
+		        .attr("y", 85)
+		        .attr("font-family", "Helvetica Black")
+				.attr("font-size", 13)
+				.attr("style", "font-weight:500")
+		        .text(currentItem.choles + "mg");
+				
+			svg.append("text")
+				.attr("x", 235)
+				.attr("y", 85)
+				.attr("font-family", "Helvetica Black")
+				.attr("font-size", 13)
+				.attr("style", "font-weight:900")
+				//Calculate Cholesterol Daily Based on variable (300mg day)
+		        .text(Math.round(((currentItem.choles / 300) * 100)) + "%");	
+			
+			
+			svg.append("line")
+		        .attr("x1", 0)
+				.attr("y1", 90)
+				.attr("x2", 260)
+				.attr("y2", 90)
+				.attr("style", "stroke:black;stroke-width:1");
+				
+			svg.append("text")
+		        .attr("x", 0)
+		        .attr("y", 105)
+		        .attr("font-family", "Helvetica Black")
+				.attr("font-size", 13)
+				.attr("style", "font-weight:900")
+		        .text("Sodium");
+			svg.append("text")
+		        .attr("x", 45)
+		        .attr("y", 105)
+		        .attr("font-family", "Helvetica Black")
+				.attr("font-size", 13)
+				.attr("style", "font-weight:500")
+		        .text(currentItem.sodi + "mg");	
+				
+			svg.append("text")
+				.attr("x", 235)
+				.attr("y", 105)
+				.attr("font-family", "Helvetica Black")
+				.attr("font-size", 13)
+				.attr("style", "font-weight:900")	
+				//Calculate Sodium Daily Based on variable (2400mg day)
+		        .text(Math.round(((currentItem.sodi / 2400) * 100)) + "%");
+				
+			//Carbohydrate / Sugars
+			svg.append("line")
+		        .attr("x1", 0)
+				.attr("y1", 110)
+				.attr("x2", 260)
+				.attr("y2", 110)
+				.attr("style", "stroke:black;stroke-width:1");
+			
+			svg.append("text")
+		        .attr("x", 0)
+		        .attr("y", 125)
+		        .attr("font-family", "Helvetica Black")
+				.attr("font-size", 13)
+				.attr("style", "font-weight:900")
+		        .text("Total Carbohydrate");
+			
+			svg.append("text")
+		        .attr("x", 116)
+		        .attr("y", 125)
+		        .attr("font-family", "Helvetica Black")
+				.attr("font-size", 13)
+				.attr("style", "font-weight:500")
+		        .text(currentItem.carbo + "g");	
+			
+			svg.append("text")
+				.attr("x", 235)
+				.attr("y", 125)
+				.attr("font-family", "Helvetica Black")
+				.attr("font-size", 13)
+				.attr("style", "font-weight:900")	
+				//Calculate Total Carbohydrate Daily Based on variable (300g day)
+		        .text(Math.round(((currentItem.carbo / 300) * 100)) + "%");
+				
+			svg.append("line")
+		        .attr("x1", 0)
+				.attr("y1", 130)
+				.attr("x2", 260)
+				.attr("y2", 130)
+				.attr("style", "stroke:black;stroke-width:1");
+			
+			svg.append("text")
+		        .attr("x", 15)
+		        .attr("y", 145)
+		        .attr("font-family", "Helvetica Black")
+				.attr("font-size", 13)
+				.attr("style", "font-weight:500")
+		        .text("Sugars");
+			
+			svg.append("text")
+		        .attr("x", 57)
+		        .attr("y", 145)
+		        .attr("font-family", "Helvetica Black")
+				.attr("font-size", 13)
+				.attr("style", "font-weight:500")
+		        .text(currentItem.sugars + "g");	
+			
+			//Protein		
+			svg.append("line")
+		        .attr("x1", 15)
+				.attr("y1", 150)
+				.attr("x2", 260)
+				.attr("y2", 150)
+				.attr("style", "stroke:black;stroke-width:1");
+				
+			svg.append("text")
+		        .attr("x", 0)
+		        .attr("y", 165)
+		        .attr("font-family", "Helvetica Black")
+				.attr("font-size", 13)
+				.attr("style", "font-weight:900")
+		        .text("Protein");
+			svg.append("text")
+		        .attr("x", 45)
+		        .attr("y", 165)
+		        .attr("font-family", "Helvetica Black")
+				.attr("font-size", 13)
+				.attr("style", "font-weight:500")
+		        .text(currentItem.protein + "g");
+				
+			svg.append("line")
+		        .attr("x1", 0)
+				.attr("y1", 173)
+				.attr("x2", 260)
+				.attr("y2", 173)
+				.attr("style", "stroke:black;stroke-width:4");
+				
+			svg.append("rect")
+				.attr("x", -5)
+				.attr("y", -25)
+				.attr("width", 270)
+				.attr("height", 210)
+				.attr("style", "fill:none;stroke-width:1;stroke:black");
+		}
+
+	</script>
 </body>
 </html>

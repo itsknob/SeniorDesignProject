@@ -94,38 +94,6 @@
 				<span class="close">&times;</span>
 			</div>
 
-			<!--      Checkboxes-->
-			<div class="checkboxes">
-				<!--    Calories-->
-				<div class="calories-filter">
-					<p><strong>Filter by Calories</strong></p>
-
-					<form>
-						<label class="filterlabels"><input type="checkbox" id="box1" class="calories" value="300">Less than 300</label><br>
-						<label class="filterlabels"><input type="checkbox" class="calories" value="500">Less than 500</label><br>    
-					</form>
-				</div>
-			   
-				<!--    Sugar-->
-				<div class="sugar-filter">
-					<p><strong>Filter by Sugar (g)</strong></p>
-				   
-					<form>
-					  <label class="filterlabels"><input type="checkbox" class="sugars" value="5">Less  than 5</label><br>
-					  <label class="filterlabels"><input type="checkbox" class="sugars" value="10">Less than 10</label><br>    
-					</form>
-				</div>    
-				<!--      Prices-->
-				<div class="price-filter">
-					<p><strong>Filter by Price</strong></p>
-			   
-					<form>
-						<label class="filterlabels"><input type="checkbox" class="price" value="5">Less  than $5</label><br>
-						<label class="filterlabels"><input type="checkbox" class="price" value="10">Less than $10</label><br>    
-					</form>
-				</div>
-			</div>  
-
 			<!--      Filtering 	-->
 			<div id="filterdi" class="filterdiv">
 				<button onclick="showFiltersDropdown()" class="hamburger hamburger--elastic" type="button">
@@ -137,29 +105,56 @@
 			</div>
 			<div id="filtersdrop" class="filtersdropdown">
 				<ul>
-					<li onclick="calHighLow()">Calories High to Low</li>
-					<li onclick="calLowHigh()">Calories Low to High</li>
-					<li onclick="sugHighLow()">Sugars High to Low</li>
-					<li onclick="sugLowHigh()">Sugars Low to High</li>
-					<li onclick="priceHighLow()">Price High to Low</li>
-					<li onclick="priceLowHigh()">Price Low to High</li>
+					<li class="clear2 removefilters" onclick="removeFilters()">Remove Current Filters</li>
+					<li class="clear1" onclick="priceHighLow()">Price High to Low</li>
+					<li class="clear1" onclick="priceLowHigh()">Price Low to High</li>
+					<li class="clear2" onclick="calHighLow()">Calories High to Low</li>
+					<li class="clear2" onclick="calLowHigh()">Calories Low to High</li>
+					<li class="clear1" onclick="sugHighLow()">Sugars High to Low</li>
+					<li class="clear1" onclick="sugLowHigh()">Sugars Low to High</li>
+					<li class="clear2" onclick="protHighLow()">Protein High to Low</li>
+					<li class="clear2" onclick="protLowHigh()">Protein Low to High</li>
 				</ul>
 			</div>
+
+			<!-- Search Bar -->
+			<form id="search-text-group" class="form-group">
+		        <div class="input-group">
+			        <input type="text" name="search_text" id="search_text"  placeholder="Search by Drink Details" class="form-control" />
+		        </div>
+		    </form>
+		    
+		    <div id="result"></div>     
+
+			<!-- Deafult Filters -->
+			<div class="defaultfilters">
+				<ul>
+					<li class="clear2 removefilters" onclick="removeFilters()">Remove Current Filters</li>
+					<li class="clear1" onclick="priceHighLow()">Price High to Low</li>
+					<li class="clear1" onclick="priceLowHigh()">Price Low to High</li>
+					<li class="clear2" onclick="calHighLow()">Calories High to Low</li>
+					<li class="clear2" onclick="calLowHigh()">Calories Low to High</li>
+					<li class="clear1" onclick="sugHighLow()">Sugars High to Low</li>
+					<li class="clear1" onclick="sugLowHigh()">Sugars Low to High</li>
+					<li class="clear2" onclick="protHighLow()">Protein High to Low</li>
+					<li class="clear2" onclick="protLowHigh()">Protein Low to High</li>
+				</ul>
+			</div>  
 
 			<!-- Where we append our item cards -->
 			<div id="menu-item-container">
 			</div>
+
 		</div>
 	 
-   
- 
-	 
+
+
+
+      
 	 
 	<script>
 		var allItemsArray = <?php echo json_encode($itemList); ?>;
-
 		function generateItemCards(itemArray){
-
 			//create item cards for each item
 			itemArray.forEach(function (d){
 				var itemCardDiv = document.createElement('div');
@@ -173,7 +168,6 @@
 				//selecting the current item card
 				var currentTargetDivId = "itemcard" + d.itemID;
 				var targetDiv = document.getElementById(currentTargetDivId);
-
 				//generating the header for item card
 				var itemHeaderDiv = document.createElement("div");
 				itemHeaderDiv.setAttribute("class", "itemheader");
@@ -196,7 +190,6 @@
 				//adding the name and price to the header
 				itemHeaderDiv.appendChild(itemNameDiv);
 				itemHeaderDiv.appendChild(itemPriceDiv);
-
 				//generating the image for the item card
 				var itemImageDiv = document.createElement("div");
 				itemImageDiv.setAttribute("class", "itemimage");
@@ -206,13 +199,11 @@
 				itemImage.setAttribute("src", "images/" + d.picLink);
 				itemImage.setAttribute("alt", d.itemName + " image.");
 				itemImageDiv.appendChild(itemImage);
-
 				//generating the description for item card
 				var itemDescriptionDiv = document.createElement("div");
 				itemDescriptionDiv.setAttribute("class", "itemdescription");
 				var itemDescriptionTextNode = document.createTextNode(d.description);
 				itemDescriptionDiv.appendChild(itemDescriptionTextNode);
-
 				//generating the buttons for item card
 				var itemButtonsDiv = document.createElement("div");
 				itemButtonsDiv.setAttribute("class", "itembuttons");
@@ -232,17 +223,151 @@
 				//adding the buttons to the button div
 				itemButtonsDiv.appendChild(itemAddToCartDiv);
 				itemButtonsDiv.appendChild(itemNutritionInfoDiv);
-
 				//append all divs to target card
-				console.log(targetDiv);
 				targetDiv.appendChild(itemHeaderDiv);
 				targetDiv.appendChild(itemImageDiv);
 				targetDiv.appendChild(itemDescriptionDiv);
 				targetDiv.appendChild(itemButtonsDiv);
+				console.log(d);
 			});
 		}
 
+   /*********************************************************************************************************
+	*	When filters are used, we want to select elements by class name and remove all "itemcard"			*
+	*	After, we can call the generate item cards function using the new array from SQL statements 		*
+	*	based on each filter used.  																		*
+	*	We also want to --- document.getElementById("filtersdrop").classList.toggle("showfitlers");			*
+	*********************************************************************************************************/
+		//Search bar functionality
+		$(document).ready(function() {
+			load_data();
+			function load_data(query) {  
+				$.ajax({
+					url:"fetch.php",
+					method:"POST",
+					data:{query:query},
+					dataType: 'json',
+					success:function(data) {
+						var doNotToggleFilters = true;
+						removeItemCards(doNotToggleFilters);
+						generateItemCards(data);
+						$('#result').html(data);
+					}
+				});
+			}
 
+			$('#search_text').keyup(function() {
+				var search = $(this).val();
+				if(search != '') {
+					load_data(search);
+				} else {
+					load_data();
+				}
+			});
+		}); 
+
+		function showFiltersDropdown(){
+			document.getElementById("filtersdrop").classList.toggle("showfilters");
+			document.getElementById("filterdi").classList.toggle("dropdownmarginremover");
+		}
+
+		function removeItemCards (bool){
+			$("div.itemcard").remove();
+			if(!bool){
+				$("#filterdi").toggleClass("dropdownmarginremover");
+				$("#filtersdrop").toggleClass("showfilters");
+    			$(".hamburger").toggleClass("is-active");
+    		}
+		}
+
+		function removeFilters(){
+			removeItemCards();
+			document.getElementById("search-text-group").reset();
+			console.log("remove the filters!");
+			generateItemCards(allItemsArray);
+		}
+
+		//Filter function calls to generate cards
+		function priceHighLow(){
+			removeItemCards();
+			var priceHighLowArray = JSON.parse(JSON.stringify(allItemsArray));
+			priceHighLowArray.sort(function(obj1, obj2){ 
+				return obj2.price - obj1.price; 
+			});
+			generateItemCards(priceHighLowArray);
+			
+		}
+
+		function priceLowHigh(){
+			removeItemCards();
+			var priceLowHighArray = JSON.parse(JSON.stringify(allItemsArray));
+			priceLowHighArray.sort(function(obj1, obj2){ 
+				return obj1.price - obj2.price; 
+			});
+			generateItemCards(priceLowHighArray);
+		}
+
+		function calHighLow(){
+			removeItemCards();
+			var calHighLowArray = JSON.parse(JSON.stringify(allItemsArray));
+			calHighLowArray.sort(function(obj1, obj2){ 
+				return obj2.calories - obj1.calories; 
+			});
+			generateItemCards(calHighLowArray);
+		}
+
+		function calLowHigh(){
+			removeItemCards();
+			var calLowHighArray = JSON.parse(JSON.stringify(allItemsArray));
+			calLowHighArray.sort(function(obj1, obj2){ 
+				return obj1.calories - obj2.calories; 
+			});
+			generateItemCards(calLowHighArray);
+		}
+
+		function sugHighLow(){
+			removeItemCards();
+			var sugHighLowArray = JSON.parse(JSON.stringify(allItemsArray));
+			sugHighLowArray.sort(function(obj1, obj2){ 
+				return obj2.sugars - obj1.sugars; 
+			});
+			generateItemCards(sugHighLowArray);
+		}
+
+		function sugLowHigh(){
+			removeItemCards();
+			var sugLowHighArray = JSON.parse(JSON.stringify(allItemsArray));
+			sugLowHighArray.sort(function(obj1, obj2){ 
+				return obj1.sugars - obj2.sugars; 
+			});
+			generateItemCards(sugLowHighArray);
+
+		}
+
+		function protHighLow(){
+			removeItemCards();
+			var protHighLowArray = JSON.parse(JSON.stringify(allItemsArray));
+			protHighLowArray.sort(function(obj1, obj2){ 
+				return obj2.protein - obj1.protein; 
+			});
+			generateItemCards(protHighLowArray);
+
+		}
+
+		function protLowHigh(){
+			removeItemCards();
+			var protLowHighArray = JSON.parse(JSON.stringify(allItemsArray));
+			protLowHighArray.sort(function(obj1, obj2){ 
+				return obj1.protein - obj2.protein; 
+			});
+			generateItemCards(protLowHighArray);
+
+		}
+
+		var $hamburger = $(".hamburger");
+  			$hamburger.on("click", function(e) {
+    		$hamburger.toggleClass("is-active");
+  		});
 
 		//ensure item array isn't longer than 20. 
 		//if longer than 20 items, trim it to 20 only to avoid displaying too many items.
@@ -251,7 +376,6 @@
 		}else{
 			generateItemCards(allItemsArray.slice(0, 20));
 		}
-
 		//Handling the modal for image clicks "imgmodal" in DOM
 		$(document).ready(function() {
 			//image modal document variables
@@ -259,16 +383,14 @@
 			var modalImg = document.getElementById('image-content');
 			//nutrition modal document variables
 			var svgmodal = document.getElementById('svgmodal');
-
 			//When an image is clicked, display that image in the image modal
-			$('.image').click(function() {
+			$(document).on('click', ".image", function() {
 				modalImg.setAttribute("src", this.src);
 				imagemodal.style.display = "block";
 			});
-
 			//When a nutrition information button is clicked, loop through allItemsArray for the id 
 			//use that item's information in allItemsArray to generate the SVG 
-			$('.nutritionbutton').click(function() {
+			$(document).on('click', ".nutritionbutton", function() {
 				var currentID = this.id;
 				allItemsArray.forEach(function(d) {
 					if(currentID == d.itemID){
@@ -278,7 +400,6 @@
 					}
 				});
 			});
-
 			$('.close').click(function(){
 				//remove and clear image modal
 				imagemodal.style.display = "none";
@@ -289,71 +410,7 @@
 					document.getElementById('svg-content').remove();
 				}
 			})
-
 		});
-
-   /*********************************************************************************************************
-	*	When filters are used, we want to select elements by class name and remove all "itemcard"			*
-	*	After, we can call the generate item cards function using the new array from SQL statements 		*
-	*	based on each filter used.  																		*
-	*	We also want to --- document.getElementById("filtersdrop").classList.toggle("showfitlers");			*
-	*********************************************************************************************************/
-		function showFiltersDropdown(){
-			document.getElementById("filtersdrop").classList.toggle("showfilters");
-			document.getElementById("filterdi").classList.toggle("dropdownmarginremover");
-		}
-
-		function removeItemCards (){
-			$("div.itemcard").remove();
-			$("#filterdi").toggleClass("dropdownmarginremover");
-			$("#filtersdrop").toggleClass("showfilters");
-    		$(".hamburger").toggleClass("is-active");
-		}
-
-		//Filter function calls to generate cards
-		function calHighLow(){
-			removeItemCards();
-			//Run SQL statement to obtain all items with a value for calories
-			//Sort the returned array by highest calories to lowest calories using sort algorithm.
-			//call the generate item cards function with the array
-			var calHighLowArray = JSON.parse(JSON.stringify(allItemsArray));
-			calHighLowArray.splice(0,3);
-			console.log(allItemsArray);
-			generateItemCards(calHighLowArray);
-		}
-
-		function calLowHigh(){
-			removeItemCards();
-			
-		}
-
-		function sugHighLow(){
-			removeItemCards();
-			
-		}
-
-		function sugLowHigh(){
-			removeItemCards();
-			
-		}
-
-		function priceHighLow(){
-			removeItemCards();
-			
-		}
-
-		function priceLowHigh(){
-			removeItemCards();
-
-
-			generateItemCards();
-		}
-
-		var $hamburger = $(".hamburger");
-  			$hamburger.on("click", function(e) {
-    		$hamburger.toggleClass("is-active");
-  		});
-
 
 		function generateSVG(currentItem){
 			var margin = {top: 30, right: 10, bottom: 15, left: 10};
@@ -429,7 +486,6 @@
 				.attr("font-size", 13)
 				.attr("style", "font-weight:900")
 		        .text("Cholesterol");
-
 			svg.append("text")
 		        .attr("x", 68)
 		        .attr("y", 85)
@@ -462,7 +518,6 @@
 				.attr("font-size", 13)
 				.attr("style", "font-weight:900")
 		        .text("Sodium");
-
 			svg.append("text")
 		        .attr("x", 45)
 		        .attr("y", 105)
@@ -551,7 +606,6 @@
 				.attr("font-size", 13)
 				.attr("style", "font-weight:900")
 		        .text("Protein");
-
 			svg.append("text")
 		        .attr("x", 45)
 		        .attr("y", 165)

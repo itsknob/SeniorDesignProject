@@ -101,18 +101,42 @@ h2 {
   margin-top: 50px;
   box-shadow: 0 0 10px black;
   background-image: url("images/beigeBackground.jpg");
-  min-height: 300px;
+  min-height: 400px;
 }
 
 /*************** Menu Page ******************/
-.checkboxes {
+.defaultfilters {
 	float: left;
     width: 135px;
     border-right: 1px outset grey;
     margin-right: 10px;
     border-bottom: 1px outset grey;
-    text-align: left;
-    padding-left: 5px;
+    border-top: 1px outset grey;
+}
+
+.defaultfilters ul {
+	list-style-type: none;    
+	font-size: 13px;
+	padding-left: 0px;
+	margin-bottom: 0px;
+}
+
+.defaultfilters ul li{
+	cursor: pointer;
+	text-align: left;
+	padding: 5px 2px 5px 2px;
+}
+
+.defaultfilters ul li:hover {
+	color: #FFF;
+}
+
+.clear1 {
+	background-color: rgba(255, 172, 151, 0.65);
+}
+
+.clear2 {
+	background-color: #ffd4c9;
 }
 
 #menu-item-container {
@@ -174,8 +198,6 @@ h2 {
     animation-duration: 0.5s;
 }
   
-
-
 /* The Close Button */
 .close {
     position: absolute;
@@ -185,6 +207,9 @@ h2 {
     font-size: 55px;
     font-weight: 100;
     transition: 0.3s;
+    opacity: 0.9;
+    text-shadow: 0 2px 0 #000;
+    color: #FFF;
 }
 
 .close:hover,
@@ -278,6 +303,14 @@ h2 {
     background-size: 2.2vw;
 }
 
+.input-group {
+	max-width: 400px;
+	width: 60%;
+	z-index: 0;
+	margin-right: 60vw;
+	padding-left: 20px;
+}
+
 /* Set a style for all buttons */
 button {
     background-color: #ffd4c9;
@@ -303,6 +336,28 @@ button {
     z-index: 1;  
 }
 
+/********** 1620+ PIXELS ***********/
+@media (min-width: 1620px) {
+	.itemdescription {
+		font-size: 21px;
+		line-height: 20px;
+	}
+
+	.itemname {
+		font-size: 32px;
+	}
+
+	.itemprice {
+		font-size: 30px;
+	}
+	.itemimage img {
+		width: 14vw;
+		height: 80px;
+	}
+	.image {
+		object-fit: cover;
+	}
+}
 
 /********** 1250 PIXELS ***********/
 @media (max-width: 1250px) {
@@ -473,9 +528,17 @@ button {
 	}
 }
 
-/* Adjusts the components of pages for viewing on a screen less than 800px */
+/**************** MOBILE VIEW @ 767px *****************/
 @media all and (max-width: 767px) {
-	.checkboxes{
+	.form-group {
+		margin-bottom: 20px;
+	}
+
+	#menu-item-container {
+		padding-right: 0px;
+	}
+
+	.defaultfilters{
 		display: none;
 	}
 
@@ -692,7 +755,7 @@ button {
 	    background-color: #ffd4c9;
 	    display: block;
 	    width: 100%;
-	    margin-bottom: 35px;
+	    margin-bottom: 20px;
 	}
 
 	.filtertext{
@@ -716,16 +779,27 @@ button {
 
 	.filtersdropdown ul {
 		list-style-type: none;    
-		font-size: 3vw;
+		font-size: 20px;
 	    float: left;
+	    width: 93%;
 	    padding-top: 10px;
 	}
 
 	.filtersdropdown ul li{
 		padding-top: 8px;
+    	padding-left: 10px;
 		cursor: pointer;
+		text-align: left;
 	}
 
 	.filtersdropdown ul li:hover {
-		color: white;
+		color: #FFF;
+	}
+
+	.clear1 {
+		background-color: rgba(255, 212, 201, 0.5);
+	}
+
+	.clear2 {
+		background-color: #ffd4c9;
 	}
