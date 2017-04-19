@@ -130,57 +130,33 @@ $locInfoText = changeTextFile("locationInfo.txt", "locationInfo");
 <!--*********Add product to database and menu********-->
 <br><br>
 <h2>Add product</h2>
-<form action="" method="POST" enctype='multipart/form-data'>
-    Item Name:<br>
-    <textarea name="itemName" ></textarea>
-    <br>
-    Price:<br>
-    <textarea name="price" ></textarea>
-    <br>
-    Description:<br>
-    <textarea name="desc" ></textarea>
-    <br>
-    Calories:<br>
-    <textarea name="cal" ></textarea>
-    <br>
-    Protein:<br>
-    <textarea name="prot" ></textarea>
-    <br>
-    Choles:<br>
-    <textarea name="chol" ></textarea>
-    <br>
-    Sodium:<br>
-    <textarea name="sodi" ></textarea>
-    <br>
-    Carbohydrates:<br>
-    <textarea name="carb" ></textarea>
-    <br>
-    Sugar:<br>
-    <textarea name="sugar" ></textarea>
-    <br>
-    Picture:<br>
-    <input type="file" name="picLink" id="picLink">
-    <input type="submit" value="Add Product" name="prodSubmit">
-</form>
+
     <?php
-        if (isset($_POST["prodSubmit"]) && isset($_POST["itemName"])) { //TODO: Add issets for things that need to be submitted, price and desc?
-            uploadProdPic("picLink");
-            $itemName = mysqli_real_escape_string($con, $_REQUEST['itemName']);
-            $price = mysqli_real_escape_string($con, $_REQUEST['price']);
-            $desc = mysqli_real_escape_string($con, $_REQUEST['desc']);
-            $cal = mysqli_real_escape_string($con, $_REQUEST['cal']);
-            $prot = mysqli_real_escape_string($con, $_REQUEST['prot']);
-            $chol = mysqli_real_escape_string($con, $_REQUEST['chol']);
-            $sodi = mysqli_real_escape_string($con, $_REQUEST['sodi']);
-            $carb = mysqli_real_escape_string($con, $_REQUEST['carb']);
-            $sugar = mysqli_real_escape_string($con, $_REQUEST['sugar']);
-            $pic = mysqli_real_escape_string($con, basename($_FILES["picLink"]["name"]));
-            $sql = $db->prepare("INSERT INTO items (itemName, price, description, calories, protein, choles, sodi, picLink, carbo, sugars)
-                   VALUES ('$itemName', '$price', '$desc', '$cal', '$prot', '$chol', '$sodi', '$pic', '$carb', '$sugar')");
-            if ($sql->execute()){
-                echo '<br>Product added successfully. Please refresh page to see changes.';
+        addProductForm();
+
+        if (isset($_POST["prodSubmit"])) {
+            if ( isset($_POST["price"]) && isset($_POST["itemName"]) && !empty($_FILES["picLink"]["name"])) { //TODO: Add issets for things that need to be submitted, price and desc?
+                uploadProdPic("picLink");
+                $itemName = mysqli_real_escape_string($con, $_REQUEST['itemName']);
+                $price = mysqli_real_escape_string($con, $_REQUEST['price']);
+                $desc = mysqli_real_escape_string($con, $_REQUEST['desc']);
+                $cal = mysqli_real_escape_string($con, $_REQUEST['cal']);
+                $prot = mysqli_real_escape_string($con, $_REQUEST['prot']);
+                $chol = mysqli_real_escape_string($con, $_REQUEST['chol']);
+                $sodi = mysqli_real_escape_string($con, $_REQUEST['sodi']);
+                $carb = mysqli_real_escape_string($con, $_REQUEST['carb']);
+                $sugar = mysqli_real_escape_string($con, $_REQUEST['sugar']);
+                $pic = mysqli_real_escape_string($con, basename($_FILES["picLink"]["name"]));
+                $sql = $db->prepare("INSERT INTO items (itemName, price, description, calories, protein, choles, sodi, picLink, carbo, sugars)
+                       VALUES ('$itemName', '$price', '$desc', '$cal', '$prot', '$chol', '$sodi', '$pic', '$carb', '$sugar')");
+                if ($sql->execute()){
+                    echo '<br>Product added successfully. Please refresh page to see changes.';
+                } else {
+                    echo 'error';
+
+                }
             } else {
-                echo 'error';
+                echo '<br> Error: Please make sure to submit at least an item name, price, and picture.';
             }
         }
     ?>
@@ -257,7 +233,7 @@ $locInfoText = changeTextFile("locationInfo.txt", "locationInfo");
         echo '<input type="submit" name="delSubmit" value="delete" />';
         echo '<input type="submit" name="remSubmit" value="remove from menu" />';
         echo '<input type="submit" name="addSubmit" value="add to menu" />';
-
+        echo '<input type="submit" name="editSubmit" value="edit" />';
 
         if(isset($_POST["delSubmit"])){
             if (empty($_POST["checkProds"])) {
@@ -265,8 +241,8 @@ $locInfoText = changeTextFile("locationInfo.txt", "locationInfo");
                 goto b;
             }
             $checkedProds = $_POST['checkProds'];
-            $O = count($checkedProds);
-            for($i=0; $i < $O; $i++)
+            $N = count($checkedProds);
+            for($i=0; $i < $N; $i++)
             {
                 $checkedProds[$i] = mysql_real_escape_string($checkedProds[$i]);
                 $sql = $db->prepare("DELETE FROM items WHERE itemName='$checkedProds[$i]'");
@@ -288,8 +264,8 @@ $locInfoText = changeTextFile("locationInfo.txt", "locationInfo");
                 goto b;
             }
             $checkedProds = $_POST['checkProds'];
-            $L = count($checkedProds);
-            for($i=0; $i < $L; $i++)
+            $N = count($checkedProds);
+            for($i=0; $i < $N; $i++)
             {
                 $checkedProds[$i] = mysql_real_escape_string($checkedProds[$i]);
                 $sql = $db->prepare("UPDATE items SET inMenu =0 WHERE itemName='$checkedProds[$i]'");
@@ -307,8 +283,8 @@ $locInfoText = changeTextFile("locationInfo.txt", "locationInfo");
                 goto b;
             }
             $checkedProds = $_POST['checkProds'];
-            $Q = count($checkedProds);
-            for($i=0; $i < $Q; $i++)
+            $N = count($checkedProds);
+            for($i=0; $i < $N; $i++)
             {
                 $checkedProds[$i] = mysql_real_escape_string($checkedProds[$i]);
                 $sql = $db->prepare("UPDATE items SET inMenu =1 WHERE itemName='$checkedProds[$i]'");
@@ -321,10 +297,80 @@ $locInfoText = changeTextFile("locationInfo.txt", "locationInfo");
             }
         }
         b:
+        ?>
+        </div>
+        <?php
+        if(isset($_POST["editSubmit"])){
+            if (empty($_POST["checkProds"])) {
+                echo("You didn't select any products to be edited.");
+                goto c;
+            }
+            $checkedProds = $_POST['checkProds'];
+            $N = count($checkedProds);
+            if ($N > 1) {
+                echo("Please select only one product to be edited.");
+                goto c;
+            }
+            $sql = $db->prepare("SELECT * FROM items WHERE itemName ='$checkedProds[0]'");
+            $sql->execute();
+            $sql = $sql->fetchAll(PDO::FETCH_ASSOC);
+            $sql = $sql[0];
+            $_SESSION['sql'] = $sql;
+            //print_r($sql);
+
+            echo '<br><h2>Edit Product:</h2>';
+            editProductForm($sql);
+        }
+        if(isset($_POST["changeSubmit"])) {
+            $itemName = mysqli_real_escape_string($con, $_REQUEST['itemName']);
+            $price = mysqli_real_escape_string($con, $_REQUEST['price']);
+            $desc = mysqli_real_escape_string($con, $_REQUEST['desc']);
+            $cal = mysqli_real_escape_string($con, $_REQUEST['cal']);
+            $prot = mysqli_real_escape_string($con, $_REQUEST['prot']);
+            $chol = mysqli_real_escape_string($con, $_REQUEST['chol']);
+            $sodi = mysqli_real_escape_string($con, $_REQUEST['sodi']);
+            $carb = mysqli_real_escape_string($con, $_REQUEST['carb']);
+            $sugar = mysqli_real_escape_string($con, $_REQUEST['sugar']);
+            $pic = mysqli_real_escape_string($con, basename($_FILES["picLink"]["name"]));
+            
+            if(!empty($pic)) {
+                $sql = $db->prepare("SELECT count(*) FROM items WHERE picLink='".$_SESSION['sql']['picLink']."'");
+                $sql->execute();
+                $sql = $sql->fetchAll(PDO::FETCH_ASSOC);
+                $count = $sql[0]['count(*)'];
+                if ($count == 1 && !empty($_SESSION['sql']['picLink'])) {
+                    $delImg = $_SESSION['sql']['picLink'];
+                    unlink("images/$delImg");
+                }
+                uploadProdPic("picLink");
+                $sql = $db->prepare( 
+                "UPDATE items 
+                SET itemName='$itemName', price='$price', description='$desc', calories='$cal', protein='$prot', choles='$chol', 
+                sodi='$sodi', picLink='$pic', carbo='$carb', sugars='$sugar'
+                WHERE itemID='".$_SESSION['sql']['itemID']."'" );
+                if ($sql->execute()){
+                    echo '<br>Product edited successfully. Please refresh page to see changes.';
+                } else {
+                    echo '<br>Error. Product not edited successfully.';
+                    print_r($sql->errorInfo()); 
+                }
+            } else {
+                $sql = $db->prepare( 
+                "UPDATE items 
+                SET itemName='$itemName', price='$price', description='$desc', calories='$cal', protein='$prot', choles='$chol', 
+                sodi='$sodi', carbo='$carb', sugars='$sugar'
+                WHERE itemID='".$_SESSION['sql']['itemID']."'" );
+                if ($sql->execute()){
+                    echo '<br>Product edited successfully. Please refresh page to see changes.';
+                } else {
+                    echo '<br>Error. Product not edited successfully.';
+                    print_r($sql->errorInfo()); 
+                }
+            }
+        }
+        c:
 
         ?>
-    </div>
-
     
     <!--*******Javascript that toggles displaying images********-->
     <script>
