@@ -175,7 +175,7 @@ $locInfoText = changeTextFile("locationInfo.txt", "locationInfo");
             $carb = mysqli_real_escape_string($con, $_REQUEST['carb']);
             $sugar = mysqli_real_escape_string($con, $_REQUEST['sugar']);
             $pic = mysqli_real_escape_string($con, basename($_FILES["picLink"]["name"]));
-            $sql = $db->prepare("INSERT INTO items (itemName, price, description, calories, protein, choles, sodi, picLink, carbo, sugars)  USE this for new DB
+            $sql = $db->prepare("INSERT INTO items (itemName, price, description, calories, protein, choles, sodi, picLink, carbo, sugars)
                    VALUES ('$itemName', '$price', '$desc', '$cal', '$prot', '$chol', '$sodi', '$pic', '$carb', '$sugar')");
             if ($sql->execute()){
                 echo '<br>Product added successfully. Please refresh page to see changes.';
