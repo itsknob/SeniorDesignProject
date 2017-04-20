@@ -400,6 +400,20 @@
 					}
 				});
 			});
+			window.onclick = function(event){
+				var svgCloser = document.getElementById("svgmodal");
+				var imgCloser = document.getElementById("imgmodal");
+				if(event.target == svgCloser || event.target == imgCloser){
+					//remove and clear image modal
+					imagemodal.style.display = "none";
+					modalImg.removeAttribute("src");
+					//remove and clear svg modal
+					if(svgmodal.getAttribute("style") == "display: block;"){
+						svgmodal.style.display = "none";
+						document.getElementById('svg-content').remove();
+					}
+				}
+			}
 			$('.close').click(function(){
 				//remove and clear image modal
 				imagemodal.style.display = "none";

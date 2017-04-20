@@ -352,6 +352,7 @@ button {
 	}
 	.itemimage img {
 		width: 14vw;
+		height: 80px;
 	}
 	.image {
 		object-fit: cover;
