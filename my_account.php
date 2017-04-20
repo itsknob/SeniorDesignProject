@@ -67,8 +67,8 @@
 						if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
 							echo "
 								<ul class='nav navbar-nav navbar-right'>
-							   		<li class = "active"><a href='my_account.php'><span class='glyphicon glyphicon-user'></span> My Account</a></li>
-							   		<li><a href='cart.php'><span class='glyphicon glyphicon-shopping-cart'></span> Cart</a></li>
+							   		<li class = 'active'><a href='my_account.php'><span class='glyphicon glyphicon-user'></span> My Account</a></li>
+						    <!--   	<li><a href='cart.php'><span class='glyphicon glyphicon-shopping-cart'></span> Cart</a></li> -->
 							   		<li><a href='logout.php'><span class glyphicon-shopping-logout'></span> Logout</a><li>
 						   		</ul>
 						   		"; // End of Navbar - Logged In 
@@ -76,7 +76,7 @@
 							echo "
 								<ul class='nav navbar-nav navbar-right'>
 									<li><a href='login.php'><span class='glyphicon glyphicon-log-in'></span> Login</a></li>
-									<li><a href='cart.php'><span class='glyphicon glyphicon-shopping-cart'></span> Cart</a></li>
+						    <!--   	<li><a href='cart.php'><span class='glyphicon glyphicon-shopping-cart'></span> Cart</a></li> -->
 								</ul>
 								"; // End of Navbar - Logged Out
 						} 
@@ -86,30 +86,6 @@
 			</div>
 		</div>
 		<h1>My Account</h1>
-		
-		<?php 
-			if($_SESSION['isAdmin'] == false){
-				//No admin content should display if user is not admin.
-			}
-			else if($_SESSION['isAdmin'] == true){
-				echo "
-					<!-- Edit Employee -->
-					<form action=employee-working.php method='POST'>
-						<p>
-							<select name='employee'> ";
-								foreach($userNameList as $id=>$user):
-									echo "<option value='" . $user . "'>" . $id . "  - " . $user . "</option>";
-								endforeach;
-				echo 		"</select>
-							<input type='submit' value='Submit'></input> 
-						</p>
-					</form>
-					";
-			} 
-			else{}
-		?>
-		
-		
 		<table>
 			<tr>
 				<td>
@@ -122,6 +98,80 @@
 				</td>
 			</tr>
 		</table>
+		<br>
+		<a href='admin_tools.php'><h4>Click Here to Edit the Website</h4></a>
+		<br>
+		<h4> Edit Employee's Status </h4>
+		<?php 
+			if($_SESSION['isAdmin'] == false){
+				//No admin content should display if user is not admin.
+			}
+			else if($_SESSION['isAdmin'] == true){
+				echo "
+					<!-- Edit Employee -->
+					<form action=my_account.php?go method='POST'>
+						<p>
+							<select name='employee'> ";
+								foreach($userNameList as $id=>$user):
+									echo "<option value='" . $user . "'>" . $id . "  - " . $user . "</option>";
+								endforeach;
+				echo 		"</select>
+							<input type='submit' name=submitButton value='Submit'></input> 
+						</p>
+					</form>
+					";
+			} 
+			else{}
+		?>
+		
+		<?php
+			//echo var_dump($_GET);
+			//echo var_dump($_POST);
+
+			//If employee was updated
+			if(isset($_GET['updated'])){
+				echo "<b>Updated Employee</b><br>";
+			}
+
+			//If employee information is being changed.
+			if(isset($_POST['updateButton']) && isset($_GET['go'])){
+
+			}
+
+			if(isset($_GET['go']) && isset($_POST['submitButton'])){
+				$employeeQuery = "SELECT * FROM login_information WHERE user_name='".$_POST['employee']."'";
+			//	echo $employeeQuery; //Debugging
+				$employeeResult = mysqli_query($con, $employeeQuery);
+			//	echo "Num rows: " . $employeeResult->num_rows;
+				while($row = $employeeResult->fetch_assoc()){
+			//		echo var_dump($row);
+			//		echo var_dump($_POST);
+					echo "
+							<div class=employeeContainter>
+								<div class=employeeInformation>
+									<ul>
+										<li>User Name:  " . $row['user_name'] . "</li>
+										<li>User ID:    " . $row['user_id'] . "</li>
+										<li>User Email: " . $row['user_email'] . "</li>
+										<form action='editEmployee.php' method='POST'>
+											<label for='NotEmployed'>Not Employee</label>
+											<input type='radio' id='NotEmployed' name='Employee'"; 			//Look for something breaking this code
+										  		if($row['isEmployee']==0) echo "checked='checked'/>";
+										  		else echo "/>";
+								  echo "<br><label for='YesEmployed'>Employee</label>
+								  			<input type='radio' id='YesEmployed' name='Employee'"; 
+												if($row['isEmployee']==1) echo "checked='checked'/>";
+										  		else echo "/>";
+								  echo "<br><input type='submit' name=updateButton value='Update User'/>
+										</form>
+									</ul>
+								</div>
+							</div>
+						 ";
+				}
+			}
+		?>
+
 	</body>  
 </html>
 

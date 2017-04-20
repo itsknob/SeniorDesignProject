@@ -12,13 +12,62 @@
 	//Variables
 	$dbhost = "localhost";
 	$dbuser = "root";
-	$dbpass = "";
-	$dbname = "juicing";
+	$dbpass = "root";
+	$dbname = "inventory";
  
-	$db = new PDO('mysql:host=localhost;dbname=juicing;charset=utf8', 'root', '');
-	$itemList = $db->prepare('SELECT * FROM items');
+	$db = new PDO('mysql:host=localhost;dbname=inventory;charset=utf8', 'root', 'root');
+	$itemList = $db->prepare("SELECT * FROM items WHERE inMenu='1'");
 	$itemList->execute();
 	$itemList = $itemList->fetchAll(PDO::FETCH_ASSOC);
+
+	//Handles adding and removing items to/from cart
+	require_once("dbcontroller.php");
+	$db_handle = new DBController();
+
+	$product_array = $db_handle->runQuery("SELECT * FROM items ORDER BY itemID ASC");
+
+	//Used for cart
+	if(!empty($_GET["action"])) {
+		switch($_GET["action"]) {
+			case "add":
+				if(!empty($_POST["quantity"])) {
+					$productByCode = $db_handle->runQuery("SELECT * FROM items WHERE itemID='" . $_GET["itemID"] . "'");
+
+					$itemArray = array($productByCode[0]["itemName"]=>array('itemName'=>$productByCode[0]["itemName"], 'itemID'=>$productByCode[0]["itemID"], 'quantity'=>$_POST["quantity"], 'price'=>$productByCode[0]["price"]));
+					
+					if(!empty($_SESSION["cart_item"])) {
+						if( in_array($productByCode[0]["itemName"],array_keys($_SESSION["cart_item"])) ) {
+							foreach($_SESSION["cart_item"] as $k => $v) {
+									if($productByCode[0]["itemName"] == $k) {
+										if(empty($_SESSION["cart_item"][$k]["quantity"])) {
+											$_SESSION["cart_item"][$k]["quantity"] = 0;
+										}
+										$_SESSION["cart_item"][$k]["quantity"] += $_POST["quantity"];
+									}
+							}
+						} else {
+							$_SESSION["cart_item"] = array_merge($_SESSION["cart_item"],$itemArray);
+						}
+					} else {
+						$_SESSION["cart_item"] = $itemArray;
+					}
+				}
+			break;
+			case "remove":
+				if(!empty($_SESSION["cart_item"])) {
+					foreach($_SESSION["cart_item"] as $k => $v) {
+							if($_GET["itemID"] == $k)
+								unset($_SESSION["cart_item"][$k]);				
+							if(empty($_SESSION["cart_item"]))
+								unset($_SESSION["cart_item"]);
+					}
+				}
+			break;
+			case "empty":
+				unset($_SESSION["cart_item"]);
+			break;	
+		}
+	}
 ?>
  
 <!-- Latest compiled and minified Bootstrap CSS -->
@@ -66,7 +115,7 @@
 							echo "
 								<ul class='nav navbar-nav navbar-right'>
 									<li><a href='my_account.php'><span class='glyphicon glyphicon-user'></span> My Account</a></li>
-									<li><a href='cart.php'><span class='glyphicon glyphicon-shopping-cart'></span> Cart</a></li>
+						    <!--   	<li><a href='cart.php'><span class='glyphicon glyphicon-shopping-cart'></span> Cart</a></li> -->
 									<li><a href='logout.php'><span class glyphicon-shopping-logout'></span> Logout</a><li>
 								</ul>
 								"; // End of Navbar - Logged In
@@ -74,7 +123,7 @@
 							echo "
 								<ul class='nav navbar-nav navbar-right'>
 									<li><a href='login.php'><span class='glyphicon glyphicon-log-in'></span> Login</a></li>
-									<li><a href='cart.php'><span class='glyphicon glyphicon-shopping-cart'></span> Cart</a></li>
+						    <!--   	<li><a href='cart.php'><span class='glyphicon glyphicon-shopping-cart'></span> Cart</a></li> -->
 								</ul>
 								"; // End of Navbar - Logged Out
 						}
@@ -82,6 +131,61 @@
 				</div>
 			</div>
 		</nav>
+
+		<!--**********************Display Shopping Cart********************-->
+		<div id="shopping-cart">
+		<div class="txt-heading">Shopping Cart <a id="btnEmpty" href="menu.php?action=empty">Empty Cart</a></div>
+		<?php
+		if(isset($_SESSION["cart_item"])){
+		    $item_total = 0;
+		?>	
+		<table cellpadding="10" cellspacing="1">
+		<tbody>
+		<tr>
+		<th style="text-align:left;"><strong>Name</strong></th>
+		<th style="text-align:right;"><strong>Quantity</strong></th>
+		<th style="text-align:right;"><strong>Price</strong></th>
+		<th style="text-align:center;"><strong>Action</strong></th>
+		</tr>	
+		<?php		
+		    foreach ($_SESSION["cart_item"] as $item){
+				?>
+						<tr>
+						<td style="text-align:left;border-bottom:#F0F0F0 1px solid;"><strong><?php echo $item["itemName"]; ?></strong></td>
+						<td style="text-align:right;border-bottom:#F0F0F0 1px solid;"><?php echo $item["quantity"]; ?></td>
+						<td style="text-align:right;border-bottom:#F0F0F0 1px solid;"><?php echo "$".$item["price"]; ?></td>
+						<td style="text-align:center;border-bottom:#F0F0F0 1px solid;"><a href="menu.php?action=remove&itemID=<?php echo $item["itemName"]; ?>" class="btnRemoveAction">Remove Item</a></td>
+						</tr>
+						<?php
+		        $item_total += ($item["price"]*$item["quantity"]);
+		        $_SESSION["total"] = $item_total*100;
+				}
+				?>
+
+		<tr>
+		<td colspan="5" align=right><strong>Total:</strong> <?php echo "$".$item_total; ?></td>
+		</tr>
+		</tbody>
+		</table>
+		<!--****Stripe Checkout Button******-->
+		<form action="checkout.php" method="POST">
+		  <script
+		    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+		    data-key="pk_test_ffWhKYspxcvqUl9hmdCaTnrl"
+		    data-amount="<?php echo $_SESSION['total']?>"
+		    data-name="NUWC Juicing"
+		    data-description="Checkout"
+		    data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+		    data-locale="auto">
+		  </script>
+		</form>
+
+		  <?php
+		}
+		?>
+		</div>
+		<!--**********************End of Displaying Shopping Cart********************-->
+		
 		<div id="menu-content" align="center">
 			<h2>Welcome to the Menu Page</h2>
 	   
@@ -210,9 +314,22 @@
 				//generating the div for add to cart button
 				var itemAddToCartDiv = document.createElement("div");
 				itemAddToCartDiv.setAttribute("class", "itemaddtocartbutton");
-				var itemAddToCartButton = document.createElement("button");
-				itemAddToCartButton.setAttribute("class", "cartbutton");
-				itemAddToCartDiv.appendChild(itemAddToCartButton);
+				var itemAddToCartForm = document.createElement("form");
+				itemAddToCartForm.setAttribute("method", "post");
+				var action = "menu.php?action=add&itemID="+d.itemID;
+				itemAddToCartForm.setAttribute("action", action);
+				var itemAddToCartQuantity = document.createElement("input");
+				itemAddToCartQuantity.setAttribute("type", "text");
+				itemAddToCartQuantity.setAttribute("name", "quantity");
+				itemAddToCartQuantity.setAttribute("value", "1");
+				itemAddToCartQuantity.setAttribute("size", "2");
+				var itemAddToCartButton = document.createElement("input");
+				itemAddToCartButton.setAttribute("type", "submit");
+				itemAddToCartButton.setAttribute("value", "Add to Cart");
+				itemAddToCartButton.setAttribute("class", "btnAddAction");
+				itemAddToCartDiv.appendChild(itemAddToCartForm);
+				itemAddToCartForm.appendChild(itemAddToCartQuantity);
+				itemAddToCartForm.appendChild(itemAddToCartButton);
 				//generating the nutrition div
 				var itemNutritionInfoDiv = document.createElement("div");
 				itemNutritionInfoDiv.setAttribute("class", "itemnutritionbutton");
@@ -232,12 +349,6 @@
 			});
 		}
 
-   /*********************************************************************************************************
-	*	When filters are used, we want to select elements by class name and remove all "itemcard"			*
-	*	After, we can call the generate item cards function using the new array from SQL statements 		*
-	*	based on each filter used.  																		*
-	*	We also want to --- document.getElementById("filtersdrop").classList.toggle("showfitlers");			*
-	*********************************************************************************************************/
 		//Search bar functionality
 		$(document).ready(function() {
 			load_data();
@@ -283,7 +394,6 @@
 		function removeFilters(){
 			removeItemCards();
 			document.getElementById("search-text-group").reset();
-			console.log("remove the filters!");
 			generateItemCards(allItemsArray);
 		}
 
@@ -294,7 +404,11 @@
 			priceHighLowArray.sort(function(obj1, obj2){ 
 				return obj2.price - obj1.price; 
 			});
-			generateItemCards(priceHighLowArray);
+			if(priceHighLowArray.length < 21){
+				generateItemCards(priceHighLowArray);
+			}else{
+				generateItemCards(priceHighLowArray.slice(0, 20));
+			}
 			
 		}
 
@@ -304,7 +418,11 @@
 			priceLowHighArray.sort(function(obj1, obj2){ 
 				return obj1.price - obj2.price; 
 			});
-			generateItemCards(priceLowHighArray);
+			if(priceLowHighArray.length < 21){
+				generateItemCards(priceLowHighArray);
+			}else{
+				generateItemCards(priceLowHighArray.slice(0, 20));
+			}
 		}
 
 		function calHighLow(){
@@ -313,7 +431,11 @@
 			calHighLowArray.sort(function(obj1, obj2){ 
 				return obj2.calories - obj1.calories; 
 			});
-			generateItemCards(calHighLowArray);
+			if(calHighLowArray.length < 21){
+				generateItemCards(calHighLowArray);
+			}else{
+				generateItemCards(calHighLowArray.slice(0, 20));
+			}
 		}
 
 		function calLowHigh(){
@@ -322,7 +444,11 @@
 			calLowHighArray.sort(function(obj1, obj2){ 
 				return obj1.calories - obj2.calories; 
 			});
-			generateItemCards(calLowHighArray);
+			if(calLowHighArray.length < 21){
+				generateItemCards(calLowHighArray);
+			}else{
+				generateItemCards(calLowHighArray.slice(0, 20));
+			}
 		}
 
 		function sugHighLow(){
@@ -331,7 +457,11 @@
 			sugHighLowArray.sort(function(obj1, obj2){ 
 				return obj2.sugars - obj1.sugars; 
 			});
-			generateItemCards(sugHighLowArray);
+			if(sugHighLowArray.length < 21){
+				generateItemCards(sugHighLowArray);
+			}else{
+				generateItemCards(sugHighLowArray.slice(0, 20));
+			}
 		}
 
 		function sugLowHigh(){
@@ -340,7 +470,11 @@
 			sugLowHighArray.sort(function(obj1, obj2){ 
 				return obj1.sugars - obj2.sugars; 
 			});
-			generateItemCards(sugLowHighArray);
+			if(sugLowHighArray.length < 21){
+				generateItemCards(sugLowHighArray);
+			}else{
+				generateItemCards(sugLowHighArray.slice(0, 20));
+			}
 
 		}
 
@@ -350,7 +484,11 @@
 			protHighLowArray.sort(function(obj1, obj2){ 
 				return obj2.protein - obj1.protein; 
 			});
-			generateItemCards(protHighLowArray);
+			if(protHighLowArray.length < 21){
+				generateItemCards(protHighLowArray);
+			}else{
+				generateItemCards(protHighLowArray.slice(0, 20));
+			}
 
 		}
 
@@ -360,7 +498,11 @@
 			protLowHighArray.sort(function(obj1, obj2){ 
 				return obj1.protein - obj2.protein; 
 			});
-			generateItemCards(protLowHighArray);
+			if(protLowHighArray.length < 21){
+				generateItemCards(protLowHighArray);
+			}else{
+				generateItemCards(protLowHighArray.slice(0, 20));
+			}
 
 		}
 

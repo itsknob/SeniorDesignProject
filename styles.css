@@ -423,7 +423,13 @@ button {
 	margin-bottom: -1px;
 	border-bottom-right-radius: 0;
 	border-bottom-left-radius: 0;
-	border-color:#017572;
+  border-color:#017572;
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
 }
          
 .form-signin input[type="password"] {

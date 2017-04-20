@@ -45,7 +45,7 @@
 							echo "
 								<ul class='nav navbar-nav navbar-right'>
 						       		<li><a href='my_account.php'><span class='glyphicon glyphicon-user'></span> My Account</a></li>
-						       		<li><a href='cart.php'><span class='glyphicon glyphicon-shopping-cart'></span> Cart</a></li>
+						    <!--   	<li><a href='cart.php'><span class='glyphicon glyphicon-shopping-cart'></span> Cart</a></li> -->
 						       		<li><a href='logout.php'><span class glyphicon-shopping-logout'></span> Logout</a><li>
 						   		</ul>
 						   		"; // End of Navbar - Logged In 
@@ -53,7 +53,7 @@
 							echo "
 								<ul class='nav navbar-nav navbar-right'>
 									<li><a class='active' href='login.php'><span class='glyphicon glyphicon-log-in'></span> Login</a></li>
-									<li><a href='cart.php'><span class='glyphicon glyphicon-shopping-cart'></span> Cart</a></li>
+						    <!--   	<li><a href='cart.php'><span class='glyphicon glyphicon-shopping-cart'></span> Cart</a></li> -->
 								</ul>
 								"; // End of Navbar - Logged Out
 						} 
@@ -264,20 +264,6 @@
 					}
 				});
 			});
-			window.onclick = function(event){
-				var svgCloser = document.getElementById("svgmodal");
-				var imgCloser = document.getElementById("imgmodal");
-				if(event.target == svgCloser || event.target == imgCloser){
-					//remove and clear image modal
-					imagemodal.style.display = "none";
-					modalImg.removeAttribute("src");
-					//remove and clear svg modal
-					if(svgmodal.getAttribute("style") == "display: block;"){
-						svgmodal.style.display = "none";
-						document.getElementById('svg-content').remove();
-					}
-				}
-			}
 			$('.close').click(function(){
 				//remove and clear image modal
 				imagemodal.style.display = "none";
