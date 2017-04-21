@@ -2,6 +2,14 @@
 <?php
 session_start(); 
 
+error_reporting(0);
+if ($_SESSION['isAdmin'] == false) {
+    http_response_code(404);
+    echo 'Only admins can use this';
+    die();
+}
+error_reporting(-1);
+
 include "scripts.php";
     //Variables
 $dbhost = "localhost";
