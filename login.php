@@ -61,7 +61,7 @@ $CompanyName = "NUWC Juicing";
 		<h2>Login</h2>
 
 		<div class = "main container form-signin login-container">
-			<form action="login.php" method="post">
+			<form action="login.php" style="width: 100%" method="post">
 				<input type = "text" class = "form-control" name = "name" placeholder = "Username" required autofocus></br>
 				<input type = "password" class = "form-control" name = "pass" placeholder = "Password" required></br>
 				<button class = "btn btn-lg btn-primary btn-block" type = "submit" name = "login">Login</button>

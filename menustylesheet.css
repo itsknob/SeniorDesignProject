@@ -209,7 +209,6 @@ h2 {
     transition: 0.3s;
     opacity: 0.9;
     text-shadow: 0 2px 0 #000;
-    color: #FFF;
 }
 
 .close:hover,
@@ -233,6 +232,7 @@ h2 {
 	margin-bottom: 20px;
 	box-shadow: 0 0 3px grey;
 	border-radius: 5px;
+	position: relative;
 }
 
 .itemheader {		
@@ -286,13 +286,20 @@ h2 {
 .itembuttons {
 	float: right;
 	width: 25%;
+	position: absolute;
+	right: 0;
+	bottom: 0;
 }
 
 .cartbutton {
 	border-top-left-radius: 5px;
 	border: 1px solid #999;
-	margin-top: 0.8vw;
-
+    background-color: #ffd4c9;
+    color: black;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 0.3vw;
+    font-size: 13px;
 }
 
 .nutritionbutton {
@@ -309,6 +316,35 @@ h2 {
 	z-index: 0;
 	margin-right: 60vw;
 	padding-left: 20px;
+}
+
+#shopping-cart {
+	width: 400px;
+    margin: auto;
+    background: #ffe8e2;
+    padding: 10px;
+    border-radius: 6px;
+    box-shadow: 0 0 10px black;
+    margin-bottom: 20px;
+}
+
+.txt-heading {
+	border-bottom: solid black 2px;
+	font-size: 18px;
+}
+
+.txt-heading a {
+	float: right;
+}
+
+th {
+	padding-right: 26px;
+}
+
+td {
+	padding-left: 0px;
+	text-align: center;
+	padding-left: 0px;
 }
 
 /* Set a style for all buttons */
@@ -355,6 +391,9 @@ button {
 	}
 	.image {
 		object-fit: cover;
+	}
+	.cartbutton {
+		font-size: 11px;
 	}
 }
 
@@ -421,7 +460,7 @@ button {
 	.cartbutton {
 		border-top-left-radius: 5px;
 		border: 1px solid #999;
-		margin-top: 0.8vw;
+		font-size: 15px;
 	}
 
 	.nutritionbutton {
@@ -498,12 +537,18 @@ button {
 	.itembuttons {
 		float: right;
 		width: 25%;
+
 	}
 
 	.cartbutton {
 		border-top-left-radius: 5px;
 		border: 1px solid #999;
-
+	    padding-left: 0.9vw;
+	    padding-top: 1px;
+	    line-height: 19px;
+	    margin-top: 3px;
+	    font-size: 9px;
+	    color: black;
 	}
 
 	.nutritionbutton {
@@ -598,17 +643,17 @@ button {
 	}
 
 	.cartbutton {
-		border-top-left-radius: 5px;
-		border: 1px solid #999;
-
+	    padding-left: 0.9vw;
+	    padding-top: 0;
+	    font-size: 12px;
 	}
 
 	.nutritionbutton {
-		border-bottom-right-radius: 5px;
+	    border-bottom-right-radius: 5px;
 	    border: 1px solid #999;
-	    background: url(/images/infoicon.png) 2.9vw 0.7vw no-repeat;
+	    background: url(/images/infoicon.png) 2.9vw 0.4vw no-repeat;
 	    background-color: #ffd4c9;
-	    background-size: 5.5vw;
+	    background-size: 32px;
 	}
 
 	/* Set a style for all buttons */

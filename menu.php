@@ -142,19 +142,19 @@
 		<table cellpadding="10" cellspacing="1">
 		<tbody>
 		<tr>
-		<th style="text-align:left;"><strong>Name</strong></th>
+		<th style="text-align:left; padding-right: 112px;"><strong>Name</strong></th>
 		<th style="text-align:right;"><strong>Quantity</strong></th>
 		<th style="text-align:right;"><strong>Price</strong></th>
-		<th style="text-align:center;"><strong>Action</strong></th>
+		<th><strong>Action</strong></th>
 		</tr>	
 		<?php		
 		    foreach ($_SESSION["cart_item"] as $item){
 				?>
 						<tr>
-						<td style="text-align:left;border-bottom:#F0F0F0 1px solid;"><strong><?php echo $item["itemName"]; ?></strong></td>
-						<td style="text-align:right;border-bottom:#F0F0F0 1px solid;"><?php echo $item["quantity"]; ?></td>
-						<td style="text-align:right;border-bottom:#F0F0F0 1px solid;"><?php echo "$".$item["price"]; ?></td>
-						<td style="text-align:center;border-bottom:#F0F0F0 1px solid;"><a href="menu.php?action=remove&itemID=<?php echo $item["itemName"]; ?>" class="btnRemoveAction">Remove Item</a></td>
+						<td style="text-align:left;border-bottom:rgba(85, 85, 85, 0.5) 1px solid;"><strong><?php echo $item["itemName"]; ?></strong></td>
+						<td style="text-align:center;border-bottom:rgba(85, 85, 85, 0.5) 1px solid;"><?php echo $item["quantity"]; ?></td>
+						<td style="text-align:left;border-bottom:rgba(85, 85, 85, 0.5) 1px solid;"><?php echo "$".number_format($item["price"], 2); ?></td>
+						<td style="text-align:center;border-bottom:rgba(85, 85, 85, 0.5) 1px solid;"><a href="menu.php?action=remove&itemID=<?php echo $item["itemName"]; ?>" class="btnRemoveAction">Remove Item</a></td>
 						</tr>
 						<?php
 		        $item_total += ($item["price"]*$item["quantity"]);
@@ -163,7 +163,7 @@
 				?>
 
 		<tr>
-		<td colspan="5" align=right><strong>Total:</strong> <?php echo "$".$item_total; ?></td>
+		<td style="font-size: 24px; text-align: right;" colspan="5" align=right><strong>Total:</strong> <?php echo "$".number_format($item_total, 2); ?></td>
 		</tr>
 		</tbody>
 		</table>
@@ -326,7 +326,7 @@
 				var itemAddToCartButton = document.createElement("input");
 				itemAddToCartButton.setAttribute("type", "submit");
 				itemAddToCartButton.setAttribute("value", "Add to Cart");
-				itemAddToCartButton.setAttribute("class", "btnAddAction");
+				itemAddToCartButton.setAttribute("class", "btnAddAction cartbutton");
 				itemAddToCartDiv.appendChild(itemAddToCartForm);
 				itemAddToCartForm.appendChild(itemAddToCartQuantity);
 				itemAddToCartForm.appendChild(itemAddToCartButton);

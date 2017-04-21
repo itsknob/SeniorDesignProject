@@ -2,11 +2,11 @@
   include "scripts.php";
   $dbhost = "localhost";
   $dbuser = "root";
-  $dbpass = "";
-  $dbname = "juicing";
+  $dbpass = "root";
+  $dbname = "inventory";
   $output = '';
   $search = $_POST["query"];
-	$db = new PDO('mysql:host=localhost;dbname=juicing;charset=utf8', 'root', '');
+	$db = new PDO('mysql:host=localhost;dbname=inventory;charset=utf8', 'root', 'root');
   if(isset($_POST["query"]))
   {
     

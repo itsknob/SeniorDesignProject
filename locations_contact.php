@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <?php
 	session_start();
-	$companyName = "Company Name";
+	$companyName = "NUWC Juicing";
 ?>
 
 <!-- Latest compiled and minified CSS -->
@@ -16,7 +16,7 @@
 
 <html>
 	<head>
-		<title>Sample Juice Truck Page</title>
+		<title>Locations & Contact Us Page</title>
 		<link rel="stylesheet" type"text/css" href="locationsstylesheet.css">
 	</head>
 	<body>
@@ -29,7 +29,7 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span> 
 					</button>
-					<a class="navbar-brand" href="home.php">Juice Company</a>
+					<a class="navbar-brand" href="home.php"><?php echo $companyName ?></a>
 				</div>
 				<div class="collapse navbar-collapse" id="myNavbar">
 					<ul class="nav navbar-nav">

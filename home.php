@@ -18,7 +18,7 @@
 
 <html>
 <head>
-	<title>Sample Juice Truck Page</title>
+	<title>Home Page</title>
 	<link rel="stylesheet" type"text/css" href="styles.css">
 </head>
 <body>
@@ -218,12 +218,17 @@
 			//generating the buttons for item card
 			var itemButtonsDiv = document.createElement("div");
 			itemButtonsDiv.setAttribute("class", "itembuttons");
-			//generating the div for add to cart button
+			//generating the div for add to cart button NEEDS TO BE IN FORM FOR HREF
 			var itemAddToCartDiv = document.createElement("div");
 			itemAddToCartDiv.setAttribute("class", "itemaddtocartbutton dealbuttons");
+			var itemAddToCartForm = document.createElement("form");
+			var dealOfTheDayURL = "http://ec2-54-202-178-202.us-west-2.compute.amazonaws.com/menu.php?action=add&itemID=" + d.itemID;
+			itemAddToCartForm.setAttribute("action", dealOfTheDayURL);
 			var itemAddToCartButton = document.createElement("button");
-			itemAddToCartButton.setAttribute("class", "cartbutton");
-			itemAddToCartDiv.appendChild(itemAddToCartButton);
+			itemAddToCartButton.setAttribute("class", "dotdcheckout");
+			itemAddToCartButton.innerHTML = "Click here to checkout!";
+			itemAddToCartForm.appendChild(itemAddToCartButton);
+			itemAddToCartDiv.appendChild(itemAddToCartForm);
 			//generating the nutrition div
 			var itemNutritionInfoDiv = document.createElement("div");
 			itemNutritionInfoDiv.setAttribute("class", "itemnutritionbutton dealbuttons");

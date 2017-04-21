@@ -6,12 +6,12 @@ include "scripts.php";
     //Variables
 $dbhost = "localhost";
 $dbuser = "root";
-$dbpass = "";
-$dbname = "juice";
+$dbpass = "root";
+$dbname = "inventory";
     //Connect and Select    
 $con = makeConnection($dbhost, $dbuser, $dbpass, $dbname);
 
-$db = new PDO('mysql:host=localhost;dbname=juice;charset=utf8', 'root', '');
+$db = new PDO('mysql:host=localhost;dbname=inventory;charset=utf8', 'root', 'root');
 $itemList = $db->prepare('SELECT itemName FROM items');
 $itemList->execute();
 $itemList = $itemList->fetchAll(PDO::FETCH_ASSOC);
