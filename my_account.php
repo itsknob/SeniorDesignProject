@@ -53,7 +53,7 @@
 		<title>My Account</title>
 
 		<link rel="stylesheet" type="text/css" href="styles.css">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 	</head>
 	<body>
 		<div class="navbar navbar-inverse navbar-fixed-top">
@@ -112,9 +112,9 @@
 				</tr>
 			</table>
 			<br>
+      <br>
 			<br>
-			<br>
-	        <?php 
+			<?php 
 	            if($_SESSION['isEmployee'] == true) {
 	                echo '<a href="orders.php"><h4>Click Here to look at recent orders</h4></a>';
 	            }
@@ -124,82 +124,190 @@
 	                    <h4> Edit Employee's Status </h4>
 
 	                    <!-- Edit Employee -->
-	                    <form style='margin-left: 3vw;' action=my_account.php?go method='POST'>
-	                        <p>
-	                            <select name='employee'> ";
-	                                foreach($userNameList as $id=>$user):
-	                                    echo "<option value='" . $user . "'>" . $id . "  - " . $user . "</option>";
-	                                endforeach;
-	                echo         "</select>
-	                            <input type='submit' name=submitButton value='Submit'></input> 
-	                        </p>
-	                    </form>
-	                    ";
-	            } 
-	        ?>
-
+						
+						";
+          
+          echo "<form id='search-text-group' class='form-group'>
+		        <div class='input-group'>
+			        <input type='text' name='search_text' id='search_text'  placeholder='Search Employee' class='form-control' />
+		        </div>
+		    </form>";
+				} 
+			?>
 			
-			
-			<?php
+<?php
 				//echo var_dump($_GET);
 				//echo var_dump($_POST);
-
 				//If employee was updated
-				//if(isset($_GET['updated'])){
-				//	echo "<b>Updated Employee</b><br>";
-				//}
-
-				//If employee information is being changed.
-				if(isset($_GET['edit']) && isset($_POST['updateButton'])){
-					echo "Edited Employee.<br> New Employee Status: ".$_POST['Employee']."<br>";
-					$updateQuery = "UPDATE login_information SET `isEmployee`='".$_POST['Employee']."' WHERE `user_name`='".$_SESSION['editableEmployeeName']."'";
-					//var_dump($updateQuery);
-					mysqli_query($con, $updateQuery);
+				if(isset($_GET['updated'])){
+					echo "<b>Updated Employee</b><br>";
 				}
-				/*
 				//If employee information is being changed.
 				if(isset($_POST['updateButton']) && isset($_GET['go'])){
-					//Update user's employee status
-					var_dump($_POST);
 				}
-				*/
-				if(isset($_GET['go']) && isset($_POST['submitButton'])){
-					$employeeQuery = "SELECT * FROM login_information WHERE user_name='".$_POST['employee']."'";
-				//	echo $employeeQuery; //Debugging
-					$employeeResult = mysqli_query($con, $employeeQuery);
-				//	echo "Num rows: " . $employeeResult->num_rows;
-					while($row = $employeeResult->fetch_assoc()){
-				//		echo var_dump($row);
-				//		echo var_dump($_POST);
-						$_SESSION['editableEmployeeName'] = $row['user_name'];
-						$_SESSION['editableEmployeeID'] = $row['user_id'];
-						$_SESSION['editableEmployeeStatus'] = $row['isEmployee'];
-						echo "
-								<div class=employeeContainter>
-									<div class=employeeInformation>
-										<ul>
-											<li>User Name:  " . $row['user_name'] . "</li>
-											<li>User ID:    " . $row['user_id'] . "</li>
-											<li>User Email: " . $row['user_email'] . "</li>
-											<form action='my_account.php?edit' method='POST'>
-												<label for='NotEmployed'>Not Employee</label>
-												<input type='radio' value='0' id='NotEmployed' name='Employee'"; 			//Look for something breaking this code
-											  		if($row['isEmployee']==0) echo "checked='checked'/>";
-											  		else echo "/>";
-									  echo "<br><label for='YesEmployed'>Employee</label>
-									  			<input type='radio' value='1' id='YesEmployed' name='Employee'"; 
-													if($row['isEmployee']==1) echo "checked='checked'/>";
-											  		else echo "/>";
-									  echo "<br><input type='submit' name=updateButton value='Update User'/>
-											</form>
-										</ul>
-									</div>
-								</div>
-							 ";
-					}
-				}
+				
 			?>
+    <div id="results"></div>
 		</div>
+    
+    <script>
+    
+    function generateEmployeeData(employees){
+      
+      employees.forEach(function(d){
+        
+        
+        var containerDiv = document.createElement('div');
+        var informationDiv = document.createElement('div')
+        
+        var ul = document.createElement('ul');
+        var br = document.createElement('br');
+        var br2 = document.createElement('br');
+        
+        //form
+        var form = document.createElement('form');
+        form.setAttribute("action","editEmployee.php");
+        form.setAttribute("method","POST");
+        
+        //labels
+        var yesLabel = document.createElement('label');
+        var noLabel = document.createElement('label');
+        yesLabel.setAttribute("for","YesEmployed");
+        noLabel.setAttribute("for","NotEmployed");
+        
+        //Radio buttons
+        //buttons need to have the same name so only one is selected 
+        var yesButton = document.createElement('input');
+        var noButton = document.createElement('input');
+        yesButton.setAttribute("type","radio");
+        yesButton.setAttribute("name","Employee");
+        yesButton.setAttribute("id","YesEmployed");
+        
+        noButton.setAttribute("type","radio");
+        noButton.setAttribute("name","Employee");
+        noButton.setAttribute("id","NotEmployed");
+        
+        if(d.isEmployee == 1){
+          yesButton.setAttribute("checked","checked");
+        }
+
+        else{
+          noButton.setAttribute("checked","checked");
+        }
+        
+        //submit button
+        var submit = document.createElement('input');
+        submit.setAttribute("type","submit");
+        submit.setAttribute("name","updateButton");
+        submit.setAttribute("name","updateButton");
+        submit.setAttribute("value","Update User");
+        
+       
+        containerDiv.setAttribute("id","employeeContainer");
+//        containerDiv.setAttribute("class","employeeContainer");
+        informationDiv.setAttribute("id","employeeInformation");
+//        informationDiv.setAttribute("class","employeeInformation");
+        
+        document.getElementById('results').appendChild(containerDiv)
+        document.getElementById('employeeContainer').appendChild(informationDiv)
+        document.getElementById('employeeInformation').appendChild(ul)
+
+        
+        
+        
+        var li = document.createElement('li');
+        li.innerHTML = "Username: "
+        
+        var li2 = document.createElement('li');
+        li2.innerHTML = "User ID: ";
+        
+        var li3 = document.createElement('li');
+        li3.innerHTML = "User Email: "
+
+				//generating the header for item card
+				var employeeHeaderDiv = document.createElement("div");
+				employeeHeaderDiv.setAttribute("class", "employeeHeader");
+				//generating the name div for the header 
+				var employeeNameDiv = document.createElement("div");
+				employeeNameDiv.setAttribute("class", "employeeName");
+				var employeeNameTextNode = document.createTextNode(d.user_name);
+        var employeeEmail = document.createTextNode(d.user_email);
+
+        
+        ul.appendChild(li);
+        ul.appendChild(li2);
+        ul.appendChild(li3);
+        li.innerHTML = li.innerHTML+ d.user_name;
+        li2.innerHTML = li2.innerHTML+ d.user_id;
+        li3.innerHTML = li3.innerHTML+ d.user_email;
+        
+        ul.appendChild(form);
+        
+        form.appendChild(noLabel);
+        noLabel.innerHTML = "Not Employee"; 
+        form.appendChild(noButton);
+        form.appendChild(br);
+        
+        form.appendChild(yesLabel);
+        yesLabel.innerHTML = "Employee";
+        form.appendChild(yesButton);
+        form.appendChild(br2)
+        
+        form.appendChild(submit);
+                      
+      });
+        
+     
+    }
+      function removeEmployeeData(){
+        $("div#employeeContainer").remove();
+      }
+      
+    		//Search bar functionality
+		$(document).ready(function() {
+			load_data();
+			function load_data(query) {  
+				$.ajax({
+					url:"fetchUsers.php",
+					method:"POST",
+					data:{query:query},
+					dataType: 'json',
+					success:function(data) {
+          
+            console.log(data.length);
+        //Ensures the returned array isn't longer than 50
+        //Trims array to 50 if over to prevent displaying too many items
+        if(data.length > 50);
+            data.slice(0,49); 
+            
+          removeEmployeeData();  
+          generateEmployeeData(data);
+            
+          
+          console.log(data);
+          
+          
+					}
+				});
+			}
+    
+			$('#search_text').keyup(function() {
+				var search = $(this).val();
+				if(search != '') {
+					load_data(search);
+				} else {
+					load_data();
+          //If search bar is empty remove all users from div
+          if(search.length==0){
+            removeEmployeeData();
+          }
+				}
+			});
+		});     
+    
+    
+    </script>
+    
 	</body>  
 </html>
 
