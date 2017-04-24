@@ -90,6 +90,7 @@
 		<title>Menu Page</title>
 		<link rel="stylesheet" type="text/css" href="menustylesheet.css">
 		<link rel="javascript" type="text/javascript" href="scripts/scripts.js">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 	</head>
 	<body>
 		<!-- Once the php code above works this can be deleted -->

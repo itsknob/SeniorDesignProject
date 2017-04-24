@@ -1,11 +1,12 @@
 <!DOCTYPE HTML>  
 <?php
+
 session_start(); 
 
 error_reporting(0);
 if ($_SESSION['isAdmin'] == false) {
     http_response_code(404);
-    echo 'Only admins can use this';
+    echo 'Oops! You need to log into an admin account to access this page.';
     die();
 }
 error_reporting(-1);
@@ -28,12 +29,62 @@ foreach($itemList as $item) {
     $items[] = $item['itemName'];
 }
 
+$CompanyName = "NUWC Juicing";
+
 ?>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
 <html>
 <head>
+    <title>Admin Tools</title>
+    <link rel="stylesheet" type"text/css" href="admintoolsstylesheet.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>  
 
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span> 
+                </button>
+                <a class="navbar-brand" href="home.php"><?php echo $CompanyName; ?></a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li class = "active"><a href="home.php">Home</a></li>
+                    <li><a href="menu.php">Menu</a></li>
+                    <li><a href="about.php">About Us</a></li> 
+                    <li><a href="locations_contact.php">Locations & Contact Us</a></li> 
+                </ul>       
+                <?php
+                    if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+                        echo "
+                            <ul class='nav navbar-nav navbar-right'>
+                                <li><a href='my_account.php'><span class='glyphicon glyphicon-user'></span> My Account</a></li>
+                        <!--    <li><a href='cart.php'><span class='glyphicon glyphicon-shopping-cart'></span> Cart</a></li> -->
+                                <li><a href='logout.php'><span class glyphicon-shopping-logout'></span> Logout</a><li>
+                            </ul>
+                            "; // End of Navbar - Logged In 
+                    } else {
+                        echo "
+                            <ul class='nav navbar-nav navbar-right'>
+                                <li><a class='active' href='login.php'><span class='glyphicon glyphicon-log-in'></span> Login</a></li>
+                        <!--    <li><a href='cart.php'><span class='glyphicon glyphicon-shopping-cart'></span> Cart</a></li> -->
+                            </ul>
+                            "; // End of Navbar - Logged Out
+                    } 
+                ?>
+            </div>
+        </div>
+    </nav>
+
+    <h2>Admin Tools</h2>
+
+    <div class="main">
     <?php
     // define variables and set to empty values
     $twitter = "";
@@ -54,13 +105,14 @@ foreach($itemList as $item) {
   }
   ?>
 
-  <h1>Admin Tools</h1>
+  <a href="my_account.php" style="background-color: rgba(255, 228, 200, 0.79);padding: 10px 10px 10px 10px;position: absolute;top: 0;left: 0;border-bottom-left-radius: 10px;border-bottom-right-radius: 10px;width: 100%;text-align: center;
+">Click here to return to the Account Page.</a>
   <!--***********Twitter Handle******************-->
   <?php
   $twitterHandleText = changeTextFile("twitterHandle.txt", "twitter");
   ?>
 
-  <h2>Enter Twitter Handle:</h2>
+  <h6>Enter Twitter Handle:</h6>
   <form action="" method="post" enctype="multipart/form-data">
     <textarea name="twitter"><?php echo htmlspecialchars($twitterHandleText) ?></textarea><br>
     <input type="submit" />
@@ -70,20 +122,21 @@ foreach($itemList as $item) {
 <br>
 <!--********About Us Text*******************-->
 <?php
-$aboutUsText = changeTextFile("aboutUs.txt", "aboutUs");
+    $aboutUsText = changeTextFile("aboutUs.txt", "aboutUs");
 ?>
 
-<h2>Enter about us:</h2>
-<form action="" method="post" enctype="multipart/form-data">
-    <textarea name="aboutUs" cols=48 rows=24><?php echo htmlspecialchars($aboutUsText) ?></textarea><br>
+<h6>Enter About Us:</h6>
+<form action="admin_tools.php?aboutUsText" method="post" enctype="multipart/form-data">
+    <textarea name="aboutUs" cols=40 rows=10><?php echo htmlspecialchars($aboutUsText) ?></textarea><br>
     <input type="submit" />
     <input type="reset" />
 </form>
 
 <!--*******************About Us Image***********-->
-<h2>Upload About Us Picture</h2>
-<form action="admin_tools.php" method="post" enctype="multipart/form-data">
-    Select image to upload:
+<h6>Upload About Us Picture:</h6>
+For best results, make sure your image is 750x500.
+<form action="admin_tools.php" method="post" enctype="multipart/form-data" class="pictureForm">
+    Select image to upload: 
     <input type="file" name="fileToUpload" id="fileToUpload">
     <input type="submit" value="Upload Image" name="aboutPicSubmit">
 </form>
@@ -100,8 +153,8 @@ $latText = changeTextFile("mapsLatitude.txt", "lat");
 $longText = changeTextFile("mapsLongitude.txt", "long");
 ?>
 
-<h2>Please Enter the Latitude and Longitude of the Location You Would Like to Appear on the Map:</h2>
-<a href="https://support.google.com/maps/answer/18539?source=gsearch&hl=en">You can get the latitude and longitude of an address by following these instructions</a>
+<h6>Enter Latitude and Longitude:</h6>
+<a href="https://support.google.com/maps/answer/18539?source=gsearch&hl=en">Click here to get the latitude and longitude of your location!</a>
 <form action="" method="post" enctype="multipart/form-data">
     Latitude:<br>
     <textarea name="lat" ><?php echo htmlspecialchars($latText) ?></textarea>
@@ -116,9 +169,9 @@ $longText = changeTextFile("mapsLongitude.txt", "long");
 <?php
 $contactInfoText = changeTextFile("contactInfo.txt", "contactInfo");
 ?>
-<h2>Please Enter Contact Information- This Will Appear at the Top of the Locations and Contact Us Page:</h2>
+<h6>Enter Contact Information:</h6>
 <form action="" method="post" enctype="multipart/form-data">
-    <textarea name="contactInfo" cols=48 rows=24><?php echo htmlspecialchars($contactInfoText) ?></textarea><br>
+    <textarea name="contactInfo" cols=40 rows=10><?php echo htmlspecialchars($contactInfoText) ?></textarea><br>
     <input type="submit" />
     <input type="reset" />
 </form>
@@ -128,16 +181,16 @@ $contactInfoText = changeTextFile("contactInfo.txt", "contactInfo");
 $locInfoText = changeTextFile("locationInfo.txt", "locationInfo");
 ?>
 
-<h2>Please Enter Location Information - This Will Appear Above the Twitter Feed on the Locations and Contact Us page:</h2>
+<h6>Enter Location Information:</h6>
 <form action="" method="post" enctype="multipart/form-data">
-    <textarea name="locationInfo" cols=48 rows=24><?php echo htmlspecialchars($locInfoText) ?></textarea><br>
+    <textarea name="locationInfo" cols=40 rows=10><?php echo htmlspecialchars($locInfoText) ?></textarea><br>
     <input type="submit" />
     <input type="reset" />
 </form>
 
 <!--*********Add product to database and menu********-->
 <br><br>
-<h2>Add product</h2>
+<h6>Add Product:</h6>
 
     <?php
         addProductForm();
@@ -170,8 +223,8 @@ $locInfoText = changeTextFile("locationInfo.txt", "locationInfo");
     ?>
 
     <!--************Upload Slideshow Pictures*************-->
-    <h2>Upload Home Page Slideshow Pictures</h2>
-    <form action="admin_tools.php" method="POST" enctype="multipart/form-data">
+    <h6>Upload Home Page Slideshow Pictures:</h6>
+    <form action="admin_tools.php" method="POST" enctype="multipart/form-data" class="pictureForm">
         Select image to upload:
         <input type="file" name="slideshowFile" id="slideshowFile">
         <input type="submit" value="Upload Image" name="slideSubmit">
@@ -188,7 +241,7 @@ $locInfoText = changeTextFile("locationInfo.txt", "locationInfo");
         }
     }
     ?>
-    <br><br><br>
+    <h6>Remove Home Page Slideshow Pictures:</h6>
     <!--*********Display Images already uploaded and handle deletion of image(s)********-->
     <button onclick="toggleImages()">Show Images Currently in Slideshow</button>
     <div id="myDIV" style="display:none">
@@ -230,7 +283,7 @@ $locInfoText = changeTextFile("locationInfo.txt", "locationInfo");
         ?>
     </div>
 
-    <br><br>
+    <h6>Remove Product:</h6>
     <!--**************Display products in database and handle deletion and adding/removing from menu -->
     <button type="button" onclick="toggleProducts()">Show Product Inventory</button>
     <div id="myProds" style="display:none">
@@ -326,7 +379,7 @@ $locInfoText = changeTextFile("locationInfo.txt", "locationInfo");
             $_SESSION['sql'] = $sql;
             //print_r($sql);
 
-            echo '<br><h2>Edit Product:</h2>';
+            echo '<br><h6>Edit Product:</h6>';
             editProductForm($sql);
         }
         if(isset($_POST["changeSubmit"])) {
@@ -379,6 +432,7 @@ $locInfoText = changeTextFile("locationInfo.txt", "locationInfo");
         c:
 
         ?>
+    </div>/
     
     <!--*******Javascript that toggles displaying images********-->
     <script>

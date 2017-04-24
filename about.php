@@ -19,6 +19,7 @@ $CompanyName = "NUWC Juicing";
 	<head>
 		<title>About Us Page</title>
 		<link rel="stylesheet" type"text/css" href="aboutusstylesheet.css">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 	</head>
 	<body>
 
@@ -74,7 +75,7 @@ $CompanyName = "NUWC Juicing";
 		<div class="main">
 			<div class="aboutus">
 				<?php
-					echo nl2br( file_get_contents('admintools/aboutus.txt') ); // get the contents, and echo it out.
+					echo nl2br( file_get_contents('adminTools/aboutUs.txt') ); // get the contents, and echo it out.
 				?>
 			</div>
 		</div>

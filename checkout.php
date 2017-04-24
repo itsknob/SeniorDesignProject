@@ -18,8 +18,9 @@ $db = new PDO('mysql:host=localhost;dbname=inventory;charset=utf8', 'root', 'roo
 
 <html>
 	<head>
-		<title>Checkout Page</title>
-		<link rel="stylesheet" type"text/css" href="styles.css">
+		<title>Checkout</title>
+		<link rel="stylesheet" type"text/css" href="checkoutstyles.css">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 	</head>
 	<body>
 		<!-- Once the php code above works this can be deleted -->
@@ -63,9 +64,10 @@ $db = new PDO('mysql:host=localhost;dbname=inventory;charset=utf8', 'root', 'roo
 		    	</div>
 		  	</div>
 		</nav>
-		Checkout Page
+		<h2>Checkout</h2>
 
-
+		<div class="main">
+		<h2>Thank you for shopping with us!</h2>
 		<?php
 		require 'vendor/autoload.php';
 		$desc = "";
@@ -104,6 +106,9 @@ $db = new PDO('mysql:host=localhost;dbname=inventory;charset=utf8', 'root', 'roo
 		    echo '<br>Error. Your order could not be processed.<br>';
 		}
 		?>
+		<br><br>
+		Be sure to have your email address ready to pick up your items!
+		</div>
 
 		</body>
 </html>

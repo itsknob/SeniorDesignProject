@@ -25,6 +25,7 @@
 			//Username is already stored on login.
 			$_SESSION['user_email'] = $row['user_email'];
 			$_SESSION['isAdmin'] = $row['isAdmin'];
+			$_SESSION['isEmployee'] = $row['isEmployee'];
 		}
 	}
 	function uploadAboutPicture($ftu){
@@ -138,7 +139,7 @@
 			}
 	}
 	function changeTextFile($filename, $formName) {
-		$file = 'adminTools/'. $filename;
+		$file = 'adminTools/'.$filename;
 
 		// check if form has been submitted
 		if (isset($_POST[$formName]))
@@ -160,7 +161,7 @@
 				    <textarea name="price" ></textarea>
 				    <br>
 				    Description:<br>
-				    <textarea name="desc" rows=7 cols=40 ></textarea>
+				    <textarea name="desc" ></textarea>
 				    <br>
 				    Calories:<br>
 				    <textarea name="cal" ></textarea>
@@ -181,7 +182,7 @@
 				    <textarea name="sugar" ></textarea>
 				    <br>
 				    Picture:<br>
-				    <input type="file" name="picLink" id="picLink">
+				    <input type="file" name="picLink" id="picLink" class="pictureForm">
 				    <input type="submit" value="Add Product" name="prodSubmit">
 				</form>';
     }

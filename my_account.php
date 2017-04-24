@@ -3,6 +3,14 @@
 	$companyName = "NUWC Juicing";
 
 	session_start(); 
+
+	error_reporting(0);
+	if ($_SESSION['loggedin'] == false) {
+	    http_response_code(404);
+	    echo 'Oops! You need to log into an account to access this page.';
+	    die();
+	}
+	error_reporting(-1);
 	
 	include "scripts.php";
 
@@ -45,6 +53,7 @@
 		<title>My Account</title>
 
 		<link rel="stylesheet" type="text/css" href="styles.css">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 	</head>
 	<body>
 		<div class="navbar navbar-inverse navbar-fixed-top">
@@ -103,30 +112,33 @@
 				</tr>
 			</table>
 			<br>
-			<a style="margin-left: 3vw; width: auto;" href='admin_tools.php'><h4>Click Here to Edit the Website</h4></a>
 			<br>
-			<h4 style="margin-left: 3vw;"> Edit Employee's Status </h4>
-			<?php 
-				if($_SESSION['isAdmin'] == false){
-					//No admin content should display if user is not admin.
-				}
-				else if($_SESSION['isAdmin'] == true){
-					echo "
-						<!-- Edit Employee -->
-						<form style='margin-left: 3vw;' action=my_account.php?go method='POST'>
-							<p>
-								<select name='employee'> ";
-									foreach($userNameList as $id=>$user):
-										echo "<option value='" . $user . "'>" . $id . "  - " . $user . "</option>";
-									endforeach;
-					echo 		"</select>
-								<input type='submit' name=submitButton value='Submit'></input> 
-							</p>
-						</form>
-						";
-				} 
-				else{}
-			?>
+			<br>
+	        <?php 
+	            if($_SESSION['isEmployee'] == true) {
+	                echo '<a href="orders.php"><h4>Click Here to look at recent orders</h4></a>';
+	            }
+	            if($_SESSION['isAdmin'] == true){
+	                echo "
+	                    <a href='admin_tools.php'><h4>Click Here to Edit the Website</h4></a><br>
+	                    <h4> Edit Employee's Status </h4>
+
+	                    <!-- Edit Employee -->
+	                    <form style='margin-left: 3vw;' action=my_account.php?go method='POST'>
+	                        <p>
+	                            <select name='employee'> ";
+	                                foreach($userNameList as $id=>$user):
+	                                    echo "<option value='" . $user . "'>" . $id . "  - " . $user . "</option>";
+	                                endforeach;
+	                echo         "</select>
+	                            <input type='submit' name=submitButton value='Submit'></input> 
+	                        </p>
+	                    </form>
+	                    ";
+	            } 
+	        ?>
+
+			
 			
 			<?php
 				//echo var_dump($_GET);
@@ -139,7 +151,8 @@
 
 				//If employee information is being changed.
 				if(isset($_POST['updateButton']) && isset($_GET['go'])){
-
+					//Update user's employee status
+					var_dump($_POST);
 				}
 
 				if(isset($_GET['go']) && isset($_POST['submitButton'])){
@@ -157,13 +170,13 @@
 											<li>User Name:  " . $row['user_name'] . "</li>
 											<li>User ID:    " . $row['user_id'] . "</li>
 											<li>User Email: " . $row['user_email'] . "</li>
-											<form action='editEmployee.php' method='POST'>
+											<form action='my_account.php' method='POST'>
 												<label for='NotEmployed'>Not Employee</label>
-												<input type='radio' id='NotEmployed' name='Employee'"; 			//Look for something breaking this code
+												<input type='radio' value='0' id='NotEmployed' name='Employee'"; 			//Look for something breaking this code
 											  		if($row['isEmployee']==0) echo "checked='checked'/>";
 											  		else echo "/>";
 									  echo "<br><label for='YesEmployed'>Employee</label>
-									  			<input type='radio' id='YesEmployed' name='Employee'"; 
+									  			<input type='radio' value='1' id='YesEmployed' name='Employee'"; 
 													if($row['isEmployee']==1) echo "checked='checked'/>";
 											  		else echo "/>";
 									  echo "<br><input type='submit' name=updateButton value='Update User'/>

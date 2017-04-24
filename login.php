@@ -17,6 +17,7 @@ $CompanyName = "NUWC Juicing";
 	<head>
 		<title>Login</title>
 		<link rel="stylesheet" type"text/css" href="styles.css">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 	</head>
 	<body>
 		<nav class="navbar navbar-inverse navbar-fixed-top">

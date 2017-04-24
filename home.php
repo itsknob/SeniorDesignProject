@@ -20,6 +20,7 @@
 <head>
 	<title>Home Page</title>
 	<link rel="stylesheet" type"text/css" href="styles.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
 
@@ -226,7 +227,7 @@
 			itemAddToCartForm.setAttribute("action", dealOfTheDayURL);
 			var itemAddToCartButton = document.createElement("button");
 			itemAddToCartButton.setAttribute("class", "dotdcheckout");
-			itemAddToCartButton.innerHTML = "Click here to checkout!";
+			itemAddToCartButton.innerHTML = "Checkout!";
 			itemAddToCartForm.appendChild(itemAddToCartButton);
 			itemAddToCartDiv.appendChild(itemAddToCartForm);
 			//generating the nutrition div

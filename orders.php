@@ -5,7 +5,7 @@ session_start();
 error_reporting(0);
 if ($_SESSION['isAdmin'] == false && $_SESSION['isEmployee'] == false ) {
     http_response_code(404);
-    echo 'You are not authorized';
+    echo 'You are not authorized to view this page.';
     die();
 }
 error_reporting(-1);
@@ -38,8 +38,9 @@ $con = makeConnection($dbhost, $dbuser, $dbpass, $dbname);
 
 <html>
 	<head>
-		<title>Checkout Page</title>
+		<title>Current Orders</title>
 		<link rel="stylesheet" type"text/css" href="styles.css">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 	</head>
 	<body>
 		<!-- Once the php code above works this can be deleted -->
@@ -83,56 +84,18 @@ $con = makeConnection($dbhost, $dbuser, $dbpass, $dbname);
 		    	</div>
 		  	</div>
 		</nav>
-		Orders Page
+		<h2>Current Orders</h2>
 
-		<?php
-		$sql = $db->prepare("SELECT * FROM orders");
-		$sql->execute();
-		$orders = $sql->fetchAll(PDO::FETCH_ASSOC);
-		//print_r($orders);
-		echo '<br>';
-
-		?>
-		<table cellpadding="10" cellspacing="1">
-		<tbody>
-		<tr>
-		<th style="text-align:left;"><strong>Order ID</strong></th>
-		<th style="text-align:right;"><strong>Order Description</strong></th>
-		<th style="text-align:right;"><strong>Total</strong></th>
-		<th style="text-align:center;"><strong>Email</strong></th>
-		</tr>	
-		<?php
-		foreach($orders as $order) {
-			if (isset($_POST[$order['orderID']])) {
-				$sql = $db->prepare("DELETE FROM orders WHERE orderID='".$order['orderID']."'");
-				if($sql->execute()) {
-					echo 'Order Deleted Successfully';
-				}
-			}
-			//print_r($order);
-			echo '<br><br>';
-			$order["price"] = $order["price"]/100;
-
-		?>
-			<tr>
-			<td style="text-align:center;border-bottom:#F0F0F0 1px solid;"><strong><?php echo $order["orderID"]; ?></strong></td>
-			<td style="text-align:right;border-bottom:#F0F0F0 1px solid;"><?php echo $order["description"]; ?></td>
-			<td style="text-align:right;border-bottom:#F0F0F0 1px solid;"><?php echo "$".number_format($order["price"], 2); ?></td>
-			<td style="text-align:center;border-bottom:#F0F0F0 1px solid;"><?php echo $order["email"]; ?></td>
-			<td style="text-align:center;border-bottom:#F0F0F0 1px solid;">
-				<form method="post" action="/orders.php">
-					<input type="submit" name="<?php echo $order['orderID'] ?>" value="Delete">
-				</form>
-
-			</td>
-			</tr>
-		<?php
-		}
-		?>
-		<tr>
-		</tr>
-		</tbody>
-		</table>
+		<div class="main">
+		<div id="displayOrders"></div>
+		</div>
 
 </body>
 </html>
+
+<script>
+	var auto_refresh = setInterval(
+	(function () {
+	    $("#displayOrders").load("displayOrders.php"); //Load the content into the div
+	}), 1000);
+</script>
