@@ -151,19 +151,18 @@
 
 				//If employee information is being changed.
 				if(isset($_GET['edit']) && isset($_POST['updateButton'])){
-					echo "Edited Employee.<br>";
-					echo "Employee Status: ".$_POST['Employee']."<br>";
+					echo "Edited Employee.<br> New Employee Status: ".$_POST['Employee']."<br>";
 					$updateQuery = "UPDATE login_information SET `isEmployee`='".$_POST['Employee']."' WHERE `user_name`='".$_SESSION['editableEmployeeName']."'";
-					var_dump($updateQuery);
+					//var_dump($updateQuery);
 					mysqli_query($con, $updateQuery);
 				}
-
+				/*
 				//If employee information is being changed.
 				if(isset($_POST['updateButton']) && isset($_GET['go'])){
 					//Update user's employee status
 					var_dump($_POST);
 				}
-
+				*/
 				if(isset($_GET['go']) && isset($_POST['submitButton'])){
 					$employeeQuery = "SELECT * FROM login_information WHERE user_name='".$_POST['employee']."'";
 				//	echo $employeeQuery; //Debugging
