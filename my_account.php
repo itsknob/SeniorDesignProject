@@ -172,6 +172,9 @@
 					while($row = $employeeResult->fetch_assoc()){
 				//		echo var_dump($row);
 				//		echo var_dump($_POST);
+						$_SESSION['editableEmployeeName'] = $row['user_name'];
+						$_SESSION['editableEmployeeID'] = $row['user_id'];
+						$_SESSION['editableEmployeeStatus'] = $row['isEmployee'];
 						echo "
 								<div class=employeeContainter>
 									<div class=employeeInformation>
