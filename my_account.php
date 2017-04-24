@@ -145,8 +145,17 @@
 				//echo var_dump($_POST);
 
 				//If employee was updated
-				if(isset($_GET['updated'])){
-					echo "<b>Updated Employee</b><br>";
+				//if(isset($_GET['updated'])){
+				//	echo "<b>Updated Employee</b><br>";
+				//}
+
+				//If employee information is being changed.
+				if(isset($_GET['edit']) && isset($_POST['updateButton'])){
+					echo "Edited Employee.<br>";
+					echo "Employee Status: ".$_POST['Employee']."<br>";
+					$updateQuery = "UPDATE login_information SET `isEmployee`='".$_POST['Employee']."' WHERE `user_name`='".$_SESSION['editableEmployeeName']."'";
+					var_dump($updateQuery);
+					mysqli_query($con, $updateQuery);
 				}
 
 				//If employee information is being changed.
@@ -170,7 +179,7 @@
 											<li>User Name:  " . $row['user_name'] . "</li>
 											<li>User ID:    " . $row['user_id'] . "</li>
 											<li>User Email: " . $row['user_email'] . "</li>
-											<form action='my_account.php' method='POST'>
+											<form action='my_account.php?edit' method='POST'>
 												<label for='NotEmployed'>Not Employee</label>
 												<input type='radio' value='0' id='NotEmployed' name='Employee'"; 			//Look for something breaking this code
 											  		if($row['isEmployee']==0) echo "checked='checked'/>";
