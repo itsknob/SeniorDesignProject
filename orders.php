@@ -5,7 +5,7 @@ session_start();
 error_reporting(0);
 if ($_SESSION['isAdmin'] == false && $_SESSION['isEmployee'] == false ) {
     http_response_code(404);
-    echo 'You are not authorized to view this page.';
+    echo 'You are not authorized';
     die();
 }
 error_reporting(-1);
@@ -23,8 +23,15 @@ $dbpass = "root";
 $dbname = "inventory";
     //Connect and Select    
 $con = makeConnection($dbhost, $dbuser, $dbpass, $dbname);
-
-
+$sql = $db->prepare("SELECT * FROM orders");
+$sql->execute();
+$orders = $sql->fetchAll(PDO::FETCH_ASSOC);
+foreach($orders as $order) {
+	if (isset($_POST[$order['orderID']])) {
+		$sql = $db->prepare("DELETE FROM orders WHERE orderID='".$order['orderID']."'");
+		$sql->execute();
+	}
+}
 ?>
 
 <!-- Latest compiled and minified CSS -->
@@ -38,9 +45,10 @@ $con = makeConnection($dbhost, $dbuser, $dbpass, $dbname);
 
 <html>
 	<head>
-		<title>Current Orders</title>
+		<title>Checkout Page</title>
 		<link rel="stylesheet" type"text/css" href="styles.css">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+
 	</head>
 	<body>
 		<!-- Once the php code above works this can be deleted -->
@@ -84,18 +92,18 @@ $con = makeConnection($dbhost, $dbuser, $dbpass, $dbname);
 		    	</div>
 		  	</div>
 		</nav>
-		<h2>Current Orders</h2>
+		<h2>Orders Page</h2>
 
 		<div class="main">
 		<div id="displayOrders"></div>
 		</div>
-
 </body>
 </html>
 
 <script>
+	$("#displayOrders").load("displayOrders.php");
 	var auto_refresh = setInterval(
 	(function () {
 	    $("#displayOrders").load("displayOrders.php"); //Load the content into the div
-	}), 1000);
+	}), 10000);
 </script>

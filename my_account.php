@@ -101,12 +101,12 @@
 		<div class="main">
 			<table style="font-size: 24px; margin-left: 3vw;">
 				<tr>
-					<td>
+					<td style="float: left">
 						Your Username: <?php echo $_SESSION['user_name']; ?>
 					</td>
 				</tr>
 				<tr>
-					<td>
+					<td style="float: left">
 						Your Email: <?php echo $_SESSION['user_email']; ?>
 					</td>
 				</tr>
@@ -141,10 +141,14 @@
 				//If employee was updated
 				if(isset($_GET['updated'])){
 					echo "<b>Updated Employee</b><br>";
-				}
+				} 
 				//If employee information is being changed.
-				if(isset($_POST['updateButton']) && isset($_GET['go'])){
-				}
+                if(isset($_GET['edit']) && isset($_POST['updateButton'])){
+                    echo "Edited Employee.<br>";
+                    echo "Employee Status: ".$_POST['employee']."<br>";
+                    $updateQuery = "UPDATE login_information SET isEmployee='".$_POST['employee']."' WHERE user_name='".$_POST['editableEmployeeName']."'";
+                    mysqli_query($con, $updateQuery);
+                 }
 				
 			?>
     <div id="results"></div>
@@ -156,7 +160,6 @@
       
       employees.forEach(function(d){
         
-        
         var containerDiv = document.createElement('div');
         var informationDiv = document.createElement('div')
         
@@ -166,9 +169,22 @@
         
         //form
         var form = document.createElement('form');
-        form.setAttribute("action","editEmployee.php");
+        form.setAttribute("action","my_account.php?edit");
         form.setAttribute("method","POST");
-        
+
+
+		//Metadata
+		var hiddenUser = document.createElement('input');
+		hiddenUser.setAttribute("name", "editableEmployeeName");
+		hiddenUser.setAttribute("value", d.user_name);
+		hiddenUser.setAttribute("style", "display:none;");
+
+		var hiddenStatus = document.createElement('input');
+		hiddenStatus.setAttribute("name", "employeeStatus");
+		hiddenStatus.setAttribute("value", d.isEmployee);
+		hiddenStatus.setAttribute("style", "display:none;");
+
+
         //labels
         var yesLabel = document.createElement('label');
         var noLabel = document.createElement('label');
@@ -180,12 +196,14 @@
         var yesButton = document.createElement('input');
         var noButton = document.createElement('input');
         yesButton.setAttribute("type","radio");
-        yesButton.setAttribute("name","Employee");
+        yesButton.setAttribute("name","employee");
         yesButton.setAttribute("id","YesEmployed");
+        yesButton.setAttribute("value", "1");
         
         noButton.setAttribute("type","radio");
-        noButton.setAttribute("name","Employee");
+        noButton.setAttribute("name","employee");
         noButton.setAttribute("id","NotEmployed");
+        noButton.setAttribute("value", "0");
         
         if(d.isEmployee == 1){
           yesButton.setAttribute("checked","checked");
@@ -199,7 +217,6 @@
         var submit = document.createElement('input');
         submit.setAttribute("type","submit");
         submit.setAttribute("name","updateButton");
-        submit.setAttribute("name","updateButton");
         submit.setAttribute("value","Update User");
         
        
@@ -208,21 +225,18 @@
         informationDiv.setAttribute("id","employeeInformation");
 //        informationDiv.setAttribute("class","employeeInformation");
         
-        document.getElementById('results').appendChild(containerDiv)
-        document.getElementById('employeeContainer').appendChild(informationDiv)
-        document.getElementById('employeeInformation').appendChild(ul)
+        document.getElementById('results').appendChild(containerDiv);
+        document.getElementById('employeeContainer').appendChild(informationDiv);
+        document.getElementById('employeeInformation').appendChild(ul);
 
         
         
         
         var li = document.createElement('li');
-        li.innerHTML = "Username: "
-        
-        var li2 = document.createElement('li');
-        li2.innerHTML = "User ID: ";
+        li.innerHTML = "Username: ";
         
         var li3 = document.createElement('li');
-        li3.innerHTML = "User Email: "
+        li3.innerHTML = "User Email: ";
 
 				//generating the header for item card
 				var employeeHeaderDiv = document.createElement("div");
@@ -235,10 +249,8 @@
 
         
         ul.appendChild(li);
-        ul.appendChild(li2);
         ul.appendChild(li3);
         li.innerHTML = li.innerHTML+ d.user_name;
-        li2.innerHTML = li2.innerHTML+ d.user_id;
         li3.innerHTML = li3.innerHTML+ d.user_email;
         
         ul.appendChild(form);
@@ -254,7 +266,11 @@
         form.appendChild(br2)
         
         form.appendChild(submit);
-                      
+
+        //Contains Meta Data
+        form.appendChild(hiddenUser);
+        form.appendChild(hiddenStatus);
+
       });
         
      
@@ -274,7 +290,6 @@
 					dataType: 'json',
 					success:function(data) {
           
-            console.log(data.length);
         //Ensures the returned array isn't longer than 50
         //Trims array to 50 if over to prevent displaying too many items
         if(data.length > 50);
@@ -282,9 +297,6 @@
             
           removeEmployeeData();  
           generateEmployeeData(data);
-            
-          
-          console.log(data);
           
           
 					}

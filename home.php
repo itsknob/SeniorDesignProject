@@ -1,8 +1,25 @@
 <!DOCTYPE html>
 <?php
 	session_start();
+	include "popItems.php";
 	$CompanyName = "NUWC Juicing";
+	$dbhost = "localhost";
+	$dbuser = "root";
+	$dbpass = "root";
+	$dbname = "inventory";
+	    //Connect and Select    
+	$con = makeConnection($dbhost, $dbuser, $dbpass, $dbname);
+
+	$db = new PDO('mysql:host=localhost;dbname=inventory;charset=utf8', 'root', 'root');
+	$dotd = file_get_contents("adminTools/dotd.txt");
+	$sql = $db->prepare("SELECT * FROM items WHERE itemName = '".$dotd."'");
+	$sql->execute();
+	$dotd = $sql->fetchAll(PDO::FETCH_ASSOC);
 ?>
+
+<script type='text/JavaScript'>
+		var dotd = <?php echo json_encode($dotd[0]); ?>;
+</script>
 
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -18,7 +35,7 @@
 
 <html>
 <head>
-	<title>Home Page</title>
+	<title>Home</title>
 	<link rel="stylesheet" type"text/css" href="styles.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -72,37 +89,35 @@
 			<span class="close">&times;</span>
 		</div>
 		<!-- Most Popular Menu Items -->
+		<h3>Most Popular Items</h3>
 		<div class="popItems well">
 			<table class="table">
 				<thead>
-					<th>
-						Popular Items
-					</th>
 					<tr>
-						<th>#</th>
-						<th>Item</th>
+						<th style="width:25px;font-size:22px;">Rank</th>
+						<th style="text-align:center;font-size:22px;">Item</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
 						<td>1</td>
-						<td>Apple Juice</td>
+						<td id="rank1"></td>
 					</tr>
 					<tr>
 						<td>2</td>
-						<td>Orange Juice</td>
+						<td id="rank2"></td>
 					</tr>
 					<tr>
 						<td>3</td>
-						<td>Pineapple Juice</td>
+						<td id="rank3"></td>
 					</tr>
 					<tr>
 						<td>4</td>
-						<td>Sunshine Blend</td>
+						<td id="rank4"></td>
 					</tr>
 					<tr>
 						<td>5</td>
-						<td>Beetox</td>
+						<td id="rank5"></td>
 					</tr>
 				</tbody>
 			</table>
@@ -175,9 +190,24 @@
 		
 	</div>
 	<script>
-		var dealOfTheDay = [{calories: "45", carbo: "40", choles: "0", 
-									description: "Local legend has it that a famous Hollywood actress immediately ascended to stardom after consuming one of these",
-									itemID: "1", itemName:"Sandra's Greeeeeens", picLink:"mango.jpg", price:"6.5", protein:"2", sodi:"100", sugars:"3"}];
+		var popularItems = <?php echo json_encode($pop);?>;
+		popularItems = popularItems.sort(function(a,b){
+		return (b.sales - a.sales);
+		})
+
+		popularItems = popularItems.slice(0,5);
+
+		$("#rank1").html(popularItems[0].itemName);
+		$("#rank2").html(popularItems[1].itemName);
+		$("#rank3").html(popularItems[2].itemName);
+		$("#rank4").html(popularItems[3].itemName);
+		$("#rank5").html(popularItems[4].itemName);
+
+
+		var dealOfTheDay = [{calories: dotd["calories"], carbo: dotd["carbo"], choles: dotd["choles"], 
+                                    description: dotd["description"],
+                                    itemID: dotd["itemID"], itemName: dotd["itemName"], picLink: dotd["picLink"], price:dotd["price"], protein:dotd["protein"], sodi:dotd["sodi"], sugars:dotd["sugars"]}];
+
 		dealOfTheDay.forEach(function (d){
 			var targetDiv = document.getElementById("dealoftheday");
 			//generating the header for item card

@@ -87,7 +87,7 @@
 
 <html>
 	<head>
-		<title>Menu Page</title>
+		<title>Menu</title>
 		<link rel="stylesheet" type="text/css" href="menustylesheet.css">
 		<link rel="javascript" type="text/javascript" href="scripts/scripts.js">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -346,7 +346,6 @@
 				targetDiv.appendChild(itemImageDiv);
 				targetDiv.appendChild(itemDescriptionDiv);
 				targetDiv.appendChild(itemButtonsDiv);
-				console.log(d);
 			});
 		}
 

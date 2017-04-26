@@ -295,6 +295,7 @@ $locInfoText = changeTextFile("locationInfo.txt", "locationInfo");
         echo '<input type="submit" name="remSubmit" value="remove from menu" />';
         echo '<input type="submit" name="addSubmit" value="add to menu" />';
         echo '<input type="submit" name="editSubmit" value="edit" />';
+        echo '<input type="submit" name="dotdSubmit" value="Set Deal of the Day" />';
 
         if(isset($_POST["delSubmit"])){
             if (empty($_POST["checkProds"])) {
@@ -305,7 +306,7 @@ $locInfoText = changeTextFile("locationInfo.txt", "locationInfo");
             $N = count($checkedProds);
             for($i=0; $i < $N; $i++)
             {
-                $checkedProds[$i] = mysql_real_escape_string($checkedProds[$i]);
+                $checkedProds[$i] = mysqli_real_escape_string($con, $checkedProds[$i]);
                 $sql = $db->prepare("DELETE FROM items WHERE itemName='$checkedProds[$i]'");
                 $sql2 = $db->prepare("SELECT picLink FROM items WHERE itemName ='$checkedProds[$i]'");
                 $sql2->execute();
@@ -318,6 +319,13 @@ $locInfoText = changeTextFile("locationInfo.txt", "locationInfo");
                     echo "error";
                 }
             }
+        }
+        if(isset($_POST["dotdSubmit"])){
+            if (count($_POST["checkProds"]) != 1) {
+                echo("Please select only 1 product for Deal of the Day.");
+                goto b;
+            }
+            changeTextFile("dotd.txt", "checkProds" );
         }
         if(isset($_POST["remSubmit"])){
             if (empty($_POST["checkProds"])) {

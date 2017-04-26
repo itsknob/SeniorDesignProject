@@ -17,7 +17,7 @@ $CompanyName = "NUWC Juicing";
 
 <html>
 	<head>
-		<title>About Us Page</title>
+		<title>About Us</title>
 		<link rel="stylesheet" type"text/css" href="aboutusstylesheet.css">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 	</head>

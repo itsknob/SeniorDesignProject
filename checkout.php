@@ -1,9 +1,23 @@
 <!DOCTYPE html>
 <?php
 session_start();
+if (empty($_POST["stripeToken"]) || empty($_SESSION["cart_item"]) ) {
+    echo "<script>window.open('home.php','_self')</script>";
+}
+
 $CompanyName = "NUWC Juicing";
 
 $db = new PDO('mysql:host=localhost;dbname=inventory;charset=utf8', 'root', 'root');
+		    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+include "scripts.php";
+    //Variables
+$dbhost = "localhost";
+$dbuser = "root";
+$dbpass = "root";
+$dbname = "inventory";
+    //Connect and Select    
+$con = makeConnection($dbhost, $dbuser, $dbpass, $dbname);
+
 
 ?>
 
@@ -64,7 +78,7 @@ $db = new PDO('mysql:host=localhost;dbname=inventory;charset=utf8', 'root', 'roo
 		    	</div>
 		  	</div>
 		</nav>
-		<h2>Checkout</h2>
+		<h2>Checkout Page</h2>
 
 		<div class="main">
 		<h2>Thank you for shopping with us!</h2>
@@ -75,6 +89,10 @@ $db = new PDO('mysql:host=localhost;dbname=inventory;charset=utf8', 'root', 'roo
 		$count = 0;
 		foreach($_SESSION["cart_item"] as $item) {
 			$count++;
+			if ($count == 1 && $count == count($_SESSION["cart_item"])) {//If there is only one product in cart
+				$desc = $desc.$item['quantity']."x ".$item['itemName'];
+				break;
+			}
 			if ($count == count($_SESSION["cart_item"]))
 				$desc = $desc."and ".$item['quantity']."x ".$item['itemName'];
 			else
@@ -86,11 +104,24 @@ $db = new PDO('mysql:host=localhost;dbname=inventory;charset=utf8', 'root', 'roo
 
 		unset($_SESSION["cart_item"]);
 
+
 		\Stripe\Stripe::setApiKey('sk_test_YHeBtPwjJyLxSf1dYQhFTDyb ');
 
 		$token = $_POST['stripeToken'];
 		$email = $_POST['stripeEmail'];
+		$total = $_SESSION["total"];
 
+		$descr = mysqli_real_escape_string($con, $desc);
+        $total = mysqli_real_escape_string($con, $total);
+        $email = mysqli_real_escape_string($con, $email);
+
+	    $sql = $db->prepare("INSERT INTO orders (description, price, email)
+                   VALUES ('$descr', '$total', '$email')");
+
+	    if (!($sql->execute()) ) {
+	    	echo'<br>Your purchase could not be completed';
+	    	die();
+	    }
 		try {
 		    $charge = \Stripe\Charge::create(array(
 		      "amount" => $_SESSION["total"],
@@ -99,8 +130,9 @@ $db = new PDO('mysql:host=localhost;dbname=inventory;charset=utf8', 'root', 'roo
 		      "description" => $desc)
 		      );
 		    $chargeId = $charge->id;
+
+				
 		    echo '<br>Your order for '.$desc.' has been received!';
-		    echo '<br>Your order ID is: '.$chargeId;
 		}catch(\Stripe\Error\Card $e){
 		    echo $e->getMessage();
 		    echo '<br>Error. Your order could not be processed.<br>';
@@ -109,6 +141,5 @@ $db = new PDO('mysql:host=localhost;dbname=inventory;charset=utf8', 'root', 'roo
 		<br><br>
 		Be sure to have your email address ready to pick up your items!
 		</div>
-
 		</body>
 </html>

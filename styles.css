@@ -40,6 +40,16 @@ form {
   margin: auto;
 }
 
+table {
+  margin: 25px auto auto auto;
+}
+
+td {
+  padding: 10px;
+  text-align: center;
+  font-size: 16px;
+}
+
 /*********************Navbar styling************************/
 /* Navbar background color */
 .navbar.navbar-inverse {
@@ -144,16 +154,24 @@ form {
   padding-bottom: 200px; /* Keep this the smae as .footer's height */
 }
 
-
 /*************** Home page ******************/
 .popItems {
   margin: 25px auto auto auto;
-  width: 80%;
+  width: 80%;    
+  max-width: 385px;
   box-shadow: 0 0 10px black;
 }
 
+.table td {
+  font-size: 20px;
+}
+
+.table {
+  margin: auto;
+}
+
 .dealOfDay {
-  margin: 35px auto auto auto;
+  margin: 35px auto 80px auto;
   max-width: 450px;
   box-shadow: 0 0 10px black;
   width: 80%;
@@ -284,6 +302,10 @@ form {
 
 .filterlabels {
   font-weight: normal;
+}
+
+.input-group {
+    margin-left: 3vw;
 }
 
 /******************* Slideshow **********************/
@@ -539,6 +561,13 @@ button {
 .login-container {
 	padding: 22px 108px 26px;
 	width: 700px;
+  margin-top: 30px;
+}
+@media all and (max-width: 700px){
+  .login-container {
+    width: 100%;
+    min-width: 480px;
+  }
 }
 
 .modal {
@@ -572,7 +601,16 @@ button {
 
 @media only screen and (max-device-width: 689px) {
   .login-container {
-    width: 95%;
+    width: 80%;
+    min-width: 50px;
     padding: 5px 10px 15px 10px;
+  }
+  
+  #displayOrders th strong{
+    font-size: 16px;
+  }
+
+  #displayOrders td{
+    font-size: 12px;
   }
 }

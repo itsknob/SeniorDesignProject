@@ -48,6 +48,21 @@ form {
   margin: auto;
 }
 
+button, html input[type=button], input[type=reset], input[type=submit] {
+    background-color: #333;
+    border: none;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+    color: white;
+    font-weight: 600;
+    font-size: 16px;
+  }
+
+input[type=file] {
+  margin: auto;
+}
+
 .pictureForm input {
   margin: auto;
 }
