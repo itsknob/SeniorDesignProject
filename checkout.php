@@ -128,7 +128,8 @@ $con = makeConnection($dbhost, $dbuser, $dbpass, $dbname);
 		    $chargeId = $charge->id;
 
 				
-		    echo '<br>Your order for '.$desc.' has been received!'.'<br><br>Your order ID is';
+		    echo '<br>Your order for '.$desc.' has been received!<br>'
+		    echo '<br>Your order ID is:'.$chargeId.'<br>';
 		}catch(\Stripe\Error\Card $e){
 		    echo $e->getMessage();
 		    echo '<br>Error. Your order could not be processed.<br>';
