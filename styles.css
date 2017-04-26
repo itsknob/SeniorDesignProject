@@ -475,10 +475,28 @@ button {
 /* Add padding to container elements */
 .registrationContainer {
     padding: 16px;
-	background-color: #f5e2db;
-	width: 75%;
+    background-color: #f5e2db;
+    width: 75%;
     margin: 0 auto;
     border-radius: 25px;
+}
+@media all and (min-width: 689px){
+  .formButtons {
+    position: relative;
+    height: 90px;
+  }
+
+  .cancelbtn {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+
+  .signupbtn {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
 }
 
 /* Clear floats */
@@ -491,7 +509,7 @@ button {
 /* Change styles for cancel button and signup button on extra small screens */
 @media screen and (max-width: 689px) {
     .cancelbtn, .signupbtn {
-       width: 95%;
+       width: 92%;
     }
 }
 
