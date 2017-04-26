@@ -133,12 +133,16 @@ $con = makeConnection($dbhost, $dbuser, $dbpass, $dbname);
 		      "source" => $token,
 		      "description" => $desc)
 		      );
-		    $chargeId = $charge->id;			
+		    $chargeId = $charge->id;
 
 		    echo '<br>Your order for '.$desc.' has been received!<br>';
 		    echo '<br>Your order ID(s):<br>';
 
 			for($i = 0; $i < sizeof($orderIdList); $i++){
+				if($i == sizeof($orderIdList)-1){
+					echo $orderIdList[$i]['orderID'].".";
+					break;					
+				}
 				echo $orderIdList[$i]['orderID'].", ";
 			}
 
