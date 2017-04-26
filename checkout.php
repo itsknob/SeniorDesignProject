@@ -60,17 +60,13 @@ $con = makeConnection($dbhost, $dbuser, $dbpass, $dbname);
 							echo "
 								<ul class='nav navbar-nav navbar-right'>
 						       		<li><a href='my_account.php'><span class='glyphicon glyphicon-user'></span> My Account</a></li>
-						    <!--   	<li><a href='cart.php'><span class='glyphicon glyphicon-shopping-cart'></span> Cart</a></li> -->
 						       		<li><a href='logout.php'><span class glyphicon-shopping-logout'></span> Logout</a><li>
 						   		</ul>
 						   		"; // End of Navbar - Logged In 
 						} else {
 							echo "
 								<ul class='nav navbar-nav navbar-right'>
-									<li><a href='registration.php'><span class='glyphicon glyphicon-user'></span> Sign Up</a></li>
 									<li><a href='login.php'><span class='glyphicon glyphicon-log-in'></span> Login</a></li>
-						    <!--   	<li><a href='cart.php'><span class='glyphicon glyphicon-shopping-cart'></span> Cart</a></li> -->
-						       		<li><a href='logout.php'><span class glyphicon-shopping-logout'></span> Logout</a><li>
 								</ul>
 								"; // End of Navbar - Logged Out
 						} 
@@ -132,7 +128,7 @@ $con = makeConnection($dbhost, $dbuser, $dbpass, $dbname);
 		    $chargeId = $charge->id;
 
 				
-		    echo '<br>Your order for '.$desc.' has been received!';
+		    echo '<br>Your order for '.$desc.' has been received!'.'<br><br>Your order ID is';
 		}catch(\Stripe\Error\Card $e){
 		    echo $e->getMessage();
 		    echo '<br>Error. Your order could not be processed.<br>';
