@@ -119,17 +119,29 @@ $con = makeConnection($dbhost, $dbuser, $dbpass, $dbname);
 	    	die();
 	    }
 		try {
+
+		    #######
+		    $select = $db->prepare("SELECT * FROM orders WHERE email='".$email."'");
+			$select->execute();
+
+			//Get Associative array of all orders from user.
+		    $orderIdList = $select->fetchAll(PDO::FETCH_ASSOC);
+
 		    $charge = \Stripe\Charge::create(array(
 		      "amount" => $_SESSION["total"],
 		      "currency" => "usd",
 		      "source" => $token,
 		      "description" => $desc)
 		      );
-		    $chargeId = $charge->id;
+		    $chargeId = $charge->id;			
 
-				
-		    echo '<br>Your order for '.$desc.' has been received!<br>'
-		    echo '<br>Your order ID is:'.$chargeId.'<br>';
+		    echo '<br>Your order for '.$desc.' has been received!<br>';
+		    echo '<br>Your order ID(s):<br>';
+
+			for($i = 0; $i < sizeof($orderIdList); $i++){
+				echo $orderIdList[$i]['orderID'].", ";
+			}
+
 		}catch(\Stripe\Error\Card $e){
 		    echo $e->getMessage();
 		    echo '<br>Error. Your order could not be processed.<br>';
