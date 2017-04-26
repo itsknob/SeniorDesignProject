@@ -16,8 +16,9 @@
 
 <html>
 	<head>
-		<title>Locations & Contact Us Page</title>
+		<title>Locations & Contact Us</title>
 		<link rel="stylesheet" type"text/css" href="locationsstylesheet.css">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 	</head>
 	<body>
 

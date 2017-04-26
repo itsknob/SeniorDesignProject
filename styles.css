@@ -14,7 +14,7 @@ h2 {
 	display: block;
 }
 
-h3{
+h3 {
   font-size: 30px;
   color: brown;
   font-weight: bold;
@@ -24,6 +24,30 @@ h3{
   margin-bottom: -10px;
   margin-right: auto;
   margin-left: auto;
+}
+
+h4 {
+  font-size: 18px;
+  margin-left: 3vw;
+}
+
+h6 {
+  font-size: 32px;
+  margin: auto;
+}
+
+form {
+  margin: auto;
+}
+
+table {
+  margin: 25px auto auto auto;
+}
+
+td {
+  padding: 10px;
+  text-align: center;
+  font-size: 16px;
 }
 
 /*********************Navbar styling************************/
@@ -130,16 +154,24 @@ h3{
   padding-bottom: 200px; /* Keep this the smae as .footer's height */
 }
 
-
 /*************** Home page ******************/
 .popItems {
   margin: 25px auto auto auto;
-  width: 80%;
+  width: 80%;    
+  max-width: 385px;
   box-shadow: 0 0 10px black;
 }
 
+.table td {
+  font-size: 20px;
+}
+
+.table {
+  margin: auto;
+}
+
 .dealOfDay {
-  margin: 35px auto auto auto;
+  margin: 35px auto 80px auto;
   max-width: 450px;
   box-shadow: 0 0 10px black;
   width: 80%;
@@ -272,6 +304,10 @@ h3{
   font-weight: normal;
 }
 
+.input-group {
+    margin-left: 3vw;
+}
+
 /******************* Slideshow **********************/
 .footer {
   margin: 20px auto auto auto;
@@ -326,6 +362,62 @@ body {
     padding-top: 55px;
   }
 }
+
+/* Adjusts the components of pages for viewing on mobile devices */
+@media only screen and (max-device-width: 767px) {
+  .main, #page {
+    flex-direction: column;
+    justify-content: space-between;
+    align-content: center;
+    align-items: flex-start;
+    width: 100vw;
+    padding-top: 10px;
+    height: auto;
+    padding-bottom: 200px;
+  }
+  h2 {
+    font-size: 46px;
+  }
+  .main {
+    display: flex;
+    width: 98vw;
+  }
+  .popItems {
+    width: 90%;
+    height: auto;
+    order: 0;
+    overflow: auto;
+  }
+  .twitterFeed {
+    padding-top: 30px;
+  }
+  .itemname {
+    font-size: 22px;
+  }
+  .itemprice {
+    font-size: 22px;
+  }
+} 
+
+.item, .item.active{
+  width: 100%;
+}
+
+img{
+  width: 100%;
+}
+
+/* This prevents the navbar from covering content at the top of the page */
+body {
+  padding-top: 90px; 
+}
+
+@media only screen and (max-device-width: 767px) {
+  body {
+    padding-top: 55px;
+  }
+}
+
 
 .carousel-slide{
   width: 100%;
@@ -469,6 +561,13 @@ button {
 .login-container {
 	padding: 22px 108px 26px;
 	width: 700px;
+  margin-top: 30px;
+}
+@media all and (max-width: 700px){
+  .login-container {
+    width: 100%;
+    min-width: 480px;
+  }
 }
 
 .modal {
@@ -498,4 +597,20 @@ button {
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
+}
+
+@media only screen and (max-device-width: 689px) {
+  .login-container {
+    width: 80%;
+    min-width: 50px;
+    padding: 5px 10px 15px 10px;
+  }
+  
+  #displayOrders th strong{
+    font-size: 16px;
+  }
+
+  #displayOrders td{
+    font-size: 12px;
+  }
 }

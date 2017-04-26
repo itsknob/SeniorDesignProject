@@ -25,6 +25,7 @@
 			//Username is already stored on login.
 			$_SESSION['user_email'] = $row['user_email'];
 			$_SESSION['isAdmin'] = $row['isAdmin'];
+			$_SESSION['isEmployee'] = $row['isEmployee'];
 		}
 	}
 	function uploadAboutPicture($ftu){
