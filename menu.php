@@ -326,7 +326,7 @@
 				itemAddToCartQuantity.setAttribute("size", "2");
 				var itemAddToCartButton = document.createElement("input");
 				itemAddToCartButton.setAttribute("type", "submit");
-				itemAddToCartButton.setAttribute("value", "Add to Cart");
+				itemAddToCartButton.setAttribute("value", "Add Item");
 				itemAddToCartButton.setAttribute("class", "btnAddAction cartbutton");
 				itemAddToCartDiv.appendChild(itemAddToCartForm);
 				itemAddToCartForm.appendChild(itemAddToCartQuantity);

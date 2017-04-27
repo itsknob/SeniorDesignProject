@@ -79,7 +79,7 @@ $CompanyName = "NUWC Juicing";
 			<!-- The Modal -->
 			<div id="myModal" class="modal">
 				<span class="close"></span>
-				<form action="/action_page.php">
+				<form action="/login.php" method="post">
 				  <div class="registrationContainer">
 					<label><b>Username</b></label>
 					<input type="text" placeholder="Enter Username" name="username" required>
@@ -94,12 +94,15 @@ $CompanyName = "NUWC Juicing";
 					<input type="password" placeholder="Repeat Password" name="psw-repeat" required>
 
 					<div class="formButtons">
-					  <button type="button"  class="cancelbtn">Cancel</button>
-					  <button type="submit" class="signupbtn">Sign Up</button>
+					  <input type="submit" name="cancel" value="Cancel" class="cancelbtn"></input>
+					  <input type="submit" name="register" value="Sign Up" class="signupbtn"></input>
 					</div>
 				  </div>
 				</form>
 			</div>
+			<?php
+				
+			?>
 
 			<script>
 			// Get the modal
@@ -143,17 +146,39 @@ $CompanyName = "NUWC Juicing";
 	$dbuser = "root";
 	$dbpass = "root";
 	$dbname = "user_information";
+	//Connect and Select
+	$con = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
+
+	//Check for Failure
+	if(mysqli_connect_errno()) {
+		echo "Failed to connnect to MySQL";
+	}
+	$db = new PDO('mysql:host=localhost;dbname=user_information;charset=utf8', 'root', 'root');
+
 
 	//Checks if login is set.
-	if(isset($_POST['login'])){
-
-		//Connect and Select
-		$con = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
-
-		//Check for Failure
-		if(mysqli_connect_errno()){
-			echo "Failed to connnect to MySQL: " . mysqli_connect_errno();
+	if(isset($_POST["register"])) {
+		$username = mysqli_real_escape_string($con,$_POST["username"]);
+		$pass = $_POST["psw"];
+		$email = mysqli_real_escape_string($con,$_POST["email"]);
+		$pass2 = $_POST["psw-repeat"];
+		if ($pass !== $pass2) {
+			echo "<div class= 'passworderror'><br>Your passwords did not match. Please try to register again </div>";
+			goto a;
 		}
+		$pass = mysqli_real_escape_string($con,$_POST["psw"]);
+		$pass2 = mysqli_real_escape_string($con,$_POST["psw-repeat"]);
+		$sql = $db->prepare("INSERT INTO login_information (user_name, user_pass, user_email)
+           					VALUES ('$username', '$pass', '$email')");
+        if ($sql->execute()){
+            echo "<br><div class='passworderror'>You have successfully registered. Feel free to sign in now. </div>";
+        } else {
+            echo "<br><div class='passworderror'There was an error. You were unable to register.</div>";
+        }
+		
+	}
+	a:
+	if(isset($_POST['login'])){
 
 		$user_name = strip_tags(trim($_POST['name']));
 		$user_pass = strip_tags(trim($_POST['pass']));
@@ -177,44 +202,6 @@ $CompanyName = "NUWC Juicing";
 		{
 			echo "<script>alert('Email or password is incorrect!')</script>";
 		}
-		/*
-		if(isset($_SESSION['user_name'])){
-			echo "yes";
-			populateSession($con);
-		}
-		*/
 	}
 
-/*HELP ME STEPHEN
-	//Check for Failure
-	if(mysqli_connect_errno()){
-		echo "Failed to connnect to MySQL: " . mysqli_connect_errno();
-	}
-	
-	//Checks if login is set.
-	if(isset($_POST['register'])){
-		
-		//Check that passwords match
-		if($_POST['pass'] != $_POST['confirm_pass']){
-			echo "Passwords do not match <br>";
-			return;
-		}
-		//Strip html and php tags from user and pass
-		$user_email = $_POST['email'];
-		$user_name = strip_tags(trim($_POST['name']));
-		$user_pass = strip_tags(trim($_POST['pass']));	
-	}
-	
-	$add_user = "INSERT INTO login_information (user_name, user_pass, user_email) VALUES ('$user_name', '$user_pass', '$user_email')";
-	
-	$attempt_add = mysqli_query($con, $add_user);
-	
-	if($attempt_add){
-		echo "Successful!";
-		echo "<script>webpage.open('home.php', '_self');</script>";
-	}
-	else{
-		echo "Failed to add new user.";
-	}
-*/
 ?>

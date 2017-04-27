@@ -60,17 +60,13 @@ $con = makeConnection($dbhost, $dbuser, $dbpass, $dbname);
 							echo "
 								<ul class='nav navbar-nav navbar-right'>
 						       		<li><a href='my_account.php'><span class='glyphicon glyphicon-user'></span> My Account</a></li>
-						    <!--   	<li><a href='cart.php'><span class='glyphicon glyphicon-shopping-cart'></span> Cart</a></li> -->
 						       		<li><a href='logout.php'><span class glyphicon-shopping-logout'></span> Logout</a><li>
 						   		</ul>
 						   		"; // End of Navbar - Logged In 
 						} else {
 							echo "
 								<ul class='nav navbar-nav navbar-right'>
-									<li><a href='registration.php'><span class='glyphicon glyphicon-user'></span> Sign Up</a></li>
 									<li><a href='login.php'><span class='glyphicon glyphicon-log-in'></span> Login</a></li>
-						    <!--   	<li><a href='cart.php'><span class='glyphicon glyphicon-shopping-cart'></span> Cart</a></li> -->
-						       		<li><a href='logout.php'><span class glyphicon-shopping-logout'></span> Logout</a><li>
 								</ul>
 								"; // End of Navbar - Logged Out
 						} 
@@ -123,16 +119,33 @@ $con = makeConnection($dbhost, $dbuser, $dbpass, $dbname);
 	    	die();
 	    }
 		try {
+
+		    #######
+		    $select = $db->prepare("SELECT * FROM orders WHERE email='".$email."'");
+			$select->execute();
+
+			//Get Associative array of all orders from user.
+		    $orderIdList = $select->fetchAll(PDO::FETCH_ASSOC);
+
 		    $charge = \Stripe\Charge::create(array(
 		      "amount" => $_SESSION["total"],
 		      "currency" => "usd",
 		      "source" => $token,
 		      "description" => $desc)
 		      );
-		    $chargeId = $charge->id;
+		    $chargeId = $charge->id;			
 
-				
-		    echo '<br>Your order for '.$desc.' has been received!';
+		    echo '<br>Your order for '.$desc.' has been received!<br>';
+		    echo '<br>Your order ID(s):<br>';
+
+			for($i = 0; $i < sizeof($orderIdList); $i++){
+				if($i == sizeof($orderIdList)-1){
+					echo $orderIdList[$i]['orderID'].".";
+					break;					
+				}
+				echo $orderIdList[$i]['orderID'].", ";
+			}
+
 		}catch(\Stripe\Error\Card $e){
 		    echo $e->getMessage();
 		    echo '<br>Error. Your order could not be processed.<br>';

@@ -105,5 +105,5 @@ foreach($orders as $order) {
 	var auto_refresh = setInterval(
 	(function () {
 	    $("#displayOrders").load("displayOrders.php"); //Load the content into the div
-	}), 10000);
+	}), 1000);
 </script>

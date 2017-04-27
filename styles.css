@@ -466,19 +466,55 @@ button {
     background-color: #f44336;
 }
 
+.signupbtn {
+  background-color: #4CAF50;
+}
+
 /* Float cancel and signup buttons and add an equal width */
 .cancelbtn,.signupbtn {	
     width: 45%;
     margin: 15px;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.passworderror {
+  text-align: center;
+  width: 100%;
+  font-size: 30px;
+  color: red;
+  
 }
 
 /* Add padding to container elements */
 .registrationContainer {
     padding: 16px;
-	background-color: #f5e2db;
-	width: 75%;
+    background-color: #f5e2db;
+    width: 75%;
     margin: 0 auto;
     border-radius: 25px;
+}
+@media all and (min-width: 689px){
+  .formButtons {
+    position: relative;
+    height: 90px;
+  }
+
+  .cancelbtn {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+
+  .signupbtn {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
 }
 
 /* Clear floats */
@@ -488,10 +524,14 @@ button {
     display: table;
 }
 
+.form-group {
+  margin: 0px 0px 15px 0px;
+}
+
 /* Change styles for cancel button and signup button on extra small screens */
 @media screen and (max-width: 689px) {
     .cancelbtn, .signupbtn {
-       width: 95%;
+       width: 92%;
     }
 }
 
